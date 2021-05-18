@@ -21,13 +21,13 @@ This project is being developed with this features:
 Along the time we will use more tools and they'll be here!
 
 # **Documentation**
-**The design and general architecture of Vistara [here](https://github.com/julian-b24/vistara-news-app/docs/Blanco-Bolaños.pdf).**
+**The design and general architecture of Vistara [here](https://github.com/julian-b24/vistara-news-app/raw/master/docs/Blanco-Bola%C3%B1os.pdf).**
 
-The whole list of functionalities is [here](https://github.com/julian-b24/vistara-news-app/docs/Requerimientos_Funcionales.pdf).
+The whole list of functionalities is [here](https://github.com/julian-b24/vistara-news-app/raw/master/docs/Requerimientos%20Funcionales.pdf).
 
-The problem that we are triying to solve is [this](https://github.com/julian-b24/vistara-news-app/docs/Enunciado.pdf).
+The problem that we are triying to solve is [this](https://github.com/julian-b24/vistara-news-app/raw/master/docs/Enunciado.pdf).
 
-These are [our wireframes](https://github.com/julian-b24/vistara-news-app/docs/Wireframes.pdf).
+These are [our wireframes](https://github.com/julian-b24/vistara-news-app/raw/master/docs/Wireframes.pdf).
 
 In some weeks we'll add java documentation!
 
