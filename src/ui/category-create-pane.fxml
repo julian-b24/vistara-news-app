@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="106.0" layoutY="30.0" prefHeight="27.0" prefWidth="186.0" style="-fx-font-size: 18;" text="New category name" AnchorPane.bottomAnchor="663.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="498.0" AnchorPane.topAnchor="30.0" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="507.0" layoutY="30.0" prefHeight="27.0" prefWidth="238.0" style="-fx-font-size: 14;" text="A text with less than 20 characters" AnchorPane.bottomAnchor="663.0" AnchorPane.leftAnchor="507.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="30.0" />
+      <JFXTextField focusColor="#405aa800" layoutX="104.0" layoutY="73.0" prefHeight="34.0" prefWidth="641.0" promptText="Example..." style="-fx-font-size: 14;" unFocusColor="#373737" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="73.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <opaqueInsets>
+            <Insets left="10.0" />
+         </opaqueInsets>
+      </JFXTextField>
+      <Label layoutX="104.0" layoutY="154.0" prefHeight="27.0" prefWidth="186.0" style="-fx-font-size: 18;" text="Image" AnchorPane.bottomAnchor="539.0" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="154.0" />
+      <JFXButton layoutX="104.0" layoutY="202.0" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #505050; -fx-font-size: 14;" text="Add file" textFill="#e2e2e2" AnchorPane.bottomAnchor="488.0" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="592.0" AnchorPane.topAnchor="202.0" />
+      <Label layoutX="231.0" layoutY="206.0" prefHeight="21.0" prefWidth="33.0" style="-fx-font-size: 14;" text="Path" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="526.0" AnchorPane.topAnchor="206.0" />
+      <JFXTextField focusColor="#405aa800" layoutX="300.0" layoutY="200.0" prefHeight="34.0" prefWidth="445.0" promptText="Location" style="-fx-font-size: 14;" unFocusColor="#373737" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="200.0">
+         <opaqueInsets>
+            <Insets left="10.0" />
+         </opaqueInsets>
+      </JFXTextField>
+      <JFXButton layoutX="104.0" layoutY="282.0" prefHeight="48.0" prefWidth="240.0" style="-fx-background-color: #505050; -fx-font-size: 18;" text="Create new category" textFill="#e2e2e2" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="282.0" />
+   </children>
+</AnchorPane>
