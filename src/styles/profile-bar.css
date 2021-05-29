@@ -3,4 +3,17 @@
     -fx-font-family: "Poppins";
 }
 
+.header{
+    -fx-font-weight: bold;
+}
 
+.button{
+    -fx-font-size: 14px;
+}
+
+.button:hover{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-color: #E9E9E9;
+    -fx-transition-delay: -fx-font-weight 4s;
+}

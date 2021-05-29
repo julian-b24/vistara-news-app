@@ -3,3 +3,8 @@
     -fx-font-family: 'Poppins';
 }
 
+.header{
+    -fx-font-weight: bold;
+}
+
+

@@ -1,0 +1,33 @@
+.root{
+    -fx-background-color: #E9E9E9;
+    -fx-font-family: 'Poppins';
+}
+
+.header{
+    -fx-font-weight: bold;
+}
+
+.tab{
+    -fx-background-color: #E9E9E9;
+    -fx-pref-width: 150;
+    -fx-pref-height: 60;
+    -fx-text-fill: #474747;
+}
+
+.tab-header-background{
+    -fx-background-color: #E9E9E9;
+}
+
+.jfx-tab-pane .tab-selected-line{
+    -fx-background-color:  black;
+}
+
+.tab-label { 
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-cursor:hand;
+}
+
+.tabOption{
+    -fx-font-weight: normal;
+}
