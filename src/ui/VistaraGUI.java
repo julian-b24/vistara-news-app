@@ -143,15 +143,9 @@ public class VistaraGUI {
     	}
     
     }
-
     
     @FXML
-	public void loadFeed() {
-    	loadFeed(null);
-    }
-    
-    @FXML
-	public void loadFeed(Object object) {
+	public void loadFeed(ActionEvent event) {
 		
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("feed-pane.fxml"));
