@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutY="100.0" prefHeight="551.0" prefWidth="290.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <content>
+          <AnchorPane fx:id="commentsScroll" minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="290.0">
+               <children>
+                  <JFXTextArea fx:id="txtNoComments" editable="false" focusColor="#405aa800" layoutX="53.0" layoutY="230.0" prefHeight="66.0" prefWidth="185.0" style="-fx-font-size: 16;" text="There are no comments!&#10;     Comment this new" unFocusColor="#d6c7c700" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
+                  </JFXTextArea>
+                  <FontAwesomeIconView fx:id="iconNoComments" fill="#4f4f4f" glyphName="BLIND" layoutX="120.0" layoutY="220.0" size="64" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484848" height="100.0" stroke="#45454500" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="21.0" layoutY="34.0" style="-fx-font-size: 14;" text="Comments" textFill="WHITE" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="34.0" />
+      <Label layoutX="21.0" layoutY="60.0" text="In respond to " textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="60.0" />
+      <Label layoutX="96.0" layoutY="60.0" text="NAME" textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="60.0" />
+      <Label layoutX="134.0" layoutY="60.0" text="new..." textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="60.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#898989" height="84.0" layoutY="636.0" stroke="TRANSPARENT" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="636.0" />
+      <JFXButton layoutX="179.0" layoutY="666.0" onAction="#addComment" prefHeight="23.0" prefWidth="81.0" style="-fx-background-color: #4F4F4F; -fx-background-radius: 12;" text="Comment" textFill="WHITE" />
+      <JFXTextField fx:id="txtNewComment" focusColor="#ffffff00" focusTraversable="false" layoutX="21.0" layoutY="666.0" promptText="  Comment..." style="-fx-background-color: #C4C4C4; -fx-background-radius: 8;" unFocusColor="#4d4d4d00">
+         <opaqueInsets>
+            <Insets left="10.0" />
+         </opaqueInsets>
+      </JFXTextField>
+   </children>
+</AnchorPane>

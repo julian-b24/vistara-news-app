@@ -32,6 +32,7 @@ public class Main extends Application{
 		primaryStage.setTitle("Vistara");
 		primaryStage.show();
 		vistaraGUI.loadLogIn(null);
+		//vistara.loadData();
 	}
 
 }

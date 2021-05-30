@@ -13,8 +13,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="290.0" stylesheets="@../styles/profile-bar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle fx:id="profileCircle" fill="#e44a4a" layoutX="145.0" layoutY="101.0" radius="33.0" stroke="#ffffff00" strokeType="INSIDE" />
-      <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="46.0" layoutY="153.0" prefHeight="27.0" prefWidth="120.0" styleClass="header" text="Nombre" textAlignment="CENTER" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="33.0">
+      <Circle fx:id="profileCircleBar" fill="#e44a4a" layoutX="145.0" layoutY="101.0" radius="33.0" stroke="#ffffff00" strokeType="INSIDE" />
+      <Label fx:id="txtUsernameBar" alignment="CENTER" contentDisplay="RIGHT" layoutX="46.0" layoutY="153.0" prefHeight="27.0" prefWidth="120.0" styleClass="header" text="Nombre" textAlignment="CENTER" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="33.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -22,7 +22,7 @@
             <FontAwesomeIconView fill="#000000b2" glyphName="CHECK" />
          </graphic>
       </Label>
-      <Label alignment="CENTER" layoutX="47.0" layoutY="180.0" prefHeight="21.0" prefWidth="120.0" style="-fx-font-size: 14;" text="Descripción" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="33.0" />
+      <Label fx:id="txtBioUserBar" alignment="CENTER" layoutX="47.0" layoutY="180.0" prefHeight="21.0" prefWidth="120.0" style="-fx-font-size: 14;" text="Descripción" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="33.0" />
       <HBox alignment="CENTER" layoutX="27.0" layoutY="215.0" prefHeight="45.0" prefWidth="236.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="29.0">
          <children>
             <FontAwesomeIconView glyphName="USERS" size="20">
@@ -32,7 +32,7 @@
             </FontAwesomeIconView>
             <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="57.0">
                <children>
-                  <Label style="-fx-font-size: 15;" styleClass="header" text="1232" />
+                  <Label fx:id="txtFollowersBar" style="-fx-font-size: 15;" styleClass="header" text="1232" />
                   <Label text="Followers" />
                </children>
             </VBox>
@@ -48,7 +48,7 @@
             </FontAwesomeIconView>
             <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="57.0">
                <children>
-                  <Label style="-fx-font-size: 15;" styleClass="header" text="1232" />
+                  <Label fx:id="txtFollowingBar" style="-fx-font-size: 15;" styleClass="header" text="1232" />
                   <Label text="Following" />
                </children>
             </VBox>
@@ -117,7 +117,7 @@
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
             </Rectangle>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Log Out">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadLogIn" prefHeight="25.0" prefWidth="235.0" text="Log Out">
                <graphic>
                   <FontAwesomeIconView glyphName="REPLY" size="20" />
                </graphic>

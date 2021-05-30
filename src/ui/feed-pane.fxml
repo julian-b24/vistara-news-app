@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="355.0" layoutY="201.0" prefHeight="720.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane fx:id="profileBarPane" prefHeight="720.0" prefWidth="290.0" stylesheets="@../styles/profile-bar.css" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <AnchorPane fx:id="feedPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/feed.css" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <AnchorPane fx:id="commentsPane" prefHeight="720.0" prefWidth="290.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
