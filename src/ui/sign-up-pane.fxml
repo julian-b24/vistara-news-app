@@ -18,19 +18,19 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="731.0" layoutY="214.0" prefHeight="31.0" prefWidth="217.0" />
+      <JFXTextField fx:id="usernameSignUp" layoutX="731.0" layoutY="214.0" prefHeight="31.0" prefWidth="217.0" />
       <Label layoutX="730.0" layoutY="285.0" text="Email">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="732.0" layoutY="320.0" prefHeight="31.0" prefWidth="217.0" />
+      <JFXTextField fx:id="emailSignUp" layoutX="732.0" layoutY="320.0" prefHeight="31.0" prefWidth="217.0" />
       <Label layoutX="729.0" layoutY="391.0" text="Password">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="731.0" layoutY="426.0" prefHeight="31.0" prefWidth="217.0" />
+      <JFXTextField fx:id="passwordSignUp" layoutX="731.0" layoutY="426.0" prefHeight="31.0" prefWidth="217.0" />
       <JFXButton layoutX="731.0" layoutY="497.0" onAction="#createAccount" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #505050;" textFill="#e2e2e2" />
       <Label layoutX="226.0" layoutY="91.0" text="Join the">
          <font>
