@@ -433,4 +433,48 @@ public class VistaraGUI {
     void uploadPost(ActionEvent event) {
 
     }
+    
+    @FXML
+    void loadEditProfile(ActionEvent event) {
+    	
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadEditProfileTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void loadEditProfileTab() {
+		
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-profile-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    void changeProfilePic(ActionEvent event) {
+
+    }
+
+    @FXML
+    void confirmPorfileEdition(ActionEvent event) {
+
+    }
 }
