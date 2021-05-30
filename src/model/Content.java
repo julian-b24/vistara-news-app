@@ -2,7 +2,7 @@ package model;
 
 import javafx.scene.image.Image;
 
-public class Content {
+public abstract class Content {
 
 	private User author;
 	private Image authorPic;

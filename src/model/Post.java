@@ -2,10 +2,11 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
-public class Post extends Content {
+public class Post extends Content implements StatsCalculable, Rateable{
 
 	private String title;
 	private String content;
@@ -128,6 +129,18 @@ public class Post extends Content {
 	 */
 	public void setRating(double rating) {
 		this.rating = rating;
+	}
+
+	@Override
+	public HashMap<String, Double> generateStats() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double calculateRating() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
