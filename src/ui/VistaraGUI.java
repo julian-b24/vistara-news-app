@@ -363,7 +363,7 @@ public class VistaraGUI {
 			mainPane.getChildren().setAll(profile);
 			
 			loadProfileBar();
-			//loadCalendartab();
+			loadCalendartab();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -388,5 +388,49 @@ public class VistaraGUI {
 	@FXML
     void loadCreatePost() {
     	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadNewPostTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	private void loadNewPostTab() {
+		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("create-post-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void removeEvent() {
+		
+	}
+	
+	@FXML
+    void addPhotoToPost(ActionEvent event) {
+
+    }
+
+    @FXML
+    void uploadPost(ActionEvent event) {
+
     }
 }
