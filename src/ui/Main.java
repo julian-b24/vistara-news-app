@@ -31,7 +31,7 @@ public class Main extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Vistara");
 		primaryStage.show();
-		//vistaraGUI.loadLogIn(null);
+		vistaraGUI.loadLogIn(null);
 	}
 
 }
