@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="723.0" layoutY="99.0" text="Sign Up" AnchorPane.rightAnchor="266.0" AnchorPane.topAnchor="99.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="723.0" layoutY="181.0" text="Username" AnchorPane.rightAnchor="266.0" AnchorPane.topAnchor="181.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="usernameSignUp" layoutX="731.0" layoutY="214.0" prefHeight="31.0" prefWidth="217.0" />
+      <Label layoutX="730.0" layoutY="285.0" text="Email">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="emailSignUp" layoutX="732.0" layoutY="320.0" prefHeight="31.0" prefWidth="217.0" />
+      <Label layoutX="729.0" layoutY="391.0" text="Password">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="passwordSignUp" layoutX="731.0" layoutY="426.0" prefHeight="31.0" prefWidth="217.0" />
+      <JFXButton layoutX="731.0" layoutY="497.0" onAction="#createAccount" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #505050;" textFill="#e2e2e2" />
+      <Label layoutX="226.0" layoutY="91.0" text="Join the">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="361.0" layoutY="88.0" text="pieces">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="732.0" layoutY="571.0" text="Aready have an account?">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="887.0" layoutY="566.0" onAction="#loadLogin" text="Log in" />
+   </children>
+</AnchorPane>

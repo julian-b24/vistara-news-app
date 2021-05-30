@@ -1,0 +1,22 @@
+.root{
+  -fx-font-family: 'Poppins';
+  -fx-background-color: #E9E9E9;
+}
+
+#post-pane{
+  -fx-background-color: rgb(255, 255, 255);
+  -fx-background-radius: 10;
+  -fx-border-color: #CECECE;
+  -fx-border-radius: 10;
+  box-shadow: .75em .75em 100em rgb(0,0,0);
+}
+
+#confirm-button{
+  -fx-background-radius: 6;
+  -fx-font-weight: medium;
+}
+
+#delete-button{
+  -fx-background-radius: 6;
+  -fx-font-weight: medium;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="89.0" layoutY="45.0" style="-fx-font-family: poppins; -fx-font-weight: bold; -fx-font-size: 18;" text="Topic">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="topicName" layoutX="167.0" layoutY="48.0" text="..." />
+      <Label layoutX="90.0" layoutY="221.0" style="-fx-font-family: poppins; -fx-font-size: 18; -fx-font-weight: bold;" text="Tittle">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="227.0" layoutY="225.0" style="-fx-font-family: poppins; -fx-font-size: 14;" text="A text with less than 70 characters ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="postTittle" layoutX="89.0" layoutY="260.0" prefHeight="47.0" prefWidth="623.0" />
+      <Label layoutX="90.0" layoutY="334.0" style="-fx-font-family: poppins; -fx-font-size: 18; -fx-font-weight: bold;" text="Details">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="227.0" layoutY="338.0" style="-fx-font-family: poppins; -fx-font-size: 14;" text="A text with less than 500 characters ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="postDetails" layoutX="89.0" layoutY="373.0" prefHeight="96.0" prefWidth="623.0" />
+      <Label layoutX="90.0" layoutY="494.0" style="-fx-font-family: poppins; -fx-font-size: 18; -fx-font-weight: bold;" text="Image">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="227.0" layoutY="498.0" style="-fx-font-family: poppins; -fx-font-size: 14;" text="Select an image from your files ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="639.0" layoutY="496.0" style="-fx-font-family: poppins; -fx-font-size: 16; -fx-font-weight: bold;" text="Optional*">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="87.0" layoutY="544.0" onAction="#addPhotoToPost" prefHeight="31.0" prefWidth="104.0" style="-fx-background-color: #505050;" text="Add file" textFill="#e2e2e2" />
+      <Label layoutX="227.0" layoutY="546.0" style="-fx-font-family: poppins; -fx-font-size: 16; -fx-font-weight: medium;" text="Path">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="postImagePath" layoutX="289.0" layoutY="546.0" style="-fx-font-family: poppins; -fx-font-size: 18; -fx-font-weight: medium;" text="...">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Line endX="487.0" layoutX="227.0" layoutY="575.0" startX="51.0" strokeWidth="0.4" />
+      <JFXButton layoutX="84.0" layoutY="625.0" onAction="#uploadPost" prefHeight="41.0" prefWidth="195.0" style="-fx-background-color: #505050;" text="Upload post" textFill="#e2e2e2" />
+   </children>
+</AnchorPane>
