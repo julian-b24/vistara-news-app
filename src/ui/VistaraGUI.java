@@ -12,7 +12,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -144,7 +146,6 @@ public class VistaraGUI {
     
     }
 
-    
     @FXML
 	public void loadFeed() {
     	loadFeed(null);
@@ -250,13 +251,18 @@ public class VistaraGUI {
 	
 	@FXML
 	void createAccount(ActionEvent event) {
-
+		/*try {
+			
+		}catch() {
+			
+		}*/
+		vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
 	}
 
 	 
 	@FXML
 	void loadProfile(ActionEvent event) {
-		
+	
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -302,7 +308,7 @@ public class VistaraGUI {
 
     @FXML
     void loadStatistics(ActionEvent event) {
-    	System.out.println("A");
+    	
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-stats-pane.fxml"));
 			fxmlLoader.setController(this);
