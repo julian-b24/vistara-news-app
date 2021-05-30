@@ -1,0 +1,14 @@
+.root{
+    -fx-font-family: 'Poppins';
+}
+
+.header{
+    -fx-font-weight: bold;
+}
+
+#login-inputs-pane{
+    -fx-background-color: rgba(0,0,0, 0.1);
+    -fx-background-radius: 10;
+    -fx-border-color: #CECECE;
+    -fx-border-radius: 10;
+}
