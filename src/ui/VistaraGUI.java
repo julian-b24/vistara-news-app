@@ -30,6 +30,18 @@ public class VistaraGUI {
 	@FXML
     private AnchorPane mainPane;
 	
+	@FXML
+    private AnchorPane profilePane;
+	
+	@FXML
+    private AnchorPane postsPane;
+
+    @FXML
+    private AnchorPane statisticsPane;
+
+    @FXML
+    private AnchorPane reactedPane;
+	
 	//Login
 	@FXML
     private JFXTextField userNameLogin;
@@ -80,9 +92,23 @@ public class VistaraGUI {
     @FXML
     private FontAwesomeIconView iconNoComments;
 	
+    //sign up
+    @FXML
+    private JFXTextField usernameSignUp;
+
+    @FXML
+    private JFXTextField emailSignUp;
+
+    @FXML
+    private JFXTextField passwordSignUp;
+   
+    @FXML
+    private AnchorPane secondaryPane;
+    
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
-    	
+   
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -96,13 +122,18 @@ public class VistaraGUI {
 		}
     }
 	
-	@FXML
-	public void loadSignUp(MouseEvent event) {
-		
-    }
-
     @FXML
     public void login(ActionEvent event) {
+    	
+    	//verify that fields are not empty
+    	
+    	//verify that username or email exists
+        //vistara.verifyAccount(userNameLogin.getText().trim(), passwordLogin.getText().trim());
+        //verify that password matches email or username
+    	
+    	
+    	
+    	loadFeed(null);
     	
     	//Gets and verify data
     	boolean logged = true;
@@ -110,9 +141,15 @@ public class VistaraGUI {
     		//currentUser = getUserByUserName();
     		loadFeed(null);
     	}
-    	
+    
     }
 
+    
+    @FXML
+	public void loadFeed() {
+    	loadFeed(null);
+    }
+    
     @FXML
 	public void loadFeed(Object object) {
 		
@@ -132,6 +169,22 @@ public class VistaraGUI {
 			e.printStackTrace();
 		}
 	}
+    
+    @FXML
+    void loadSignUp(ActionEvent event) {
+
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-up-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent signup = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(signup);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
     
 	private void loadProfileBar() {
 		try {
@@ -195,4 +248,233 @@ public class VistaraGUI {
 		//Add a new comment to the currentPost
     }
 	
+	@FXML
+	void createAccount(ActionEvent event) {
+
+	}
+
+	 
+	@FXML
+	void loadProfile(ActionEvent event) {
+		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			//mainPane.getChildren().clear();
+			//mainPane.getChildren().setAll(login);
+			loadProfileBar();
+			loadProfileTabPane();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	void loadProfileTabPane() {
+	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-tab-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+			//mainPane.getChildren().clear();
+			//mainPane.getChildren().setAll(login);			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+    void loadReactedPosts(ActionEvent event) {
+
+		
+    }
+
+    @FXML
+    void loadStatistics(ActionEvent event) {
+    	System.out.println("A");
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-stats-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent statistics = fxmlLoader.load();
+			
+			statisticsPane.getChildren().clear();
+			statisticsPane.getChildren().setAll(statistics);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    void loadTrending() {
+    	
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadTrendingTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void loadTrendingTab() {
+    	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trending-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    void loadCalendar() {
+    	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadCalendartab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void loadCalendartab() {
+		
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("calendar-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    void loadCreatePost() {
+    	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadNewPostTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	private void loadNewPostTab() {
+		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("create-post-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void removeEvent() {
+		
+	}
+	
+	@FXML
+    void addPhotoToPost(ActionEvent event) {
+
+    }
+
+    @FXML
+    void uploadPost(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void loadEditProfile(ActionEvent event) {
+    	
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(profile);
+			
+			loadProfileBar();
+			loadEditProfileTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void loadEditProfileTab() {
+		
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-profile-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    void changeProfilePic(ActionEvent event) {
+
+    }
+
+    @FXML
+    void confirmPorfileEdition(ActionEvent event) {
+
+    }
 }
