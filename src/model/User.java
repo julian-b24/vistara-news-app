@@ -1,10 +1,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
-public class User {
+public class User implements StatsCalculable{
 
 	private User rightUser;
 	private ArrayList<User> followers;
@@ -145,6 +146,12 @@ public class User {
 	public int compareTo() {
 		// TODO - implement User.compareTo
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public HashMap<String, Double> generateStats() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
