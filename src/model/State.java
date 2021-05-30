@@ -5,6 +5,4 @@ public enum State {
 	FAKE_NEW,
 	UNVERIFIED;
 
-	private Post state;
-
 }

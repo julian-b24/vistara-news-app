@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 
 public class Category {
 
-	private Post category;
+	private Category leftCategory;
+	private Category rightCategory;
 	private String name;
 	private Image background;
 

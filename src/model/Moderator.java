@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Moderator extends User {
 
-	private Vistara firstMod;
-	private Moderator nextMod;
 	private ArrayList<Post> pendingPosts;
 
 	public ArrayList<Post> getPendingPosts() {

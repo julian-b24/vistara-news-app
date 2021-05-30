@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 
 public class User {
 
-	private Vistara rootUser;
 	private User rightUser;
 	private ArrayList<User> followers;
 	private ArrayList<User> following;
@@ -17,6 +16,7 @@ public class User {
 	private String cotact;
 	private String email;
 	private String password;
+	private Event firstEvent;
 
 	public String getUsername() {
 		return this.username;
@@ -140,20 +140,6 @@ public class User {
 	 */
 	public void setLeftUser(User leftUser) {
 		this.leftUser = leftUser;
-	}
-
-	public ArrayList<Event> getEvents() {
-		// TODO - implement User.getEvents
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param events
-	 */
-	public void setEvents(ArrayList<Event> events) {
-		// TODO - implement User.setEvents
-		throw new UnsupportedOperationException();
 	}
 
 	public int compareTo() {

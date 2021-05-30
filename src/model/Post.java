@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 
 public class Post extends Content {
 
-	private Vistara posts;
-	private Vistara trending;
 	private String title;
 	private String content;
 	private Category category;
@@ -16,7 +14,7 @@ public class Post extends Content {
 	private String fullNewLink;
 	private State state;
 	private ArrayList<User> reactedUsers;
-	private ArrayList<Comment> comments;
+	private Comment firstComment;
 	private double rating;
 
 	public Post(User user, Image pic) {
@@ -108,16 +106,16 @@ public class Post extends Content {
 		this.reactedUsers = reactedUsers;
 	}
 
-	public ArrayList<Comment> getComments() {
-		return this.comments;
+	public Comment getFirstComment() {
+		return this.firstComment;
 	}
 
 	/**
 	 * 
 	 * @param comments
 	 */
-	public void setComments(ArrayList<Comment> comments) {
-		this.comments = comments;
+	public void setFirstComment(Comment comments) {
+		this.firstComment = comments;
 	}
 
 	public double getRating() {

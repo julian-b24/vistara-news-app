@@ -1,13 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-
 import javafx.scene.image.Image;
 
 
 public class Comment extends Content {
 
-	private ArrayList<Post> comments;
+	private Comment nextComment;
+	private Comment previouComment;
 	private String content;
 
 	/**
