@@ -22,7 +22,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-tab-pane.fxml"));
 		
 		fxmlLoader.setController(vistaraGUI);
 		Parent root = fxmlLoader.load();

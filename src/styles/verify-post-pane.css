@@ -20,3 +20,7 @@
   -fx-background-radius: 6;
   -fx-font-weight: medium;
 }
+
+.shadow{
+  -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0), 10, 0, 0, 10);
+}

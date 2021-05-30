@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/verify-post-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane id="post-pane" layoutX="87.0" layoutY="28.0" prefHeight="268.0" prefWidth="442.0" />
+      <AnchorPane id="post-pane" layoutX="87.0" layoutY="28.0" prefHeight="268.0" prefWidth="442.0" styleClass="shadow" />
       <Circle fx:id="postProfileImage" fill="#e44a4a" layoutX="120.0" layoutY="59.0" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Label fx:id="postUsername" layoutX="143.0" layoutY="49.0" text="username" />
       <Label fx:id="verificationText" layoutX="416.0" layoutY="49.0" text="verificaction" />
