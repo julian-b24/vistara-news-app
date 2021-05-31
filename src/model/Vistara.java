@@ -9,11 +9,6 @@ public class Vistara {
 	private Category rootCategory;
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
-
-	
-	public void verifyAccount(String trim, String trim2) {
-		
-	}
 	
 	public void addUser(String username, String email, String password) {
 		
