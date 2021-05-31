@@ -170,7 +170,7 @@ public class VistaraGUI {
 	}
     
     @FXML
-    void loadSignUp(ActionEvent event) {
+    public void loadSignUp(ActionEvent event) {
 
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-up-pane.fxml"));
@@ -212,12 +212,12 @@ public class VistaraGUI {
 	}
 	
 	@FXML
-    void deletePost(ActionEvent event) {
+    public void deletePost(ActionEvent event) {
 
     }
 
     @FXML
-    void verifyPost(ActionEvent event) {
+    public void verifyPost(ActionEvent event) {
 
     }
 	
@@ -248,7 +248,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void loadVerifyPost(ActionEvent event) {
+    public void loadVerifyPost(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -281,7 +281,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void loadCreateCategory(ActionEvent event) {
+    public void loadCreateCategory(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -324,7 +324,7 @@ public class VistaraGUI {
     }
 	
 	@FXML
-	void createAccount(ActionEvent event) {
+	public void createAccount(ActionEvent event) {
 		try {
 			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
 		} catch (RepeatedUsernameException e) {
@@ -356,7 +356,7 @@ public class VistaraGUI {
 	}
 	 
 	@FXML
-	void loadProfile(ActionEvent event) {
+	public void loadProfile(ActionEvent event) {
 	
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
@@ -377,7 +377,7 @@ public class VistaraGUI {
 	}
 	
 	@FXML
-	void loadProfileTabPane() {
+	public void loadProfileTabPane() {
 	
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-tab-pane.fxml"));
@@ -396,13 +396,13 @@ public class VistaraGUI {
 	}
 	
 	@FXML
-    void loadReactedPosts(ActionEvent event) {
+    public void loadReactedPosts(ActionEvent event) {
 
 		
     }
 
     @FXML
-    void loadStatistics(ActionEvent event) {
+    public void loadStatistics(ActionEvent event) {
     	
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-stats-pane.fxml"));
@@ -419,7 +419,7 @@ public class VistaraGUI {
     }
     
     @FXML
-    void loadTrending() {
+    public void loadTrending() {
     	
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
@@ -453,7 +453,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void loadCalendar() {
+    public void loadCalendar() {
     	
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
@@ -487,7 +487,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void loadCreatePost() {
+    public void loadCreatePost() {
     	
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
@@ -521,22 +521,22 @@ public class VistaraGUI {
 	}
 
 	@FXML
-	void removeEvent() {
+	public void removeEvent() {
 		
 	}
 	
 	@FXML
-    void addPhotoToPost(ActionEvent event) {
+	public void addPhotoToPost(ActionEvent event) {
 
     }
 
     @FXML
-    void uploadPost(ActionEvent event) {
+    public void uploadPost(ActionEvent event) {
 
     }
     
     @FXML
-    void loadEditProfile(ActionEvent event) {
+    public void loadEditProfile(ActionEvent event) {
     	
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
@@ -570,12 +570,12 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void changeProfilePic(ActionEvent event) {
+	public void changeProfilePic(ActionEvent event) {
 
     }
 
     @FXML
-    void confirmPorfileEdition(ActionEvent event) {
+    public void confirmPorfileEdition(ActionEvent event) {
 
     }
 }
