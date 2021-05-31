@@ -191,7 +191,7 @@ public class VistaraGUI {
 			FXMLLoader fxmlLoader;
 			
 			//boolea is Mod = vistara.isMod(currentUser);
-			boolean isMod = false;
+			boolean isMod = true;
 			
 			if(isMod) {
 				fxmlLoader = new FXMLLoader(getClass().getResource("profile-bar-mod.fxml"));
@@ -210,6 +210,16 @@ public class VistaraGUI {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+    void deletePost(ActionEvent event) {
+
+    }
+
+    @FXML
+    void verifyPost(ActionEvent event) {
+
+    }
 	
 	private void loadComments() {
 		try {
@@ -235,7 +245,73 @@ public class VistaraGUI {
 			iconNoComments.setVisible(false);
 			txtNoComments.setVisible(false);
 		}
+	}
+
+	@FXML
+    void loadVerifyPost(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent verify = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(verify);
+			
+			
+			loadProfileBar();
+			loadVerifyPostTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	private void loadVerifyPostTab() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("verify-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    void loadCreateCategory(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent verify = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(verify);
+			
+			
+			loadProfileBar();
+			loadCreateCategoryTab();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	private void loadCreateCategoryTab() {
 		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("category-create-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent profile = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(profile);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void setProfileBarInfo() {
@@ -257,7 +333,7 @@ public class VistaraGUI {
 			emptyFieldAlert();
 		}
 	}
-
+	
 	public void emptyFieldAlert() {
 		Alert warning = new Alert(AlertType.WARNING);
 		warning.setTitle("There are empty fields");
