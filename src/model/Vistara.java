@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
 
 public class Vistara {
@@ -19,7 +20,7 @@ public class Vistara {
 		boolean added = true;
 		
 		if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-			throw new EmptyFieldsException(username, password, email);
+			throw new EmptyFieldsException(username, password);
 		}
 		
 		if(rootUser != null) {
@@ -113,6 +114,45 @@ public class Vistara {
 			
 		}else {
 			return true;
+		}
+	}
+
+	public User verifyLogin(String username, String password) throws InvalidUserException, EmptyFieldsException {
+		
+		if(username.isEmpty() || password.isEmpty()) {
+			throw new EmptyFieldsException(username, password);
+		}
+		
+		//search the user in the binary tree
+		User searchedUser = searchUser(username);
+		if(searchedUser == null) {
+			throw new InvalidUserException(username, password);
+		}
+		
+		if(!searchedUser.getPassword().equals(password)) {
+			throw new InvalidUserException(username, password);
+		}
+		
+		return searchedUser;
+	}
+	
+	public User searchUser(String username) {
+		return searchUser(rootUser, username);		
+	}
+	
+	private User searchUser(User current, String username) {
+		if(current == null) {
+			return null;
+		}		
+	
+		if(username.compareTo(current.getUsername())<0) {
+			return searchUser(current.getLeftUser(), username);
+			
+		}else if(username.compareTo(current.getUsername())>0) {
+			return searchUser(current.getRightUser(), username);
+			
+		}else {
+			return current;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import model.User;
 import model.Vistara;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +29,7 @@ public class VistaraGUI {
 	private Vistara vistara;
 	
 	//model fields
-	//private User currentUser;
+	private User currentUser;
 	//private Post currentPost;
 	
 	//Main pane
@@ -129,28 +131,22 @@ public class VistaraGUI {
     @FXML
     public void login(ActionEvent event) {
     	
+    	User loggedUser;
     	//verify that fields are not empty
-    	
-    	//verify that username or email exists
-        //vistara.verifyAccount(userNameLogin.getText().trim(), passwordLogin.getText().trim());
-        //verify that password matches email or username
-    	
-    	
-    	
-    	loadFeed(null);
-    	
-    	//Gets and verify data
-    	boolean logged = true;
-    	if(logged) {
-    		//currentUser = getUserByUserName();
-    		loadFeed(null);
+    	try {
+    		loggedUser = vistara.verifyLogin(userNameLogin.getText().trim(), passwordLogin.getText().trim());
+    		
+        	//verify account type        	
+        	if(loggedUser != null) {
+        		currentUser = loggedUser;
+        		loadFeed(null);
+        	}
+        	
+    	}catch(InvalidUserException e) {
+    		invalidUsernameAlert();
+    	}catch(EmptyFieldsException e) {
+    		emptyFieldAlert();
     	}
-    
-    }
-
-    @FXML
-	public void loadFeed() {
-    	loadFeed(null);
     }
     
     @FXML
@@ -256,12 +252,32 @@ public class VistaraGUI {
 		try {
 			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
 		} catch (RepeatedUsernameException e) {
-			//WARNING
+			repeatedUsernameAlert();
 		} catch (EmptyFieldsException e) {
-			// WARNING
+			emptyFieldAlert();
 		}
 	}
 
+	public void emptyFieldAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("There are empty fields");
+		warning.setContentText("Please fill all the blanks, theres something missing!");
+		warning.showAndWait();
+	}
+	
+	public void repeatedUsernameAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("The username is already taken by another user");
+		warning.setContentText("Please chose another username, this one is already taken");
+		warning.showAndWait();
+	}
+	
+	public void invalidUsernameAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Username not found");
+		warning.setContentText("This username is not registed in the platform or your password is incorrect, please try again");
+		warning.showAndWait();
+	}
 	 
 	@FXML
 	void loadProfile(ActionEvent event) {
