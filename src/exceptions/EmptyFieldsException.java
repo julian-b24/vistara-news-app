@@ -8,10 +8,9 @@ public class EmptyFieldsException extends Exception{
 	private String password;
 	private String email;
 	
-	public EmptyFieldsException(String username, String password, String email) {
+	public EmptyFieldsException(String username, String password) {
 		super("Some fields are empty");
 		this.username = username;
-		this.email = email;
 		this.password = password;
 	}
 	
@@ -23,10 +22,6 @@ public class EmptyFieldsException extends Exception{
 		
 		if(password.isEmpty()) {
 			empty+= "password ";
-		}
-		
-		if(email.isEmpty()) {
-			empty+= "email";
 		}
 		
 		return empty;
