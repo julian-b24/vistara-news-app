@@ -56,7 +56,7 @@
       </HBox>
       <VBox layoutX="23.0" layoutY="303.0" prefHeight="370.0" prefWidth="234.0">
          <children>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="My Feed">
+            <JFXButton fx:id="loadFeed" alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="My Feed">
                <graphic>
                   <FontAwesomeIconView glyphName="SQUARE_ALT" size="20" />
                </graphic>
@@ -67,7 +67,7 @@
                   <Insets />
                </opaqueInsets>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Trending">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadTrending" prefHeight="25.0" prefWidth="235.0" text="Trending">
                <graphic>
                   <FontAwesomeIconView glyphName="FIRE" size="20" />
                </graphic>
@@ -75,7 +75,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Calendar">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadCalendar" prefHeight="25.0" prefWidth="235.0" text="Calendar">
                <graphic>
                   <FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" size="20" />
                </graphic>
@@ -88,7 +88,7 @@
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
             </Rectangle>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Post a New">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadCreatePost" prefHeight="25.0" prefWidth="235.0" text="Post a New">
                <graphic>
                   <FontAwesomeIconView glyphName="PENCIL_SQUARE_ALT" size="20" />
                </graphic>
@@ -96,7 +96,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Verify Posts">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadVerifyPost" prefHeight="25.0" prefWidth="235.0" text="Verify Posts">
                <graphic>
                   <FontAwesomeIconView glyphName="CHECK_SQUARE_ALT" size="20" />
                </graphic>
@@ -104,7 +104,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="Create Category">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadCreateCategory" prefHeight="25.0" prefWidth="235.0" text="Create Category">
                <graphic>
                   <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="20" />
                </graphic>
