@@ -82,24 +82,32 @@ class VistaraTest {
 		String username1 = "Andres";
 		String password1 = "Hola123";
 		try {
-			vistara.login(username1, password1);
+			vistara.verifyLogin(username1, password1);
 		} catch (InvalidUserException e){
 			assertTrue(true);
+		} catch (EmptyFieldsException e) {
+			fail();
 		}
 		
 		setupScenary2();
 		String username2 = "Andres";
 		String password2 = "mal";
 		try {
-			vistara.login(username2, password2);
+			vistara.verifyLogin(username2, password2);
 		} catch (InvalidUserException e){
 			assertTrue(true);
+		} catch (EmptyFieldsException e) {
+			fail();
 		}
 		
 		setupScenary2();
 		String username3 = "Andres";
 		String password3 = "Hola123";
-		assertTrue(vistara.login(username3, password3));
+		try {
+			assertTrue(vistara.verifyLogin(username3, password3)!=null);
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			fail();
+		}
 	}
 	
 	
