@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import exceptions.EmptyFieldsException;
+import exceptions.RepeatedUsernameException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -251,12 +253,13 @@ public class VistaraGUI {
 	
 	@FXML
 	void createAccount(ActionEvent event) {
-		/*try {
-			
-		}catch() {
-			
-		}*/
-		vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
+		try {
+			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
+		} catch (RepeatedUsernameException e) {
+			//WARNING
+		} catch (EmptyFieldsException e) {
+			// WARNING
+		}
 	}
 
 	 

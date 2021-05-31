@@ -10,6 +10,11 @@ public class Moderator extends User implements ModeratorManagement{
 		return this.pendingPosts;
 	}
 
+	public Moderator(String username, String email, String password) {
+		super(username, email, password);
+		pendingPosts = new ArrayList<Post>();
+	}
+	
 	/**
 	 * 
 	 * @param pendingPosts
