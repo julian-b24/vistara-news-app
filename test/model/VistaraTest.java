@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
+import javafx.scene.image.Image;
 
 class VistaraTest {
 
@@ -21,6 +22,16 @@ class VistaraTest {
 		User user = new User("Andres", "and@yt.com", "hola123");
 		user.setDescription("Artista");
 		vistara.setRootUser(user);
+	}
+	
+	public void setupScenary3() {
+		vistara = new Vistara(); 
+		try {
+			vistara.addUser("Andres", "and@yt.com", "hola123");
+			vistara.addUser("Camilo", "per@yt.com", "now1");
+		} catch (RepeatedUsernameException | EmptyFieldsException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -53,6 +64,7 @@ class VistaraTest {
 			fail();
 		}
 		
+		setupScenary2();
 		try {
 			vistara.addUser("Andres", "mx@yt.com", "cam456");
 		} catch (EmptyFieldsException e) {
@@ -62,7 +74,7 @@ class VistaraTest {
 		}
 	}
 	
-	/*
+	
 	@Test
 	public void testLogin() {
 		
@@ -88,6 +100,41 @@ class VistaraTest {
 		String username3 = "Andres";
 		String password3 = "Hola123";
 		assertTrue(vistara.login(username3, password3));
-	}*/
+	}
+	
+	
+	@Test
+	public void testEditUser(){
+		
+		String newUsername = "Camilo";
+		String newPassword = "123";
+		String newEmail = "me@po.co";
+		String newDesc = "Artist";
+		Image newPic = null;
+
+		setupScenary2();
+		assertTrue(vistara.editUser(newUsername, newPassword, newEmail,
+									newDesc, newPic));
+		
+		setupScenary3();
+		try {
+			vistara.editUser(newUsername, newPassword, newEmail,
+							 newDesc, newPic);
+		}catch (RepeatedUsernameException e) {
+			assertTrue(true);
+		}catch (EmptyFieldsException e) {
+			fail();
+		}
+		
+		setupScenary2();
+		try {
+			vistara.editUser("", newPassword, newEmail,
+							 newDesc, newPic);
+		}catch (RepeatedUsernameException e) {
+			fail();
+		}catch (EmptyFieldsException e) {
+			assertTrue(true);
+		}
+	}
 
 }
