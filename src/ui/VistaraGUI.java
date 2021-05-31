@@ -16,11 +16,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
 
@@ -111,6 +113,27 @@ public class VistaraGUI {
     @FXML
     private AnchorPane secondaryPane;
     
+    //stats pane
+    @FXML
+    private Pane averagesPane;
+
+    @FXML
+    private Label txtAverageReactionsGeneral;
+
+    @FXML
+    private Label txtAverageReactionsAmount;
+
+    @FXML
+    private Label txtAverageCommentsAmount;
+
+    @FXML
+    private Pane graphTimePane;
+
+    @FXML
+    private Label txtYourReactions;
+
+    @FXML
+    private Label txtYourComments;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -191,7 +214,7 @@ public class VistaraGUI {
 			FXMLLoader fxmlLoader;
 			
 			//boolea is Mod = vistara.isMod(currentUser);
-			boolean isMod = true;
+			boolean isMod = false;
 			
 			if(isMod) {
 				fxmlLoader = new FXMLLoader(getClass().getResource("profile-bar-mod.fxml"));
@@ -239,7 +262,7 @@ public class VistaraGUI {
 	private void loadCommentsOfPost() {
 		//Loads the comments of the currentPost
 		
-		int amountComments = 1;
+		int amountComments = 0;
 		if(amountComments > 0) {
 			//load all the comments
 			iconNoComments.setVisible(false);
@@ -366,8 +389,6 @@ public class VistaraGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(profile);
 			
-			//mainPane.getChildren().clear();
-			//mainPane.getChildren().setAll(login);
 			loadProfileBar();
 			loadProfileTabPane();
 			
@@ -386,9 +407,8 @@ public class VistaraGUI {
 			
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
-			
-			//mainPane.getChildren().clear();
-			//mainPane.getChildren().setAll(login);			
+			loadStatistics(null);
+	
 			
 		} catch (IOException e) {
 			e.printStackTrace();

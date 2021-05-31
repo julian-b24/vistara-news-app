@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="feedPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="feedPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/profile-options-tab-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <JFXTabPane prefHeight="541.0" prefWidth="790.0" stylesheets="@../styles/profile-options-tab-pane.css" BorderPane.alignment="CENTER">
+            <JFXTabPane prefHeight="541.0" prefWidth="790.0" BorderPane.alignment="CENTER">
                <tabs>
-                  <Tab text="Untitled Tab">
+                  <Tab text="Posts">
                     <content>
                       <AnchorPane fx:id="postsPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
-                  <Tab onSelectionChanged="#loadStatistics" text="Untitled Tab">
+                  <Tab text="Stats">
                     <content>
                       <AnchorPane fx:id="statisticsPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
-                  <Tab text="Untitled Tab">
+                  <Tab text="Reacted Posts">
                     <content>
                       <AnchorPane fx:id="reactedPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
