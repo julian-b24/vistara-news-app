@@ -11,12 +11,28 @@ public class User implements StatsCalculable{
 	private ArrayList<User> followers;
 	private ArrayList<User> following;
 	private User leftUser;
+	private User parentUser;
 	private String username;
 	private Image profilePic;
 	private String description;
 	private String email;
 	private String password;
 	private Event firstEvent;
+
+	/**
+	* User: User class constructor <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username
+ 	* @param email
+ 	* @param password
+	*/
+	public User(String username, String email, String password) {
+		
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 
 	public String getUsername() {
 		return this.username;
@@ -133,6 +149,15 @@ public class User implements StatsCalculable{
 	public int compareTo() {
 		// TODO - implement User.compareTo
 		throw new UnsupportedOperationException();
+	}
+
+
+	public User getParentUser() {
+		return parentUser;
+	}
+
+	public void setParentUser(User parentUser) {
+		this.parentUser = parentUser;
 	}
 
 	@Override
