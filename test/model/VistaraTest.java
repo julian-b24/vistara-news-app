@@ -4,11 +4,90 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
+import exceptions.RepeatedUsernameException;
+
 class VistaraTest {
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
+	private Vistara vistara;
+	
+	public void setupScenary1() {
+		vistara = new Vistara();
 	}
+	
+	public void setupScenary2() {
+		vistara = new Vistara(); 
+		User user = new User("Andres", "and@yt.com", "hola123");
+		user.setDescription("Artista");
+		vistara.setRootUser(user);
+	}
+	
+	@Test
+	public void testAddUser() {
+		
+		setupScenary1();
+		try {
+			assertTrue(vistara.addUser("Andres", "and@yt.com", "Hola123") && vistara.getRootUser() != null);
+		} catch (RepeatedUsernameException e2) {
+			fail();
+		} catch (EmptyFieldsException e) {
+			fail();
+		}
+		
+		setupScenary2();
+		try {
+			assertTrue(vistara.addUser("Cami", "cam@yt.com", "cam456") && vistara.getRootUser().getRightUser() != null);
+		} catch (RepeatedUsernameException e1) {
+			fail();
+		} catch (EmptyFieldsException e) {
+			fail();
+		}
+		
+		try {
+			setupScenary1();
+			vistara.addUser("", "", "Hola123");
+		} catch (EmptyFieldsException e) {
+			assertTrue(true);
+		} catch (RepeatedUsernameException e) {
+			fail();
+		}
+		
+		try {
+			vistara.addUser("Andres", "mx@yt.com", "cam456");
+		} catch (EmptyFieldsException e) {
+			fail();
+		}catch (RepeatedUsernameException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/*
+	@Test
+	public void testLogin() {
+		
+		setupScenary1();
+		String username1 = "Andres";
+		String password1 = "Hola123";
+		try {
+			vistara.login(username1, password1);
+		} catch (InvalidUserException e){
+			assertTrue(true);
+		}
+		
+		setupScenary2();
+		String username2 = "Andres";
+		String password2 = "mal";
+		try {
+			vistara.login(username2, password2);
+		} catch (InvalidUserException e){
+			assertTrue(true);
+		}
+		
+		setupScenary2();
+		String username3 = "Andres";
+		String password3 = "Hola123";
+		assertTrue(vistara.login(username3, password3));
+	}*/
 
 }

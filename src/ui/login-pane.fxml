@@ -27,8 +27,8 @@
                   <FontAwesomeIconView glyphName="ARROW_RIGHT" size="24" />
                </graphic>
             </JFXButton>
-            <Label layoutX="145.0" layoutY="462.0" prefHeight="23.0" prefWidth="160.0" style="-fx-font-size: 14;" text="Do you have an account?" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="462.0" />
-            <JFXButton layoutX="356.0" layoutY="458.0" onAction="#loadSignUp" text="Log In" textFill="#ffde69" />
+            <Label layoutX="145.0" layoutY="462.0" prefHeight="23.0" prefWidth="160.0" style="-fx-font-size: 14;" text="Do you have an account?" textFill="WHITE" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="462.0" />
+            <JFXButton layoutX="302.0" layoutY="461.0" onAction="#loadSignUp" text="Sign Up" textFill="#ffde69" />
          </children>
       </AnchorPane>
    </children>

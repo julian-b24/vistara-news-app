@@ -15,7 +15,6 @@ public class User implements StatsCalculable{
 	private String username;
 	private Image profilePic;
 	private String description;
-	private String cotact;
 	private String email;
 	private String password;
 	private Event firstEvent;
@@ -69,18 +68,6 @@ public class User implements StatsCalculable{
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getCotact() {
-		return this.cotact;
-	}
-
-	/**
-	 * 
-	 * @param cotact
-	 */
-	public void setCotact(String cotact) {
-		this.cotact = cotact;
 	}
 
 	public String getEmail() {
