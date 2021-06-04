@@ -213,7 +213,7 @@ public class VistaraGUI {
 			
 			FXMLLoader fxmlLoader;
 			
-			//boolea is Mod = vistara.isMod(currentUser);
+			//boolean isMod = vistara.isMod(currentUser);
 			boolean isMod = false;
 			
 			if(isMod) {

@@ -9,8 +9,8 @@ public class Event extends Content {
 
 	private LocalDateTime date;
 	
-	public Event(User user, Image pic) {
-		super(user, pic);
+	public Event(User user, LocalDateTime date) {
+		super(user);
 		// TODO Auto-generated constructor stub
 	}
 

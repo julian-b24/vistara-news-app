@@ -18,9 +18,16 @@ public class Post extends Content implements StatsCalculable, Rateable{
 	private Comment firstComment;
 	private double rating;
 
-	public Post(User user, Image pic) {
-		super(user, pic);
-		// TODO Auto-generated constructor stub
+	public Post(User user, String title, String content, Category category, LocalDateTime date, String link) {
+		super(user);
+		this.title = title;
+		this.content = content;
+		this.category = category;
+		this.date = date;
+		fullNewLink = link;
+		state = State.UNVERIFIED;
+		reactedUsers = new ArrayList<User>();
+		rating = 0;
 	}
 	
 	public String getTitle() {

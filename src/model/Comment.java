@@ -1,8 +1,5 @@
 package model;
 
-import javafx.scene.image.Image;
-
-
 public class Comment extends Content {
 
 	private Comment nextComment;
@@ -15,8 +12,8 @@ public class Comment extends Content {
 	 * @param pic
 	 * @param cont
 	 */
-	public Comment(User user, Image pic, String cont) {
-		super(user, pic);
+	public Comment(User user, String cont) {
+		super(user);
 		throw new UnsupportedOperationException();
 	}
 

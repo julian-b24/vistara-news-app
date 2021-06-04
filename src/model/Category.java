@@ -33,4 +33,20 @@ public class Category {
 		this.background = background;
 	}
 
+	public Category getLeftCategory() {
+		return leftCategory;
+	}
+
+	public void setLeftCategory(Category leftCategory) {
+		this.leftCategory = leftCategory;
+	}
+
+	public Category getRightCategory() {
+		return rightCategory;
+	}
+
+	public void setRightCategory(Category rightCategory) {
+		this.rightCategory = rightCategory;
+	}
+
 }

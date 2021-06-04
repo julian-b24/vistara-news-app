@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import exceptions.EmptyFieldsException;
@@ -155,4 +156,51 @@ public class Vistara {
 			return current;
 		}
 	}
+	
+	/**
+	 * Creates a post and add it to the list of posts of vistara, the author and the followers of the author
+	 * @param title, String, the title of the post. It must be different from null and an empty string
+	 * @param content, String, the content of the post. It must be different from null and an empty string
+	 * @param categoryName, String, name of the category. It must be different from null and an empty string
+	 * @param author, User, the user that is creating the post
+	 */
+	public void createPost(String title, String content, String categoryName, User author, String link) {
+		
+		Category category = searchCategory(categoryName);
+		LocalDateTime date = LocalDateTime.now();
+		Post post = new Post(author, title, content, category, date, link);
+		posts.add(post);
+		//Añadir al listado de post del usuario y de sus seguidores
+		//Recordar hilos para rating
+	}
+	
+	/**
+	 * Search a category making a call to a recursive method, that goes through the BST of categories
+	 * @param categoryName, String name of the category. It must be different from null and empty string
+	 * @return The searched category if its on the BST any other case returns null 
+	 */
+	public Category searchCategory(String categoryName) {
+		return searchCategory(categoryName, rootCategory);
+	}
+
+	/**
+	 * Search a category according to its name in the BST of categories recursively
+	 * @param categoryName, String name of the category. It must be different from null and empty string
+	 * @param currentCategory, Current category in the recursive process
+	 * @return The searched category if its on the BST returns null 
+	 */
+	private Category searchCategory(String categoryName, Category currentCategory) {
+		if(currentCategory == null) {
+			return null;
+		}
+		
+		if(currentCategory.getName().equals(categoryName)) {
+			return currentCategory;
+		}else if(currentCategory.getName().compareTo(categoryName) > 0){
+			return searchCategory(categoryName, currentCategory.getLeftCategory());
+		}else {
+			return searchCategory(categoryName, currentCategory.getRightCategory());
+		}
+	}
+	
 }

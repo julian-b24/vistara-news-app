@@ -36,9 +36,9 @@ public abstract class Content {
 	 * @param user
 	 * @param pic
 	 */
-	public Content(User user, Image pic) {
-		// TODO - implement Content.Content
-		throw new UnsupportedOperationException();
+	public Content(User user) {
+		author = user;
+		authorPic = author.getProfilePic();
 	}
 
 }

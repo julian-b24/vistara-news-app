@@ -1,14 +1,20 @@
 package model;
 
-import javafx.scene.image.Image;
+import java.time.LocalDateTime;
 
 public class EventPost extends Post {
 
 	private Event event;
 
-	public EventPost(User user, Image pic) {
-		super(user, pic);
-		// TODO Auto-generated constructor stub
+	public EventPost(User user, String title, String content, Category category, LocalDateTime date, String link, Event event) {
+		
+		super(user, title, content, category, date, link);
+		this.event = event;
+	}
+	
+	public EventPost(Post post, Event event) {
+		super(post.getAuthor(), post.getTitle(), post.getContent(), post.getCategory(), post.getDate(), post.getFullNewLink());
+		this.event = event;
 	}
 	
 	public Event getEvent() {
