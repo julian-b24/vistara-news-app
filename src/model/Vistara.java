@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
+import thread.ThreadAddPostFollowers;
 
 public class Vistara {
 
@@ -170,8 +171,10 @@ public class Vistara {
 		LocalDateTime date = LocalDateTime.now();
 		Post post = new Post(author, title, content, category, date, link);
 		posts.add(post);
-		//Añadir al listado de post del usuario y de sus seguidores
-		//Recordar hilos para rating
+		author.getOwnPosts().add(post);
+		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);
+		addThread.start();
+		//Rating
 	}
 	
 	/**
