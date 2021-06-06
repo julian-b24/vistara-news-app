@@ -4,11 +4,7 @@ import java.util.ArrayList;
 
 public class Moderator extends User implements ModeratorManagement{
 
-	private ArrayList<Post> pendingPosts;
-
-	public ArrayList<Post> getPendingPosts() {
-		return this.pendingPosts;
-	}
+	private ArrayList<Post> pendingPosts;				//Posts waiting for verification
 
 	public Moderator(String username, String email, String password) {
 		super(username, email, password);
@@ -41,4 +37,7 @@ public class Moderator extends User implements ModeratorManagement{
 		
 	}
 
+	public ArrayList<Post> getPendingPosts() {
+		return this.pendingPosts;
+	}
 }

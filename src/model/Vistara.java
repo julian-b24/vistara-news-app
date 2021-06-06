@@ -18,7 +18,7 @@ public class Vistara {
 	
 	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException {
 		
-		User user = new User(username, email, password);
+		Moderator user = new Moderator(username, email, password);
 		boolean added = true;
 		
 		if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {

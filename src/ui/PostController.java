@@ -39,7 +39,7 @@ public class PostController {
     @FXML
     private Label newsLink;
     
-    public void setDate (Post post) {
+    public void setData (Post post) {
     	//post image
     	//Image image = new Image(getClass().getResourceAsStream(post.getImgPath()));
     	//newsImage.setImage(image);
@@ -47,7 +47,8 @@ public class PostController {
     	//image = new Image(getClass().getResourceAsStream(post.getUserImagePath()));
     	//profilePicPost.setImage(image);
     	//texts
-    	postUsername.setText(post.getContent());
+    	postUsername.setText("MISSING THIS ON CODE XD");
+    	postDetails.setText(post.getContent());
     	verificationText.setText(post.getState()+"");
     	postTittle.setText(post.getTitle());
     	numberReactions.setText(post.getReactions()+"");

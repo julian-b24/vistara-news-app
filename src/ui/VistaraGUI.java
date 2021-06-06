@@ -1,6 +1,8 @@
 package ui;
 
+import model.Moderator;
 import model.Post;
+import model.State;
 import model.User;
 import model.Vistara;
 
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -144,6 +147,16 @@ public class VistaraGUI {
     @FXML
     private GridPane postGrid;
     
+    //verifyPosyt
+    @FXML
+    private AnchorPane postVerifyPost;
+    
+    @FXML
+    private JFXRadioButton verifiedNew;
+
+    @FXML
+    private JFXRadioButton fakeNew;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -172,7 +185,23 @@ public class VistaraGUI {
         	if(loggedUser != null) {
         		currentUser = loggedUser;
         		loadFeed(null);
+        		
+
+    			if(currentUser instanceof Moderator) {
+    				//TEST
+    				LocalDateTime lc = LocalDateTime.now();
+    				Post postx = new Post(currentUser, "A", "CONTNET 1", null, lc, "www.1");
+    				
+    				((Moderator) currentUser).getPendingPosts().add(postx);
+    				
+    				postx = new Post(currentUser, "B", "CONTNET 2", null, lc, "www.2");
+    				((Moderator) currentUser).getPendingPosts().add(postx);
+    				System.out.println(((Moderator) currentUser).getPendingPosts().size());
+    				//
+    			}
         	}
+        	
+        	
         	
     	}catch(InvalidUserException e) {
     		invalidUsernameAlert();
@@ -214,7 +243,7 @@ public class VistaraGUI {
 				
 					AnchorPane postBox = fxmlLoader.load();	
 					PostController postController = fxmlLoader.getController();
-					postController.setDate(currentUser.getFeed().get(i));
+					postController.setData(currentUser.getFeed().get(i));
 					
 					if(columns == 1) {
 						 columns = 0;
@@ -251,7 +280,7 @@ public class VistaraGUI {
 			FXMLLoader fxmlLoader;
 			
 			//boolean isMod = vistara.isMod(currentUser);
-			boolean isMod = false;
+			boolean isMod = true;
 			
 			if(isMod) {
 				fxmlLoader = new FXMLLoader(getClass().getResource("profile-bar-mod.fxml"));
@@ -278,7 +307,22 @@ public class VistaraGUI {
 
     @FXML
     public void verifyPost(ActionEvent event) {
-
+    	if(currentUser instanceof Moderator) {
+    		
+    		State state = null;
+    		
+    		if(verifiedNew.isSelected()) {
+    			state = State.VERIFIED;
+    		}else if(fakeNew.isSelected()){
+    			state = State.FAKE_NEW;
+    		}
+    		
+			((Moderator) currentUser).getPendingPosts().get(0).setState(state);
+			
+    		((Moderator) currentUser).getPendingPosts().remove(0);
+    		
+    		loadVerifyPost(null);
+    	}
     }
 	
 	private void loadComments() {
@@ -316,16 +360,44 @@ public class VistaraGUI {
 			
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(verify);
-			
-			
+				
 			loadProfileBar();
 			loadVerifyPostTab();
+			loadPostToVerify();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }
 	
+	private void loadPostToVerify() {
+		
+		//Verify that there are elements in the list
+		
+		if(currentUser instanceof Moderator) {
+			
+			if(((Moderator) currentUser).getPendingPosts().size() > 0) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				
+				try {
+					AnchorPane postToVerify = fxmlLoader.load();
+					PostController postController = fxmlLoader.getController();					
+					
+					System.out.println(((Moderator) currentUser).getPendingPosts().get(0).getContent());
+					postController.setData(((Moderator) currentUser).getPendingPosts().get(0));
+					
+					postVerifyPost.getChildren().clear();
+					postVerifyPost.getChildren().setAll(postToVerify);
+					
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	private void loadVerifyPostTab() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("verify-pane.fxml"));
