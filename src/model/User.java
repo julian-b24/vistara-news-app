@@ -8,16 +8,19 @@ import javafx.scene.image.Image;
 public class User implements StatsCalculable{
 
 	private User rightUser;
-	private ArrayList<User> followers;
-	private ArrayList<User> following;
 	private User leftUser;
 	private User parentUser;
+	private ArrayList<User> followers;
+	private ArrayList<User> following;
 	private String username;
 	private Image profilePic;
 	private String description;
 	private String email;
 	private String password;
 	private Event firstEvent;
+	private ArrayList<Post> feed;
+	private ArrayList<Post> ownPosts;
+	private ArrayList<Post> reactedPosts;
 
 	/**
 	* User: User class constructor <br>
@@ -28,10 +31,14 @@ public class User implements StatsCalculable{
  	* @param password
 	*/
 	public User(String username, String email, String password) {
-		
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		followers = new ArrayList<User>();
+		following = new ArrayList<User>();
+		feed = new ArrayList<Post>();
+		ownPosts = new ArrayList<Post>();
+		reactedPosts = new ArrayList<Post>();
 	}
 
 	public String getUsername() {
@@ -95,8 +102,7 @@ public class User implements StatsCalculable{
 	}
 
 	public ArrayList<User> getFollowers() {
-		// TODO - implement User.getFollowers
-		throw new UnsupportedOperationException();
+		return followers;
 	}
 
 	/**
@@ -104,13 +110,11 @@ public class User implements StatsCalculable{
 	 * @param followers
 	 */
 	public void setFollowers(ArrayList<User> followers) {
-		// TODO - implement User.setFollowers
-		throw new UnsupportedOperationException();
+		this.followers = followers;
 	}
 
 	public ArrayList<User> getFollowing() {
-		// TODO - implement User.getFollowing
-		throw new UnsupportedOperationException();
+		return following;
 	}
 
 	/**
@@ -118,8 +122,7 @@ public class User implements StatsCalculable{
 	 * @param following
 	 */
 	public void setFollowing(ArrayList<User> following) {
-		// TODO - implement User.setFollowing
-		throw new UnsupportedOperationException();
+		this.following = following;
 	}
 
 	public User getRightUser() {
@@ -147,10 +150,10 @@ public class User implements StatsCalculable{
 	}
 
 	public int compareTo() {
-		// TODO - implement User.compareTo
-		throw new UnsupportedOperationException();
+		return 0;
 	}
 
+	
 
 	public User getParentUser() {
 		return parentUser;
@@ -158,6 +161,34 @@ public class User implements StatsCalculable{
 
 	public void setParentUser(User parentUser) {
 		this.parentUser = parentUser;
+	}
+
+	public Event getFirstEvent() {
+		return firstEvent;
+	}
+
+	public void setFirstEvent(Event firstEvent) {
+		this.firstEvent = firstEvent;
+	}
+
+	public ArrayList<Post> getOwnPosts() {
+		return ownPosts;
+	}
+
+	public void setOwnPosts(ArrayList<Post> ownPosts) {
+		this.ownPosts = ownPosts;
+	}
+
+	public ArrayList<Post> getReactedPosts() {
+		return reactedPosts;
+	}
+
+	public void setReactedPosts(ArrayList<Post> reactedPosts) {
+		this.reactedPosts = reactedPosts;
+	}
+
+	public ArrayList<Post> getFeed() {
+		return feed;
 	}
 
 	@Override
