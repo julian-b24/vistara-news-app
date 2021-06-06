@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
+import javafx.scene.image.Image;
 import thread.ThreadAddPostFollowers;
 
 public class Vistara {
 
+	public final static String IMAGE_PATH = "file:imgs/";
+	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
 	private Category rootCategory;
@@ -203,6 +206,98 @@ public class Vistara {
 			return searchCategory(categoryName, currentCategory.getLeftCategory());
 		}else {
 			return searchCategory(categoryName, currentCategory.getRightCategory());
+		}
+	}
+	
+	/**
+	 * Edits the information of an user in the BST
+	 * @param user, User, the user that will be edited
+	 * @param username, String, the new name of the user
+	 * @param password, String, the new password of the user
+	 * @param email, String, the new email of the user
+	 * @param description, String, the new description of the user
+	 * @param profilePicName, String, the new path of the user's profile picture
+	 * @throws RepeatedUsernameException in case the new username already exists in the app
+	 */
+	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException {
+		boolean repeatedName = searchUserByName(username);
+		if(!repeatedName) {
+			User copy = user.getClone();
+			removeUser(user);
+			copy.setUsername(username);
+			copy.setPassword(password);
+			copy.setEmail(email);
+			copy.setDescription(description);
+			Image profilePic = new Image(IMAGE_PATH + profilePicName);
+			copy.setProfilePic(profilePic);
+			addUser(rootUser, copy);
+			
+		}else {
+			throw new RepeatedUsernameException(username);
+		}
+	}
+	
+	/**
+	 * Removes an user from the BST of users
+	 * @param user, the user that will be removed
+	 */
+	private void removeUser(User user) {
+		
+		if(user != null) {
+			
+			if(user.getLeftUser() == null && user.getRightUser() == null) {
+				if(user == rootUser) {
+					rootUser = null;
+				}else if (user.compareTo(user.getParentUser()) <= 0) {
+					user.getParentUser().setLeftUser(null);
+				} else {
+					user.getParentUser().setRightUser(null);
+				}
+				
+				user.setParentUser(null);
+			}else if(user.getLeftUser() == null || user.getRightUser() == null) {
+				
+				User child;
+				if(user.getLeftUser() == null) {
+					child = user.getLeftUser();
+				} else {
+					child = user.getRightUser();
+				}
+				
+				child.setParentUser(user.getParentUser());
+				
+				if(user == rootUser) {
+					rootUser = child;
+				}else if (user.compareTo(user.getParentUser()) <= 0) {
+					user.getParentUser().setLeftUser(child);
+				} else {
+					user.getParentUser().setRightUser(child);
+				}
+			}else {
+				User successor = getMin(user.getRightUser());
+				user.setFollowers(successor.getFollowers());
+				user.setFollowing(successor.getFollowing());
+				user.setUsername(successor.getUsername());
+				user.setProfilePic(successor.getProfilePic());
+				user.setDescription(successor.getDescription());
+				user.setEmail(successor.getEmail());
+				user.setPassword(successor.getPassword());
+				user.setFirstEvent(successor.getFirstEvent());
+				user.setCreationDate(successor.getCreationDate());
+				user.setFeed(successor.getFeed());
+				user.setOwnPosts(successor.getOwnPosts());
+				user.setReactedPosts(successor.getReactedPosts());
+				
+				removeUser(successor);
+			}
+		}
+	}
+
+	private User getMin(User currentUser) {
+		if(currentUser.getLeftUser() == null) {
+			return currentUser;
+		}else {
+			return getMin(currentUser.getLeftUser());
 		}
 	}
 	
