@@ -317,14 +317,25 @@ public class VistaraGUI {
     			state = State.FAKE_NEW;
     		}
     		
-			((Moderator) currentUser).getPendingPosts().get(0).setState(state);
-			
-    		((Moderator) currentUser).getPendingPosts().remove(0);
-    		
-    		loadVerifyPost(null);
+    		if(state != null && ((Moderator) currentUser).getPendingPosts().size() > 0) {
+				((Moderator) currentUser).getPendingPosts().get(0).setState(state);
+				
+	    		((Moderator) currentUser).getPendingPosts().remove(0);
+	    		
+	    		showInfoAlert();
+	    		
+	    		loadVerifyPost(null);
+    		}
     	}
     }
 	
+	private void showInfoAlert() {
+		Alert warning = new Alert(AlertType.CONFIRMATION);
+		warning.setTitle("Post verified successfully");
+		warning.setContentText("The post has been verified");
+		warning.showAndWait();		
+	}
+
 	private void loadComments() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("comments-bar-pane.fxml"));
