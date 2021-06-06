@@ -17,6 +17,10 @@ public class Post extends Content implements StatsCalculable, Rateable{
 	private ArrayList<User> reactedUsers;
 	private Comment firstComment;
 	private double rating;
+	private String imgPath;
+	private String userImagePath;
+	private int reactions;
+	private int comments;
 
 	public Post(User user, String title, String content, Category category, LocalDateTime date, String link) {
 		super(user);
@@ -150,4 +154,38 @@ public class Post extends Content implements StatsCalculable, Rateable{
 		return 0;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public String getUserImagePath() {
+		return userImagePath;
+	}
+
+	public void setUserImagePath(String userImagePath) {
+		this.userImagePath = userImagePath;
+	}
+
+	public int getReactions() {
+		return reactions;
+	}
+
+	public void setReactions(int reactions) {
+		this.reactions = reactions;
+	}
+
+	public int getComments() {
+		return comments;
+	}
+
+	public void setComments(int comments) {
+		this.comments = comments;
+	}
+
+	
+	
 }

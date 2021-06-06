@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -10,7 +13,18 @@
             <AnchorPane fx:id="profileBarPane" prefHeight="720.0" prefWidth="290.0" stylesheets="@../styles/profile-bar.css" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <AnchorPane fx:id="feedPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/feed.css" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="feedPane" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/feed.css" BorderPane.alignment="CENTER">
+               <children>
+                  <ScrollPane layoutX="-1.0" layoutY="37.0" prefHeight="651.0" prefWidth="503.0">
+                     <content>
+                        <GridPane fx:id="postGrid">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children></AnchorPane>
          </center>
          <right>
             <AnchorPane fx:id="commentsPane" prefHeight="720.0" prefWidth="290.0" BorderPane.alignment="CENTER" />

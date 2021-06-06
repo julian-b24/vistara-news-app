@@ -1,9 +1,13 @@
 package ui;
 
+import model.Post;
 import model.User;
 import model.Vistara;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -22,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
@@ -135,6 +140,10 @@ public class VistaraGUI {
     @FXML
     private Label txtYourComments;
     
+    //general feed
+    @FXML
+    private GridPane postGrid;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -185,14 +194,42 @@ public class VistaraGUI {
 			
 			loadProfileBar();
 			loadComments();
-			//loadFeedPosts();
+			loadFeedPosts();
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-    
-    @FXML
+
+	private void loadFeedPosts() {
+    	
+    	int columns = 0;
+    	int rows = 1;
+    	    	System.out.println(currentUser.getFeed().size());
+    	try {
+			for (int i = 0; i < currentUser.getFeed().size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				
+					AnchorPane postBox = fxmlLoader.load();	
+					PostController postController = fxmlLoader.getController();
+					postController.setDate(currentUser.getFeed().get(i));
+					
+					if(columns == 1) {
+						 columns = 0;
+						 rows++;
+					}
+					
+					postGrid.add(postBox, columns++, rows);
+			}
+			
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
     public void loadSignUp(ActionEvent event) {
 
     	try {

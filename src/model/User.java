@@ -18,6 +18,7 @@ public class User implements StatsCalculable{
 	private String email;
 	private String password;
 	private Event firstEvent;
+	private ArrayList<Post> feed;
 
 	/**
 	* User: User class constructor <br>
@@ -29,6 +30,7 @@ public class User implements StatsCalculable{
 	*/
 	public User(String username, String email, String password) {
 		
+		feed = new ArrayList<>();
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -166,4 +168,22 @@ public class User implements StatsCalculable{
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return feed
+	 */
+	public ArrayList<Post> getFeed() {
+		return feed;
+	}
+
+	/**
+	 * 
+	 * @param feed
+	 */
+	public void setFeed(ArrayList<Post> feed) {
+		this.feed = feed;
+	}
+
+
+	
 }
