@@ -33,6 +33,9 @@ public class User implements StatsCalculable{
  	* @param password
 	*/
 	public User(String username, String email, String password) {
+		
+		feed = new ArrayList<>();
+
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -206,7 +209,6 @@ public class User implements StatsCalculable{
 	public void setFeed(ArrayList<Post> feed) {
 		this.feed = feed;
 	}
-	
 
 	@Override
 	public HashMap<String, Double> generateStats() {
