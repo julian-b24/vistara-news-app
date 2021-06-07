@@ -1,5 +1,6 @@
 package ui;
 
+import model.Category;
 import model.Moderator;
 import model.Post;
 import model.State;
@@ -9,6 +10,7 @@ import model.Vistara;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfoenix.controls.JFXRadioButton;
@@ -27,6 +29,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -165,6 +168,14 @@ public class VistaraGUI {
     @FXML
     private JFXTextField newCategoryImagePath;
     
+    //create post
+    
+    @FXML
+    private ChoiceBox<String> postCategory;
+    
+    @FXML
+    private JFXTextArea postLink;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -194,7 +205,14 @@ public class VistaraGUI {
         		currentUser = loggedUser;
         		loadFeed(null);
         		
-
+        		vistara.addCategory("f");
+        		vistara.addCategory("g");
+        		vistara.addCategory("d");
+        		vistara.addCategory("e");
+        		vistara.addCategory("b");
+        		vistara.addCategory("h");
+        		vistara.addCategory("a");
+        		
     			if(currentUser instanceof Moderator) {
     				//TEST
     				LocalDateTime lc = LocalDateTime.now();
@@ -687,11 +705,14 @@ public class VistaraGUI {
 			loadProfileBar();
 			loadNewPostTab();
 			
+			ArrayList<String> categories = vistara.loadPossibleCategories();
+			postCategory.getItems().addAll(categories);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }
-	
+
 	private void loadNewPostTab() {
 		
 		try {
@@ -719,7 +740,7 @@ public class VistaraGUI {
 
     @FXML
     public void uploadPost(ActionEvent event) {
-
+    	
     }
     
     @FXML
@@ -764,5 +785,9 @@ public class VistaraGUI {
     @FXML
     public void confirmPorfileEdition(ActionEvent event) {
 
+    }
+    
+    public void turnModerator() {
+    	 
     }
 }
