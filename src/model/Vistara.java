@@ -14,6 +14,7 @@ public class Vistara {
 
 	public final static String IMAGE_PATH = "file:imgs/";
 	public final static int MIN_RATING = 5;
+	public final static String SAVE_PATH = "data/system/";
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
@@ -391,5 +392,11 @@ public class Vistara {
 		return categoryTrend;
 	}
 	
+	/**
+	 * Load the serialized app's information
+	 */
+	public void loadData() {
+		
+	}
 	
 }
