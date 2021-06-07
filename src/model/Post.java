@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ public class Post extends Content implements StatsCalculable, Rateable{
 	private State state;
 	private ArrayList<User> reactedUsers;
 	private Comment firstComment;
+	private Comment lastComment;
 	private double rating;
 	private String imgPath;
 	private String userImagePath;
@@ -131,6 +133,7 @@ public class Post extends Content implements StatsCalculable, Rateable{
 	}
 
 	public double getRating() {
+		calculateRating();
 		return this.rating;
 	}
 
@@ -149,9 +152,46 @@ public class Post extends Content implements StatsCalculable, Rateable{
 	}
 
 	@Override
-	public double calculateRating() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void calculateRating() {
+		
+		boolean isRateable = isRateable();
+		if(isRateable) {	
+			int amountReactions = reactedUsers.size();
+			int amountComments = getAmountOfComments();
+			
+			LocalDateTime now = LocalDateTime.now();
+			long difference = ChronoUnit.DAYS.between(now, date);
+			rating = (amountComments + amountReactions)/difference;
+		}
+
+	}
+
+	private boolean isRateable() {
+		boolean rateable = false;
+		LocalDateTime now = LocalDateTime.now();
+		long difference = ChronoUnit.DAYS.between(now, date);
+		
+		if(difference < 1) {
+			rateable = true;
+		}
+		
+		return rateable;
+	}
+
+	public int getAmountOfComments() {
+		if(firstComment != null) {
+			return getAmountOfComments(firstComment, 1);
+		}else {
+			return 0;
+		}
+	}
+
+	private int getAmountOfComments(Comment currentComment, int amount) {
+		if(currentComment.getNextComment().equals(firstComment)) {
+			return amount;
+		}else {
+			return getAmountOfComments(currentComment, amount + 1);
+		}
 	}
 
 	public String getImgPath() {

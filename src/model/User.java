@@ -32,15 +32,13 @@ public class User implements StatsCalculable{
  	* @param email
  	* @param password
 	*/
-	public User(String username, String email, String password, LocalDateTime dateOfCreation) {
+	public User(String username, String email, String password) {
 		
 		feed = new ArrayList<>();
-
-		creationDate = dateOfCreation;
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		setCreationDate(LocalDateTime.now());
+		creationDate = LocalDateTime.now();
 		followers = new ArrayList<User>();
 		following = new ArrayList<User>();
 		feed = new ArrayList<Post>();
@@ -230,7 +228,7 @@ public class User implements StatsCalculable{
 	 * @return the clone of the user
 	 */
 	public User getClone() {
-		User clone = new User("", "", "", null);
+		User clone = new User("", "", "");
 		clone.setFollowers(this.getFollowers());
 		clone.setFollowing(this.getFollowing());
 		clone.setUsername(this.getUsername());
