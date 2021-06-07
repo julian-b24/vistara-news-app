@@ -1,21 +1,16 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Moderator extends User implements ModeratorManagement, Comparable<Moderator>{
 
 	private ArrayList<Post> pendingPosts;				//Posts waiting for verification
 
-	public Moderator(String username, String email, String password, LocalDateTime creationDay) {
-		super(username, email, password, creationDay);
+	public Moderator(String username, String email, String password) {
+		super(username, email, password);
 		pendingPosts = new ArrayList<Post>();
 	}
 	
-	/**
-	 * 
-	 * @param pendingPosts
-	 */
 	public void setPendingPosts(ArrayList<Post> pendingPosts) {
 		this.pendingPosts = pendingPosts;
 	}

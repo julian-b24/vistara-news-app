@@ -13,6 +13,7 @@ import thread.ThreadAddPostFollowers;
 public class Vistara {
 
 	public final static String IMAGE_PATH = "file:imgs/";
+	public final static int MIN_RATING = 5;
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
@@ -178,7 +179,6 @@ public class Vistara {
 		author.getOwnPosts().add(post);
 		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);
 		addThread.start();
-		//Rating
 	}
 	
 	public boolean addCategory(String newCat) {
@@ -333,6 +333,12 @@ public class Vistara {
 		}
 	}
 
+	/**
+	 * Get the user with the user with the lowest (A to Z) username in a subtree of the BST of users.<br>
+	 * It iterates recursively through the BST.
+	 * @param currentUser, the current parent of the subtree
+	 * @return the user with the user with the lowest (A to Z) username
+	 */
 	private User getMin(User currentUser) {
 		if(currentUser.getLeftUser() == null) {
 			return currentUser;
@@ -364,5 +370,26 @@ public class Vistara {
 		}
 		return cats;
 	}
+	
+	/**
+	 * Gets the list of trending posts by a specific category
+	 * @param categoryName, String, the name of the category to search, it must be different from null and an empty string
+	 * @return the list of trending posts by a category
+	 */
+	public ArrayList<Post> getTrendingByCategory(String categoryName) {
+		
+		ArrayList<Post> categoryTrend = new ArrayList<Post>();
+		Category category = searchCategory(categoryName);
+		for (Post post : posts) {
+			if(post.getCategory().equals(category)) {
+				if(post.getRating() >= MIN_RATING) {
+					categoryTrend.add(post);
+				}
+			}
+		}
+		
+		return categoryTrend;
+	}
+	
 	
 }

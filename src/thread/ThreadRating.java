@@ -8,7 +8,6 @@ import model.Vistara;
 public class ThreadRating extends Thread{
 	
 	public final static int SLEEP = 300000;
-	public final static int MIN_RATING = 5;
 	
 	private Vistara vistara;
 	
@@ -22,7 +21,7 @@ public class ThreadRating extends Thread{
 			if(posts.size() > 0) {	
 				for (Post post : posts) {
 					double rating = post.getRating();
-					if(rating >= MIN_RATING) {
+					if(rating >= vistara.MIN_RATING) {
 						newTrending.add(post);
 					}
 				}
