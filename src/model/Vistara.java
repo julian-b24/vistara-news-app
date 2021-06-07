@@ -345,4 +345,24 @@ public class Vistara {
 		Collections.sort(mods);
 	}
 	
+	public ArrayList<String> loadPossibleCategories() {
+
+		ArrayList<String> cats = new ArrayList<>();
+		if(rootCategory != null ) {
+			cats = loadPossibleCategories(rootCategory, cats);
+		}
+		
+		return cats;
+	}
+	
+	public ArrayList<String> loadPossibleCategories(Category current, ArrayList<String> cats) {
+		if(current != null) {
+			cats = loadPossibleCategories(current.getLeftCategory(), cats);
+			//System.out.println(current.getName());
+			cats.add(current.getName());
+			cats = loadPossibleCategories(current.getRightCategory(), cats);
+		}
+		return cats;
+	}
+	
 }
