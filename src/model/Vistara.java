@@ -20,9 +20,15 @@ public class Vistara {
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
 	
+	public Vistara() {
+		mods = new ArrayList<>();
+		posts = new ArrayList<Post>();
+		trending = new ArrayList<>();
+	}
+	
 	public boolean addUser(String username, String email, String password, LocalDateTime dateOfCreation) throws RepeatedUsernameException, EmptyFieldsException {
 		
-		Moderator user = new Moderator(username, email, password, dateOfCreation);
+		User user = new Moderator(username, email, password, dateOfCreation);
 		boolean added = true;
 		
 		if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {

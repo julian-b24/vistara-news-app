@@ -51,6 +51,7 @@
                   <Label layoutX="521.0" layoutY="93.0" style="-fx-font-size: 14;" text="following" />
                   <Label layoutX="606.0" layoutY="93.0" style="-fx-font-size: 14;" text="###" />
                   <Label layoutX="644.0" layoutY="93.0" style="-fx-font-size: 14;" text="verified posts" />
+                  <JFXButton fx:id="upgradeBtn" layoutX="547.0" layoutY="43.0" onAction="#turnModerator" text="Upgrade" />
                </children>
             </AnchorPane>
          </top>
