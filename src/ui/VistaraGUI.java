@@ -310,7 +310,14 @@ public class VistaraGUI {
 	
 	@FXML
     public void deletePost(ActionEvent event) {
-
+		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
+			User creatorUser = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
+			LocalDateTime publicationTime = ((Moderator) currentUser).getPendingPosts().get(0).getDate();
+			
+			creatorUser.deletePost(publicationTime);
+			vistara.reOrderModerators(currentUser);
+		}
+		
     }
 
     @FXML
@@ -507,7 +514,7 @@ public class VistaraGUI {
 	@FXML
 	public void createAccount(ActionEvent event) {
 		try {
-			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
+			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim(), LocalDateTime.now());
 		} catch (RepeatedUsernameException e) {
 			repeatedUsernameAlert();
 		} catch (EmptyFieldsException e) {
@@ -536,6 +543,8 @@ public class VistaraGUI {
 		warning.showAndWait();
 	}
 	 
+	
+	
 	@FXML
 	public void loadProfile(ActionEvent event) {
 	

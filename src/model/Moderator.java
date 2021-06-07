@@ -1,13 +1,14 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Moderator extends User implements ModeratorManagement{
+public class Moderator extends User implements ModeratorManagement, Comparable<Moderator>{
 
 	private ArrayList<Post> pendingPosts;				//Posts waiting for verification
 
-	public Moderator(String username, String email, String password) {
-		super(username, email, password);
+	public Moderator(String username, String email, String password, LocalDateTime creationDay) {
+		super(username, email, password, creationDay);
 		pendingPosts = new ArrayList<Post>();
 	}
 	
@@ -39,5 +40,10 @@ public class Moderator extends User implements ModeratorManagement{
 
 	public ArrayList<Post> getPendingPosts() {
 		return this.pendingPosts;
+	}
+
+	@Override
+	public int compareTo(Moderator otherMod) {
+		return getCreationDate().compareTo(otherMod.getCreationDate());
 	}
 }

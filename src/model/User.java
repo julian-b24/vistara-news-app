@@ -32,10 +32,11 @@ public class User implements StatsCalculable{
  	* @param email
  	* @param password
 	*/
-	public User(String username, String email, String password) {
+	public User(String username, String email, String password, LocalDateTime dateOfCreation) {
 		
 		feed = new ArrayList<>();
 
+		creationDate = dateOfCreation;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -229,7 +230,7 @@ public class User implements StatsCalculable{
 	 * @return the clone of the user
 	 */
 	public User getClone() {
-		User clone = new User("", "", "");
+		User clone = new User("", "", "", null);
 		clone.setFollowers(this.getFollowers());
 		clone.setFollowing(this.getFollowing());
 		clone.setUsername(this.getUsername());
@@ -243,6 +244,16 @@ public class User implements StatsCalculable{
 		clone.setOwnPosts(this.getOwnPosts());
 		clone.setReactedPosts(this.getReactedPosts());
 		return clone;
+	}
+	
+	public void deletePost(LocalDateTime publicationTime) {
+		
+		for (int i = 0; i < ownPosts.size(); i++) {
+			if(ownPosts.get(i).getDate() == publicationTime) {
+				ownPosts.remove(i);
+			}
+		}
+		
 	}
 
 }

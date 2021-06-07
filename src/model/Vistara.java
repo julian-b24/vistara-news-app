@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
@@ -19,9 +20,9 @@ public class Vistara {
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
 	
-	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException {
+	public boolean addUser(String username, String email, String password, LocalDateTime dateOfCreation) throws RepeatedUsernameException, EmptyFieldsException {
 		
-		Moderator user = new Moderator(username, email, password);
+		Moderator user = new Moderator(username, email, password, dateOfCreation);
 		boolean added = true;
 		
 		if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {
@@ -338,6 +339,10 @@ public class Vistara {
 		}else {
 			return getMin(currentUser.getLeftUser());
 		}
+	}
+
+	public void reOrderModerators(User currentUser) {
+		Collections.sort(mods);
 	}
 	
 }
