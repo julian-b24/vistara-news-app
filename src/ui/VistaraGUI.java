@@ -876,6 +876,7 @@ public class VistaraGUI {
 
     private void loadFeedByCategory(String value) {
 		
+    	postGrid.getChildren().clear();
     	int columns = 0;
     	int rows = 1;
     	    	System.out.println(vistara.getPosts().size()+" ** POSTS VISTARA **");
