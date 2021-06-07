@@ -549,7 +549,7 @@ public class VistaraGUI {
 	@FXML
 	public void createAccount(ActionEvent event) {
 		try {
-			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim(), LocalDateTime.now());
+			vistara.addUser(usernameSignUp.getText().trim(), emailSignUp.getText().trim(), passwordSignUp.getText().trim());
 		} catch (RepeatedUsernameException e) {
 			repeatedUsernameAlert();
 		} catch (EmptyFieldsException e) {
