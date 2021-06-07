@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -38,6 +39,9 @@ import javafx.scene.shape.Circle;
 
 
 public class VistaraGUI {
+	
+	public final static int MAX_TITLE_LENGTH = 70;
+	public final static int MAX_CONTENT_LENGTH = 500;
 
 	private Vistara vistara;
 	
@@ -175,6 +179,19 @@ public class VistaraGUI {
     
     @FXML
     private JFXTextArea postLink;
+    
+    @FXML
+    private JFXTextArea postTittle;
+
+    @FXML
+    private JFXTextArea postDetails;
+
+    @FXML
+    private Label postImagePath;
+
+    //
+    @FXML
+    private JFXButton upgradeBtn;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -592,6 +609,11 @@ public class VistaraGUI {
 			
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
+			
+			if(!(currentUser instanceof Moderator)) {
+				upgradeBtn.setVisible(false);
+				upgradeBtn.setDisable(true);
+			}
 			loadStatistics(null);
 	
 			
@@ -707,6 +729,7 @@ public class VistaraGUI {
 			
 			ArrayList<String> categories = vistara.loadPossibleCategories();
 			postCategory.getItems().addAll(categories);
+			postCategory.setValue(categories.get(0));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -740,6 +763,16 @@ public class VistaraGUI {
 
     @FXML
     public void uploadPost(ActionEvent event) {
+    	if(!postTittle.getText().trim().isEmpty() && postTittle.getText().trim().length() < MAX_TITLE_LENGTH
+    			&& !postDetails.getText().trim().isEmpty() && postDetails.getText().trim().length() < MAX_CONTENT_LENGTH
+    			&& !postLink.getText().trim().isEmpty()) {
+    		
+    		if(postImagePath.getText().isEmpty()) {
+    			vistara.createPost(postTittle.getText(), postDetails.getText(), postCategory.getValue(), currentUser, postLink.getText());
+    		}
+    	}else {
+    		//warning something went wrong
+    	}
     	
     }
     
