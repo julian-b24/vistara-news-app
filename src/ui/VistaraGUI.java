@@ -87,7 +87,7 @@ public class VistaraGUI {
     private TextField serachUser;
 
     @FXML
-    private ChoiceBox<?> filterCategory;
+    private ChoiceBox<String> filterCategory;
     
 	public VistaraGUI(Vistara app){
 		vistara = app;
@@ -226,6 +226,9 @@ public class VistaraGUI {
     @FXML
     private JFXButton upgradeModBtn;
     
+    @FXML
+    private AnchorPane profileSearchPane;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -253,8 +256,6 @@ public class VistaraGUI {
         	//verify account type        	
         	if(loggedUser != null) {
         		currentUser = loggedUser;
-        		loadFeed(null);
-        		
         		vistara.addCategory("f");
         		vistara.addCategory("g");
         		vistara.addCategory("d");
@@ -262,6 +263,10 @@ public class VistaraGUI {
         		vistara.addCategory("b");
         		vistara.addCategory("h");
         		vistara.addCategory("a");
+        		
+        		loadFeed(null);
+        		
+        		
         		
     			if(currentUser instanceof Moderator) {
     				//TEST
@@ -301,6 +306,9 @@ public class VistaraGUI {
 			loadComments();
 			loadFeedPosts();
 			
+			//Load choicebox items
+			ArrayList<String> categories = vistara.loadPossibleCategories();
+			filterCategory.getItems().addAll(categories);			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -861,9 +869,43 @@ public class VistaraGUI {
     @FXML
     void filterFeedPosts(ActionEvent event) {
 
+    	if(filterCategory.getValue() != null) {
+    		loadFeedByCategory(filterCategory.getValue());
+    	}
     }
 
-    @FXML
+    private void loadFeedByCategory(String value) {
+		
+    	int columns = 0;
+    	int rows = 1;
+    	    	System.out.println(vistara.getPosts().size()+" ** POSTS VISTARA **");
+    	    	System.out.println(value);
+    	try {
+			for (int i = 0; i < vistara.getPosts().size(); i++) {
+				if(vistara.getPosts().get(i).getCategory().getName().equals(value)) {
+					
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+					
+						AnchorPane postBox = fxmlLoader.load();	
+						PostController postController = fxmlLoader.getController();
+						postController.setData(vistara.getPosts().get(i));
+						System.out.println("gen gen");
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						postGrid.add(postBox, columns++, rows);
+				}
+			}
+			
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
     void searchUserInFeed(ActionEvent event) {
 
     	User searchedUser = vistara.searchUser(serachUser.getText().trim());

@@ -28,12 +28,12 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <TextField fx:id="serachUser" layoutX="12.0" layoutY="42.0" prefHeight="31.0" prefWidth="180.0" promptText="username..." />
-                  <ChoiceBox fx:id="filterCategory" layoutX="291.0" layoutY="42.0" prefHeight="31.0" prefWidth="128.0" />
-                  <JFXButton layoutX="435.0" layoutY="42.0" onAction="#filterFeedPosts" style="-fx-background-color: #505050;" text="Filter" textFill="#e2e2e2" />
-                  <JFXButton layoutX="208.0" layoutY="42.0" onAction="#searchUserInFeed" style="-fx-background-color: #505050;" text="Search" textFill="#e2e2e2" />
-                  <Label layoutX="12.0" layoutY="14.0" text="Search users" />
-                  <Label layoutX="291.0" layoutY="14.0" text="Filter by category" />
+                  <TextField fx:id="serachUser" layoutX="13.0" layoutY="42.0" prefHeight="31.0" prefWidth="180.0" promptText="username..." />
+                  <ChoiceBox fx:id="filterCategory" layoutX="292.0" layoutY="42.0" prefHeight="31.0" prefWidth="128.0" />
+                  <JFXButton layoutX="436.0" layoutY="42.0" onAction="#filterFeedPosts" style="-fx-background-color: #505050;" text="Filter" textFill="#e2e2e2" />
+                  <JFXButton layoutX="209.0" layoutY="42.0" onAction="#searchUserInFeed" style="-fx-background-color: #505050;" text="Search" textFill="#e2e2e2" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Search users" />
+                  <Label layoutX="292.0" layoutY="14.0" text="Filter by category" />
                </children></AnchorPane>
          </center>
          <right>
