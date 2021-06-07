@@ -23,6 +23,7 @@ public class User implements StatsCalculable{
 	private ArrayList<Post> feed;
 	private ArrayList<Post> ownPosts;
 	private ArrayList<Post> reactedPosts;
+	private int verifiedPosts;
 
 	/**
 	* User: User class constructor <br>
@@ -44,6 +45,7 @@ public class User implements StatsCalculable{
 		feed = new ArrayList<Post>();
 		ownPosts = new ArrayList<Post>();
 		reactedPosts = new ArrayList<Post>();
+		verifiedPosts = 0;
 	}
 
 	public String getUsername() {
@@ -254,4 +256,17 @@ public class User implements StatsCalculable{
 		
 	}
 
+	/**
+	 * Gets the integer number for the amount of verified posts that the user has
+	 * @return verifiedPosts the amount if verified posts of the user
+	 */
+	public int getVerifiedPosts() {
+		return verifiedPosts;
+	}
+
+	public void setVerifiedPosts(int verifiedPosts) {
+		this.verifiedPosts = verifiedPosts;
+	}
+
+	
 }

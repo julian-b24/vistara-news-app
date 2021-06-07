@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="profileBarPane" layoutX="-5.0" prefHeight="720.0" prefWidth="295.0" stylesheets="@../styles/profile-bar.css" />
+      <AnchorPane fx:id="searchPane" focusTraversable="true" layoutX="290.0" prefHeight="720.0" prefWidth="793.0" stylesheets="@../styles/feed.css">
+         <children>
+            <Label fx:id="searchedUsername" layoutX="155.0" layoutY="34.0" text="Username" />
+            <Circle fill="#ff7553" layoutX="79.0" layoutY="86.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label fx:id="searchedNumPosts" layoutX="155.0" layoutY="75.0" text="###" />
+            <Label layoutX="203.0" layoutY="74.0" text="posts" />
+            <JFXButton layoutX="154.0" layoutY="166.0" style="-fx-background-color: #505050;" text="Follow" textFill="#e2e2e2" />
+            <Label fx:id="followingText" layoutX="548.0" layoutY="34.0" text="Following" />
+            <Label fx:id="searchedNumVerPosts" layoutX="297.0" layoutY="76.0" text="###" />
+            <Label layoutX="345.0" layoutY="75.0" text="Verified posts" />
+            <Label fx:id="searchedNumFollowers" layoutX="155.0" layoutY="115.0" text="###" />
+            <Label layoutX="203.0" layoutY="114.0" text="Followers" />
+            <Label fx:id="searchedNumFollowing" layoutX="299.0" layoutY="115.0" text="###" />
+            <Label layoutX="347.0" layoutY="114.0" text="Following" />
+            <JFXButton fx:id="upgradeModBtn" layoutX="258.0" layoutY="166.0" onAction="#turnModerator" style="-fx-background-color: #505050;" text="Upgrade to moderator" textFill="#e2e2e2" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

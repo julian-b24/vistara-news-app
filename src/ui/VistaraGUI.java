@@ -29,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
@@ -81,6 +82,12 @@ public class VistaraGUI {
 
     @FXML
     private AnchorPane commentsPane;
+   
+    @FXML
+    private TextField serachUser;
+
+    @FXML
+    private ChoiceBox<?> filterCategory;
     
 	public VistaraGUI(Vistara app){
 		vistara = app;
@@ -192,6 +199,32 @@ public class VistaraGUI {
     //
     @FXML
     private JFXButton upgradeBtn;
+    
+    //search user
+
+    @FXML
+    private AnchorPane searchPane;
+
+    @FXML
+    private Label searchedUsername;
+
+    @FXML
+    private Label searchedNumPosts;
+
+    @FXML
+    private Label followingText;
+    
+    @FXML
+    private Label searchedNumVerPosts;
+
+    @FXML
+    private Label searchedNumFollowers;
+
+    @FXML
+    private Label searchedNumFollowing;
+    
+    @FXML
+    private JFXButton upgradeModBtn;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -820,7 +853,51 @@ public class VistaraGUI {
 
     }
     
-    public void turnModerator() {
+    @FXML
+    public void turnModerator(ActionEvent event) {
     	 
     }
+    
+    @FXML
+    void filterFeedPosts(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchUserInFeed(ActionEvent event) {
+
+    	User searchedUser = vistara.searchUser(serachUser.getText().trim());
+    	if(searchedUser != null) {
+    		try {
+    			
+      			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("serach-user-pane.fxml"));
+      			fxmlLoader.setController(this);
+      			Parent searchFXML = fxmlLoader.load();
+      			
+      			mainPane.getChildren().clear();
+      			mainPane.getChildren().setAll(searchFXML);
+      			
+      			if(!(currentUser instanceof Moderator) || searchedUser instanceof Moderator) {
+      				upgradeModBtn.setVisible(false);
+      				upgradeModBtn.setDisable(true);
+      			}      			
+      			
+      			loadProfileBar(); 
+      			
+      			//Set searched user data
+      			searchedUsername.setText(searchedUser.getUsername());
+      			searchedNumPosts.setText(searchedUser.getOwnPosts().size()+"");
+      			searchedNumVerPosts.setText(searchedUser.getVerifiedPosts()+"");
+      			searchedNumFollowers.setText(searchedUser.getFollowers().size()+"");
+      			searchedNumFollowing.setText(searchedUser.getFollowing().size()+"");
+      			
+      		} catch (IOException e) {
+      			e.printStackTrace();
+      		}
+    	}else {
+    		//WARNING USER NOT FOUND
+    		System.out.println("not found");
+    	}
+    }
+    
 }
