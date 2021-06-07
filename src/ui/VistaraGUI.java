@@ -394,7 +394,7 @@ public class VistaraGUI {
 			LocalDateTime publicationTime = ((Moderator) currentUser).getPendingPosts().get(0).getDate();
 			
 			creatorUser.deletePost(publicationTime);
-			vistara.reOrderModerators(currentUser);
+			vistara.reOrderModerators();
 		}
 		
     }
@@ -963,6 +963,5 @@ public class VistaraGUI {
     	}else {
     		vistara.unfollowUser(currentUser, searchedUsername.getText());
     	}
-    	
     }
 }

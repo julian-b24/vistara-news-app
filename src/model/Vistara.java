@@ -28,6 +28,15 @@ public class Vistara {
 		trending = new ArrayList<>();
 	}
 
+	/**
+	* addUser: Creates a new user and adds it to the binary tree of users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String with the username of the new user
+	* @param email String with the email of the new user
+	* @param password String with the password of the new user
+	* @return added Boolean that determines if the user can be added or not
+	*/
 	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException {
 		
 		User user = new Moderator(username, email, password);
@@ -53,46 +62,13 @@ public class Vistara {
 		return added;
 	}
 
-	public ArrayList<Moderator> getMods() {
-		return mods;
-	}
-
-	public void setMods(ArrayList<Moderator> mods) {
-		this.mods = mods;
-	}
-
-	public User getRootUser() {
-		return rootUser;
-	}
-
-	public void setRootUser(User rootUser) {
-		this.rootUser = rootUser;
-	}
-
-	public Category getRootCategory() {
-		return rootCategory;
-	}
-
-	public void setRootCategory(Category rootCategory) {
-		this.rootCategory = rootCategory;
-	}
-
-	public ArrayList<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(ArrayList<Post> posts) {
-		this.posts = posts;
-	}
-
-	public ArrayList<Post> getTrending() {
-		return trending;
-	}
-
-	public void setTrending(ArrayList<Post> trending) {
-		this.trending = trending;
-	}
-
+	/**
+	* addUser: Adds recursively, a new User to the binary tree of users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param current The current node of the binary tree
+	* @param user The new User object that will be added
+	*/
 	private void addUser(User current, User user) {
 		
 		if(user.getUsername().compareTo(current.getUsername())<0) {
@@ -112,10 +88,26 @@ public class Vistara {
 		}
 	}
 
+	/**
+	* searchUserByName: Searches an user in the app binary tree of users by its name and return a boolean that determines if it found it or not<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param current The current node of the binary tree
+	* @param username The String with the username of the searched user
+	* @return The boolean that determines if the user was found or not.
+	*/
 	public boolean searchUserByName(String username) {
 		return searchUserByName(rootUser, username);		
 	}
 	
+	/**
+	* searchUserByName: Searches recursively for an user in the app binary tree of users by its name and return a boolean that determines if it found it or not<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param current The current node of the binary tree
+	* @param username The String with the username of the searched user
+	* @return The boolean that determines if the user was found or not.
+	*/
 	private boolean searchUserByName(User current, String username) {
 		if(current == null) {
 			return false;
@@ -132,6 +124,14 @@ public class Vistara {
 		}
 	}
 
+	/**
+	* verifyLogin: Verifies that the username and password received belong to the same account, and that non of them are empty<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username The String with the username of the user
+	* @param password The String with the password of the user
+	* @return searchedUser The searched User object if the account username exists. It is null if the user is not found.
+	*/
 	public User verifyLogin(String username, String password) throws InvalidUserException, EmptyFieldsException {
 		
 		if(username.isEmpty() || password.isEmpty()) {
@@ -151,10 +151,25 @@ public class Vistara {
 		return searchedUser;
 	}
 	
+	/**
+	* searchUser: A method that searches a user in the list of users from the app and returns it<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username The String with the username of the searched user
+	* @return current The searched User object. It is null if the user is not found.
+	*/
 	public User searchUser(String username) {
 		return searchUser(rootUser, username);		
 	}
 	
+	/**
+	* searchUser: A recursive method that searches a user in the list of users from the app and returns it<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param current The current node of the binary tree
+	* @param username The String with the username of the searched user
+	* @return current The searched User object. It is null if the user is not found.
+	*/
 	private User searchUser(User current, String username) {
 		if(current == null) {
 			return null;
@@ -189,6 +204,13 @@ public class Vistara {
 		addThread.start();
 	}
 	
+	/**
+	* addCategory: Adds a new category into the binary three of categories<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param newCat The new category thats going to be added
+	* @return added A boolean that determines whether or not the new category is already in the tree or not
+	*/
 	public boolean addCategory(String newCat) {
 		boolean added = true;
 		Category newCategory = new Category(newCat);
@@ -209,6 +231,13 @@ public class Vistara {
 		return added;
 	}
 	
+	/**
+	* addCategory: Is a recursive method that adds a new category into the binary three of categories<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param currentCat is the current node of the tree where the program is located
+	* @param newCat Is the new category thats going to be added
+	*/
 	private void addCategory(Category currentCat, Category newCat) {
 		
 		if(newCat.getName().compareTo(currentCat.getName())<0) {
@@ -355,20 +384,38 @@ public class Vistara {
 		}
 	}
 
-	public void reOrderModerators(User currentUser) {
+	/**
+	* reOrderModerators: It takes the list of moderators in the program and sort it by the amount of pending posts they have yet to confirm<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	*/
+	public void reOrderModerators() {
 		Collections.sort(mods);
 	}
 	
+	/**
+	* loadPossibleCategories: Is a method which obtains the names of all categories within the binary tree of categories<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return cats The ArrayList of type String with the names of the categories in the tree
+	*/
 	public ArrayList<String> loadPossibleCategories() {
 
 		ArrayList<String> cats = new ArrayList<>();
 		if(rootCategory != null ) {
 			cats = loadPossibleCategories(rootCategory, cats);
 		}
-		
 		return cats;
 	}
 	
+	/**
+	* loadPossibleCategories: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param current Is the current node of the tree where the program is located
+	* @param cats Is the ArrayList of type String with the names of all categories in the tree
+	* @return cats The ArrayList of type String with the names of the categories in the tree
+	*/
 	public ArrayList<String> loadPossibleCategories(Category current, ArrayList<String> cats) {
 		if(current != null) {
 			cats = loadPossibleCategories(current.getLeftCategory(), cats);
@@ -406,16 +453,69 @@ public class Vistara {
 		
 	}
 
+	/**
+	* followUser: Adds the current user who is using the app to the list of followers of the searched user. Also adds the searched user to the list of following users from the current user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param currentUser Is an User object, reference to the user who is currently using the app
+	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
+	*/
 	public void followUser(User currentUser, String searchedUsername) {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().add(currentUser);
     	currentUser.getFollowing().add(followedUser);
 	}
 
+	/**
+	* unfollowUser: Removes the current user who is using the app to the list of followers of the searched user. Also removes the searched user to the list of following users from the current user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param currentUser Is an User object, reference to the user who is currently using the app
+	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
+	*/
 	public void unfollowUser(User currentUser, String searchedUsername) {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().remove(currentUser);
     	currentUser.getFollowing().remove(followedUser);
 	}
 	
+	public ArrayList<Moderator> getMods() {
+		return mods;
+	}
+
+	public void setMods(ArrayList<Moderator> mods) {
+		this.mods = mods;
+	}
+
+	public User getRootUser() {
+		return rootUser;
+	}
+
+	public void setRootUser(User rootUser) {
+		this.rootUser = rootUser;
+	}
+
+	public Category getRootCategory() {
+		return rootCategory;
+	}
+
+	public void setRootCategory(Category rootCategory) {
+		this.rootCategory = rootCategory;
+	}
+
+	public ArrayList<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
+	}
+
+	public ArrayList<Post> getTrending() {
+		return trending;
+	}
+
+	public void setTrending(ArrayList<Post> trending) {
+		this.trending = trending;
+	}
 }
