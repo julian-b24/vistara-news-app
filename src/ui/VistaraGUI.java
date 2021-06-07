@@ -157,6 +157,14 @@ public class VistaraGUI {
     @FXML
     private JFXRadioButton fakeNew;
     
+    //create category
+    
+    @FXML
+    private JFXTextField newCategoryName;
+
+    @FXML
+    private JFXTextField newCategoryImagePath;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -335,6 +343,13 @@ public class VistaraGUI {
 		warning.setContentText("The post has been verified");
 		warning.showAndWait();		
 	}
+	
+	private void genericSuccessMessage() {
+		Alert warning = new Alert(AlertType.CONFIRMATION);
+		warning.setTitle("Task done successfully");
+		warning.setContentText("The task was completed");
+		warning.showAndWait();		
+	}
 
 	private void loadComments() {
 		try {
@@ -442,6 +457,29 @@ public class VistaraGUI {
 		}
     }
 	
+	@FXML
+    public void createCategory(ActionEvent event) {
+		String categoryName = newCategoryName.getText().trim();
+		
+		if(categoryName.isEmpty()) {
+			emptyFieldAlert();
+		}else {
+			boolean created = vistara.addCategory(categoryName);
+			if(created) {
+				genericSuccessMessage();
+			}else {
+				repeatedCategoryAlert();
+			}
+		}
+    }
+	
+	private void repeatedCategoryAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Repeated category");
+		warning.setContentText("This category already exist. Maybe try another one");
+		warning.showAndWait();		
+	}
+
 	private void loadCreateCategoryTab() {
 		
 		try {

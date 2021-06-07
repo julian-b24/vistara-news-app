@@ -6,9 +6,15 @@ public class Category {
 
 	private Category leftCategory;
 	private Category rightCategory;
+	private Category parent;
 	private String name;
 	private Image background;
 
+	
+	public Category(String cat) {
+		name = cat;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -47,6 +53,14 @@ public class Category {
 
 	public void setRightCategory(Category rightCategory) {
 		this.rightCategory = rightCategory;
+	}
+
+	public Category getParent() {
+		return parent;
+	}
+
+	public void setParent(Category parent) {
+		this.parent = parent;
 	}
 
 }

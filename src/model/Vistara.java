@@ -180,6 +180,45 @@ public class Vistara {
 		//Rating
 	}
 	
+	public boolean addCategory(String newCat) {
+		boolean added = true;
+		Category newCategory = new Category(newCat);
+		
+		Category repeatedCategory = searchCategory(newCat);
+		
+		if(repeatedCategory == null) {
+			if(rootCategory == null) {
+				
+				rootCategory = newCategory;
+			}else {
+				addCategory(rootCategory, newCategory);
+			}
+		}else {
+			added = false;
+		}
+		
+		return added;
+	}
+	
+	private void addCategory(Category currentCat, Category newCat) {
+		
+		if(newCat.getName().compareTo(currentCat.getName())<0) {
+			if(currentCat.getLeftCategory() == null) {
+				currentCat.setLeftCategory(newCat);
+				newCat.setParent(currentCat);
+			}else {
+				addCategory(currentCat.getLeftCategory(), newCat);
+			}
+		}else {
+			if(currentCat.getRightCategory() == null) {
+				currentCat.setRightCategory(newCat);
+				newCat.setParent(currentCat);
+			}else {
+				addCategory(currentCat.getRightCategory(), newCat);
+			}
+		}
+	}
+
 	/**
 	 * Search a category making a call to a recursive method, that goes through the BST of categories
 	 * @param categoryName, String name of the category. It must be different from null and empty string
