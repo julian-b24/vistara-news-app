@@ -1,6 +1,5 @@
 package ui;
 
-import model.Category;
 import model.Moderator;
 import model.Post;
 import model.State;
@@ -8,10 +7,8 @@ import model.User;
 import model.Vistara;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -26,13 +23,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -232,6 +227,9 @@ public class VistaraGUI {
     @FXML
     private JFXButton followBtnText;
     
+    @FXML
+    private Label searchedNumFakePosts;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -412,11 +410,21 @@ public class VistaraGUI {
     		}
     		
     		if(state != null && ((Moderator) currentUser).getPendingPosts().size() > 0) {
+    			//sets the state of the post to verified or fake
 				((Moderator) currentUser).getPendingPosts().get(0).setState(state);
+				
+				//edit info of creator user
+				User user = (((Moderator) currentUser).getPendingPosts().get(0).getAuthor());
+				if(state == State.VERIFIED) {
+					user.setVerifiedPosts(user.getVerifiedPosts()+1);
+				}else if(state == State.FAKE_NEW) {
+					user.setFakePosts(user.getFakePosts()+1);
+				}
 				
 	    		((Moderator) currentUser).getPendingPosts().remove(0);
 	    		
 	    		showInfoAlert();
+	    		vistara.reOrderModerators();
 	    		
 	    		loadVerifyPost(null);
     		}
@@ -946,6 +954,7 @@ public class VistaraGUI {
       			searchedNumVerPosts.setText(searchedUser.getVerifiedPosts()+"");
       			searchedNumFollowers.setText(searchedUser.getFollowers().size()+"");
       			searchedNumFollowing.setText(searchedUser.getFollowing().size()+"");
+      			searchedNumFakePosts.setText(searchedUser.getFakePosts()+"");
       			
       		} catch (IOException e) {
       			e.printStackTrace();
@@ -958,10 +967,16 @@ public class VistaraGUI {
     
     @FXML
     void followUser(ActionEvent event) {
+    	
     	if(followBtnText.getText().equals("Follow")) {
     		vistara.followUser(currentUser, searchedUsername.getText());
     	}else {
     		vistara.unfollowUser(currentUser, searchedUsername.getText());
     	}
+    }
+    
+    @FXML
+    void upgradeUser(ActionEvent event) {
+    	vistara.upgradeUser(searchedUsername.getText());
     }
 }

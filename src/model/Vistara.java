@@ -1,5 +1,6 @@
 package model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -201,9 +202,23 @@ public class Vistara {
 		posts.add(post);
 		author.getOwnPosts().add(post);
 		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);
+		addPostToModeratorList(post);
 		addThread.start();
 	}
 	
+	/**
+	* addPostToModeratorList: Adds a post to the pending list of the first moderator in the list<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param post The new post
+	*/
+	private void addPostToModeratorList(Post post) {
+		if(mods.size() > 0) {
+			mods.get(0).getPendingPosts().add(post);
+			reOrderModerators();
+		}
+	}
+
 	/**
 	* addCategory: Adds a new category into the binary three of categories<br>
 	* <b> pre </b> <br>
@@ -518,4 +533,30 @@ public class Vistara {
 	public void setTrending(ArrayList<Post> trending) {
 		this.trending = trending;
 	}
+
+	public void upgradeUser(String username) {
+		User user = searchUser(username);
+		LocalDateTime nowTime = LocalDateTime.now();
+		Duration timeInVistara = Duration.between(user.getCreationDate(), nowTime);
+		if(user.getVerifiedPosts() >=20 && timeInVistara.toDays() >= 30) {
+			//ascend
+		}
+	}
+	
+	/*
+	 *  //
+		 LocalDateTime a = LocalDateTime.of(2021, 6, 6, 12, 00);
+		 LocalDateTime b = LocalDateTime.now();
+		 System.out.println("/////");
+		 Duration duraiton = Duration.between(a, b);
+		 System.out.println(duraiton.toDays());
+		 
+		  LocalDateTime a = LocalDateTime.of(2021, 5, 6, 12, 00);
+		 LocalDateTime b = LocalDateTime.now();
+		 Duration timeInVistara = Duration.between(a, b);
+		 if(timeInVistara.toDays() >= 30) {
+			 System.out.println("WAAAAA");
+		 }
+		 //
+	 */
 }

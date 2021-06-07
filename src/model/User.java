@@ -24,6 +24,7 @@ public class User implements StatsCalculable{
 	private ArrayList<Post> ownPosts;
 	private ArrayList<Post> reactedPosts;
 	private int verifiedPosts;
+	private int fakePosts;
 
 	/**
 	* User: User class constructor <br>
@@ -276,6 +277,14 @@ public class User implements StatsCalculable{
 			}
 		}
 		return user;
+	}
+
+	public int getFakePosts() {
+		return fakePosts;
+	}
+
+	public void setFakePosts(int fakePosts) {
+		this.fakePosts = fakePosts;
 	}
 
 	
