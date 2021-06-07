@@ -14,7 +14,7 @@
             <Circle fill="#ff7553" layoutX="79.0" layoutY="86.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" />
             <Label fx:id="searchedNumPosts" layoutX="155.0" layoutY="75.0" text="###" />
             <Label layoutX="203.0" layoutY="74.0" text="posts" />
-            <JFXButton layoutX="154.0" layoutY="166.0" style="-fx-background-color: #505050;" text="Follow" textFill="#e2e2e2" />
+            <JFXButton fx:id="followBtnText" layoutX="154.0" layoutY="166.0" onAction="#followUser" style="-fx-background-color: #505050;" text="Follow" textFill="#e2e2e2" />
             <Label fx:id="followingText" layoutX="548.0" layoutY="34.0" text="Following" />
             <Label fx:id="searchedNumVerPosts" layoutX="297.0" layoutY="76.0" text="###" />
             <Label layoutX="345.0" layoutY="75.0" text="Verified posts" />

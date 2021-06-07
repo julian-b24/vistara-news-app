@@ -405,5 +405,17 @@ public class Vistara {
 	public void loadData() {
 		
 	}
+
+	public void followUser(User currentUser, String searchedUsername) {
+		User followedUser = searchUser(searchedUsername);
+    	followedUser.getFollowers().add(currentUser);
+    	currentUser.getFollowing().add(followedUser);
+	}
+
+	public void unfollowUser(User currentUser, String searchedUsername) {
+		User followedUser = searchUser(searchedUsername);
+    	followedUser.getFollowers().remove(currentUser);
+    	currentUser.getFollowing().remove(followedUser);
+	}
 	
 }

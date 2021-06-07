@@ -268,5 +268,15 @@ public class User implements StatsCalculable{
 		this.verifiedPosts = verifiedPosts;
 	}
 
+	public User searchUserFollowing(String username) {
+		User user = null;
+		for (int i = 0; i < following.size(); i++) {
+			if(following.get(i).getUsername().equals(username)) {
+				user = following.get(i);
+			}
+		}
+		return user;
+	}
+
 	
 }

@@ -229,6 +229,9 @@ public class VistaraGUI {
     @FXML
     private AnchorPane profileSearchPane;
     
+    @FXML
+    private JFXButton followBtnText;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -920,6 +923,8 @@ public class VistaraGUI {
       			mainPane.getChildren().clear();
       			mainPane.getChildren().setAll(searchFXML);
       			
+      			
+      			//Verify that the current user has the option to turn other into moderatoes or if the searched user is already a moderator
       			if(!(currentUser instanceof Moderator) || searchedUser instanceof Moderator) {
       				upgradeModBtn.setVisible(false);
       				upgradeModBtn.setDisable(true);
@@ -927,6 +932,14 @@ public class VistaraGUI {
       			
       			loadProfileBar(); 
       			
+      			//set text for following
+      			User userSearched = currentUser.searchUserFollowing(searchedUser.getUsername());
+      			if(userSearched == null) {
+      				followingText.setText("Not following");
+      			}
+      			else {
+      				followBtnText.setText("Unfollow");
+      			}
       			//Set searched user data
       			searchedUsername.setText(searchedUser.getUsername());
       			searchedNumPosts.setText(searchedUser.getOwnPosts().size()+"");
@@ -943,4 +956,13 @@ public class VistaraGUI {
     	}
     }
     
+    @FXML
+    void followUser(ActionEvent event) {
+    	if(followBtnText.getText().equals("Follow")) {
+    		vistara.followUser(currentUser, searchedUsername.getText());
+    	}else {
+    		vistara.unfollowUser(currentUser, searchedUsername.getText());
+    	}
+    	
+    }
 }
