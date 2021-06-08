@@ -221,6 +221,21 @@ public class Vistara {
 	}
 	
 	/**
+	 * Creates a new comment in a specific post. The comment will be added to the post's comments linked list
+	 * @param author, User, the author of the comment. It must be different from null.
+	 * @param content, String, the content of the comment. It must be different from null and an empty string
+	 * @param post, Post, the post to be commented. It must be different from null.
+	 */
+	public void createComment(User author, String content, Post post) {
+		Comment lastComment = post.getLastComment();
+		Comment firstComment = post.getFirstComment();
+		Comment newComment = new Comment(author.getUsername(), content);
+		lastComment.setNextComment(newComment);
+		firstComment.setPreviousComment(newComment);
+		comments.add(newComment);
+	}
+	
+	/**
 	* addPostToModeratorList: Adds a post to the pending list of the first moderator in the list<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>

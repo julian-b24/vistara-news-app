@@ -7,13 +7,12 @@ public class Comment extends Content implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Comment nextComment;
-	private Comment previouComment;
+	private Comment previousComment;
 	private String content;
 
 	/**
 	 * 
 	 * @param user
-	 * @param pic
 	 * @param cont
 	 */
 	public Comment(String user, String cont) {
@@ -29,12 +28,12 @@ public class Comment extends Content implements Serializable {
 		this.nextComment = nextComment;
 	}
 
-	public Comment getPreviouComment() {
-		return previouComment;
+	public Comment getPreviousComment() {
+		return previousComment;
 	}
 
-	public void setPreviouComment(Comment previouComment) {
-		this.previouComment = previouComment;
+	public void setPreviousComment(Comment previouComment) {
+		this.previousComment = previouComment;
 	}
 
 	public String getContent() {
