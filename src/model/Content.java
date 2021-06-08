@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
-public abstract class Content {
+public abstract class Content implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private User author;
 	private Image authorPic;
 

@@ -1,13 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
-public class User implements StatsCalculable{
+public class User implements StatsCalculable, Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private User rightUser;
 	private User leftUser;
 	private User parentUser;

@@ -1,7 +1,11 @@
 package model;
 
-public class Comment extends Content {
+import java.io.Serializable;
 
+public class Comment extends Content implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private Comment nextComment;
 	private Comment previouComment;
 	private String content;

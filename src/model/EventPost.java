@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class EventPost extends Post {
+public class EventPost extends Post implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Event event;
 
 	public EventPost(User user, String title, String content, Category category, LocalDateTime date, String link, Event event) {

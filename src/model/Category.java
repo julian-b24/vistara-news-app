@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
-public class Category {
+public class Category implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Category leftCategory;
 	private Category rightCategory;
 	private Category parent;

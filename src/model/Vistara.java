@@ -1,5 +1,12 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,13 +22,20 @@ public class Vistara {
 
 	public final static String IMAGE_PATH = "file:imgs/";
 	public final static int MIN_RATING = 5;
-	public final static String SAVE_PATH = "data/system/";
+	public final static String SAVE_PATH_USERS = "data/system/users.txr";
+	public final static String SAVE_PATH_MODS = "data/system/modss.txr";
+	public final static String SAVE_PATH_CATEGORIES = "data/system/categories.txr";
+	public final static String SAVE_PATH_POSTS = "data/system/posts.txr";
+	public final static String SAVE_PATH_TRENDING = "data/system/trending.txr";
+	public final static String SAVE_PATH_COMMENTS = "data/system/comments.txr";
+	
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
 	private Category rootCategory;
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
+	private ArrayList<Comment> comments;
 	
 	public Vistara() {
 		mods = new ArrayList<>();
@@ -409,7 +423,7 @@ public class Vistara {
 	}
 	
 	/**
-	* loadPossibleCategories: Is a method which obtains the names of all categories within the binary tree of categories<br>
+	* loadPossibleCategories: Obtains the names of all categories within the binary tree of categories<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
 	* @return cats The ArrayList of type String with the names of the categories in the tree
@@ -462,10 +476,129 @@ public class Vistara {
 	}
 	
 	/**
-	 * Load the serialized app's information
+	 * Load the serialized app's information from the data.system folder
+	 * @throws IOException 
+	 * @throws FileNotFoundException in case the file with the serialized information does not exist
+	 * @throws ClassNotFoundException in case the class to read does not exist
 	 */
-	public void loadData() {
+	@SuppressWarnings("unchecked")
+	public void loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
+		File fileMods = new File(SAVE_PATH_MODS);
+		File fileCategories = new File(SAVE_PATH_MODS);
+		File fileComments = new File(SAVE_PATH_MODS);
+		File fileUsers = new File(SAVE_PATH_MODS);
+		File filePosts = new File(SAVE_PATH_MODS);
+		File fileTrending = new File(SAVE_PATH_MODS);
+		
+		if (fileMods.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileMods));
+			mods = (ArrayList<Moderator>) ois.readObject();
+			ois.close();
+		}
+		
+		if (fileCategories.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileCategories));
+			rootCategory = (Category) ois.readObject();
+			ois.close();
+		}
+		
+		if (fileComments.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileComments));
+			comments = (ArrayList<Comment>) ois.readObject();
+			ois.close();
+		}
+		
+		if (fileUsers.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileUsers));
+			rootUser = (User) ois.readObject();
+			ois.close();
+		}
+		
+		if (filePosts.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePosts));
+			posts = (ArrayList<Post>) ois.readObject();
+			ois.close();
+		}
+		
+		if (fileTrending.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileTrending));
+			trending = (ArrayList<Post>) ois.readObject();
+			ois.close();
+		}
+	}
+	
+	/**
+	 * Save the program data in serialized files on the folder data.system
+	 * @throws IOException 
+	 */
+	public void saveData() throws IOException {
+		saveCommentsData();
+		saveModsData();
+		saveUsersData();
+		saveTrendingData();
+		saveCategoriesData();
+		savePostsData();
+	}
+
+	/**
+	 * Save the comments in the program in a serialized file
+	 * @throws IOException
+	 */
+	public void saveCommentsData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_COMMENTS));
+		oosI.writeObject(comments);
+		oosI.close();
+	}
+	
+	/**
+	 * Save the moderators of the program in a serialized file
+	 * @throws IOException
+	 */
+	public void saveModsData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_MODS));
+		oosI.writeObject(mods);
+		oosI.close();
+	}
+	
+	/**
+	 * Save the users in the app in a serialized file
+	 * @throws IOException
+	 */
+	public void saveUsersData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_USERS));
+		oosI.writeObject(rootUser);
+		oosI.close();
+	}
+	
+	/**
+	 * Save the program's trending posts in a serialized file
+	 * @throws IOException
+	 */
+	public void saveTrendingData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_TRENDING));
+		oosI.writeObject(trending);
+		oosI.close();
+	}
+	
+	/**
+	 * Save the program's categories in a serialized file
+	 * @throws IOException
+	 */
+	public void saveCategoriesData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_CATEGORIES));
+		oosI.writeObject(rootCategory);
+		oosI.close();
+	}
+	
+	/**
+	 * Save the program's posts in a serialized file
+	 * @throws IOException
+	 */
+	public void savePostsData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_POSTS));
+		oosI.writeObject(posts);
+		oosI.close();
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -7,8 +8,10 @@ import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
-public class Post extends Content implements StatsCalculable, Rateable{
+public class Post extends Content implements StatsCalculable, Rateable, Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String title;
 	private String content;
 	private Category category;

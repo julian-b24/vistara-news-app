@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Moderator extends User implements ModeratorManagement, Comparable<Moderator>{
+public class Moderator extends User implements ModeratorManagement, Comparable<Moderator>, Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Post> pendingPosts;				//Posts waiting for verification
 
 	public Moderator(String username, String email, String password) {
