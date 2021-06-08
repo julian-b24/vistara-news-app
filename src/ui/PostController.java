@@ -1,11 +1,14 @@
 package ui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import model.Post;
+import model.User;
+import model.Vistara;
 
 public class PostController {
 
@@ -39,7 +42,15 @@ public class PostController {
     @FXML
     private Label newsLink;
     
-    public void setData (Post post) {
+    private Post post;
+    private Vistara vistara;
+    private User currentUser;
+    
+    public void setData (Post post, Vistara vis, User user) {
+    	
+    	this.post = post;
+    	vistara = vis;
+    	currentUser = user;
     	//post image
     	//Image image = new Image(getClass().getResourceAsStream(post.getImgPath()));
     	//newsImage.setImage(image);
@@ -55,5 +66,15 @@ public class PostController {
     	numberCommmentaries.setText(post.getComments()+"");
     	newsLink.setText(post.getFullNewLink());
     	
+    }
+    
+    @FXML
+    void commentOnPost(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void reactToPost(ActionEvent event) {
+    	vistara.reactToPost(post, currentUser);
     }
 }
