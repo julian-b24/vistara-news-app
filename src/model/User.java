@@ -287,5 +287,13 @@ public class User implements StatsCalculable{
 		this.fakePosts = fakePosts;
 	}
 
-	
+	public boolean searchReactedPost(Post reacted) {
+		boolean reactedAlready = false;
+		for (int i = 0; i < getReactedPosts().size() && !reactedAlready; i++) {
+			if(reactedPosts.get(i) == reacted) {
+				reactedAlready = true;
+			}
+		}
+		return reactedAlready;
+	}
 }

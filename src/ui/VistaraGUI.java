@@ -328,7 +328,7 @@ public class VistaraGUI {
 				
 					AnchorPane postBox = fxmlLoader.load();	
 					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getFeed().get(i));
+					postController.setData(currentUser.getFeed().get(i), vistara, currentUser);
 					
 					if(columns == 1) {
 						 columns = 0;
@@ -505,7 +505,7 @@ public class VistaraGUI {
 					PostController postController = fxmlLoader.getController();					
 					
 					System.out.println(((Moderator) currentUser).getPendingPosts().get(0).getContent());
-					postController.setData(((Moderator) currentUser).getPendingPosts().get(0));
+					postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser);
 					
 					postVerifyPost.getChildren().clear();
 					postVerifyPost.getChildren().setAll(postToVerify);
@@ -901,7 +901,7 @@ public class VistaraGUI {
 					
 						AnchorPane postBox = fxmlLoader.load();	
 						PostController postController = fxmlLoader.getController();
-						postController.setData(vistara.getPosts().get(i));
+						postController.setData(vistara.getPosts().get(i), vistara, currentUser);
 						System.out.println("gen gen");
 						if(columns == 1) {
 							 columns = 0;
@@ -940,6 +940,10 @@ public class VistaraGUI {
       			
       			loadProfileBar(); 
       			
+      			if(searchedUser == currentUser) {
+      				followBtnText.setVisible(false);
+      				followBtnText.setDisable(true);
+      			}
       			//set text for following
       			User userSearched = currentUser.searchUserFollowing(searchedUser.getUsername());
       			if(userSearched == null) {
@@ -978,5 +982,15 @@ public class VistaraGUI {
     @FXML
     void upgradeUser(ActionEvent event) {
     	vistara.upgradeUser(searchedUsername.getText());
+    }
+    
+    @FXML
+    void commentOnPost(ActionEvent event) {
+
+    }
+
+    @FXML
+    void reactToPost(ActionEvent event) {
+    	
     }
 }

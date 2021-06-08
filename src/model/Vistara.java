@@ -542,6 +542,21 @@ public class Vistara {
 			//ascend
 		}
 	}
+
+	public void reactToPost(Post post, User currentUser) {
+		boolean reacted = currentUser.searchReactedPost(post);		
+		if(reacted) {
+			System.out.println("REMOVE");
+			post.getReactedUsers().remove(currentUser);
+			post.setReactions(post.getReactions()-1);
+			currentUser.getReactedPosts().remove(post);
+		}else {
+			System.out.println("ADD");
+			post.getReactedUsers().add(currentUser);
+			post.setReactions(post.getReactions()+1);
+			currentUser.getReactedPosts().add(post);
+		}
+	}
 	
 	/*
 	 *  //
