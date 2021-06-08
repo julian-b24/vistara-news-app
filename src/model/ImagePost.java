@@ -11,7 +11,7 @@ public class ImagePost extends Post implements Serializable{
 	
 	private Image image;
 
-	public ImagePost(User user, String title, String content, Category category, LocalDateTime date, String link, Image image) {
+	public ImagePost(String user, String title, String content, Category category, LocalDateTime date, String link, Image image) {
 		super(user, title, content, category, date, link);
 		this.image = image;
 	}

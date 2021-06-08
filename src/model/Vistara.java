@@ -212,7 +212,7 @@ public class Vistara {
 		
 		Category category = searchCategory(categoryName);
 		LocalDateTime date = LocalDateTime.now();
-		Post post = new Post(author, title, content, category, date, link);
+		Post post = new Post(author.getUsername(), title, content, category, date, link);
 		posts.add(post);
 		author.getOwnPosts().add(post);
 		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);

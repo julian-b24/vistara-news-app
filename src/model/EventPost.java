@@ -9,7 +9,7 @@ public class EventPost extends Post implements Serializable{
 	
 	private Event event;
 
-	public EventPost(User user, String title, String content, Category category, LocalDateTime date, String link, Event event) {
+	public EventPost(String user, String title, String content, Category category, LocalDateTime date, String link, Event event) {
 		
 		super(user, title, content, category, date, link);
 		this.event = event;

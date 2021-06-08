@@ -272,11 +272,11 @@ public class VistaraGUI {
     			if(currentUser instanceof Moderator) {
     				//TEST
     				LocalDateTime lc = LocalDateTime.now();
-    				Post postx = new Post(currentUser, "A", "CONTNET 1", null, lc, "www.1");
+    				Post postx = new Post(currentUser.getUsername(), "A", "CONTNET 1", null, lc, "www.1");
     				
     				((Moderator) currentUser).getPendingPosts().add(postx);
     				
-    				postx = new Post(currentUser, "B", "CONTNET 2", null, lc, "www.2");
+    				postx = new Post(currentUser.getUsername(), "B", "CONTNET 2", null, lc, "www.2");
     				((Moderator) currentUser).getPendingPosts().add(postx);
     				System.out.println(((Moderator) currentUser).getPendingPosts().size());
     				//
@@ -388,7 +388,8 @@ public class VistaraGUI {
 	@FXML
     public void deletePost(ActionEvent event) {
 		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
-			User creatorUser = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
+			String creatorString = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
+			User creatorUser = vistara.searchUser(creatorString);
 			LocalDateTime publicationTime = ((Moderator) currentUser).getPendingPosts().get(0).getDate();
 			
 			creatorUser.deletePost(publicationTime);
@@ -414,7 +415,8 @@ public class VistaraGUI {
 				((Moderator) currentUser).getPendingPosts().get(0).setState(state);
 				
 				//edit info of creator user
-				User user = (((Moderator) currentUser).getPendingPosts().get(0).getAuthor());
+				String userString = (((Moderator) currentUser).getPendingPosts().get(0).getAuthor());
+				User user = vistara.searchUser(userString);
 				if(state == State.VERIFIED) {
 					user.setVerifiedPosts(user.getVerifiedPosts()+1);
 				}else if(state == State.FAKE_NEW) {

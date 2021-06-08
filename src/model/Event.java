@@ -12,7 +12,7 @@ public class Event extends Content implements Serializable{
 	
 	private LocalDateTime date;
 	
-	public Event(User user, LocalDateTime date) {
+	public Event(String user, LocalDateTime date) {
 		super(user);
 		// TODO Auto-generated constructor stub
 	}

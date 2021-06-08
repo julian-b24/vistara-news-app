@@ -27,7 +27,7 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	private int reactions;
 	private int comments;
 
-	public Post(User user, String title, String content, Category category, LocalDateTime date, String link) {
+	public Post(String user, String title, String content, Category category, LocalDateTime date, String link) {
 		super(user);
 		this.title = title;
 		this.content = content;

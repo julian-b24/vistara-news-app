@@ -8,10 +8,10 @@ public abstract class Content implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private User author;
+	private String author;
 	private Image authorPic;
 
-	public User getAuthor() {
+	public String getAuthor() {
 		return this.author;
 	}
 
@@ -19,7 +19,7 @@ public abstract class Content implements Serializable{
 	 * 
 	 * @param author
 	 */
-	public void setAuthor(User author) {
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 
@@ -40,9 +40,9 @@ public abstract class Content implements Serializable{
 	 * @param user
 	 * @param pic
 	 */
-	public Content(User user) {
+	public Content(String user) {
 		author = user;
-		authorPic = author.getProfilePic();
+		//authorPic = author.getProfilePic();
 	}
 
 }
