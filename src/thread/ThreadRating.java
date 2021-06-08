@@ -21,7 +21,7 @@ public class ThreadRating extends Thread{
 			if(posts.size() > 0) {	
 				for (Post post : posts) {
 					double rating = post.getRating();
-					if(rating >= vistara.MIN_RATING) {
+					if(rating >= Vistara.MIN_RATING) {
 						newTrending.add(post);
 					}
 				}

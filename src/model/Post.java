@@ -6,7 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.scene.image.Image;
 
 public class Post extends Content implements StatsCalculable, Rateable, Serializable{
 
@@ -227,6 +226,14 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 
 	public void setComments(int comments) {
 		this.comments = comments;
+	}
+
+	public Comment getLastComment() {
+		return lastComment;
+	}
+
+	public void setLastComment(Comment lastComment) {
+		this.lastComment = lastComment;
 	}
 
 	

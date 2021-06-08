@@ -6,7 +6,6 @@ public class EmptyFieldsException extends Exception{
 	
 	private String username;
 	private String password;
-	private String email;
 	
 	public EmptyFieldsException(String username, String password) {
 		super("Some fields are empty");

@@ -2,9 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import javafx.scene.image.Image;
 
 public class Event extends Content implements Serializable{
 

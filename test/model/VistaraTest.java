@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
-import javafx.scene.image.Image;
 
 class VistaraTest {
 
