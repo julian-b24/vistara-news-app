@@ -56,7 +56,7 @@
       </HBox>
       <VBox layoutX="23.0" layoutY="303.0" prefHeight="370.0" prefWidth="234.0">
          <children>
-            <JFXButton fx:id="loadFeed" alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="235.0" text="My Feed">
+            <JFXButton alignment="BOTTOM_LEFT" onAction="#loadFeed" prefHeight="25.0" prefWidth="235.0" text="My Feed">
                <graphic>
                   <FontAwesomeIconView glyphName="SQUARE_ALT" size="20" />
                </graphic>

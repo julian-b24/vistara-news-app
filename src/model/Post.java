@@ -245,6 +245,16 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		this.lastComment = lastComment;
 	}
 
+	public void editState(String statePost) {
+		State newState;
+		if(statePost.equals(State.VERIFIED.toString())) {
+			newState = State.VERIFIED;
+		}else {
+			newState = State.FAKE_NEW;
+		}
+		setState(newState);
+	}
+
 	
 	
 }

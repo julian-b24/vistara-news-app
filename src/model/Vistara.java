@@ -28,7 +28,8 @@ public class Vistara {
 	public final static String SAVE_PATH_POSTS = "data/system/posts.txr";
 	public final static String SAVE_PATH_TRENDING = "data/system/trending.txr";
 	public final static String SAVE_PATH_COMMENTS = "data/system/comments.txr";
-	
+	public final static String VERIFIED = "VERIFIED";
+	public final static String FAKE = "FAKE_NEW";	
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
@@ -41,6 +42,9 @@ public class Vistara {
 		mods = new ArrayList<>();
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
+		Moderator m = new Moderator("a", "a", "a");
+		mods.add(m);
+		rootUser = m;
 	}
 
 	/**
@@ -788,6 +792,34 @@ public class Vistara {
 		}
 
 		return post;
+	}
+
+	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException {
+		User creator = searchUser(creatorString);
+		User mod = searchUser(moderator);
+		
+		creator.getOwnPosts().remove(postToRemove);
+		
+		if(mod instanceof Moderator) {
+			((Moderator) mod).getPendingPosts().remove(postToRemove);
+		}
+	}
+
+	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException {
+		User creator = searchUser(creatorUser);		
+		User moderator = searchUser(mod);
+		
+		postToVerify.editState(state);
+		
+		if(state.equals(VERIFIED)) {
+			creator.setVerifiedPosts(creator.getVerifiedPosts()+1);
+		}else {
+			creator.setFakePosts(creator.getFakePosts()+1);
+		}
+		
+		if(moderator instanceof Moderator) {
+			((Moderator) moderator).getPendingPosts().remove(postToVerify);
+		}
 	}
 	
 	/*
