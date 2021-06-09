@@ -54,7 +54,7 @@ public class Vistara {
 	*/
 	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException {
 		
-		User user = new Moderator(username, email, password);
+		User user = new User(username, email, password);
 
 		boolean added = true;
 		
@@ -73,6 +73,29 @@ public class Vistara {
 			
 		}else {
 			rootUser = user;
+		}
+		return added;
+	}
+	
+	/**
+	 * Adds an user to the BST and returns true in case it was added
+	 * @param newUser
+	 * @return true in case the user was added, any otherwise it throws an exception
+	 * @throws RepeatedUsernameException, in case the name of the user to be added is already in use by other user in the BST
+	 */
+	public boolean addUser(User newUser) throws RepeatedUsernameException {
+		boolean added = true;
+		if(rootUser != null) {
+			//Search for any coincidence with the username	
+			boolean repeatedName = searchUserByName(newUser.getUsername());
+			if(!repeatedName) {
+				addUser(rootUser, newUser);
+			}else {
+				throw new RepeatedUsernameException(newUser.getUsername());
+			}
+			
+		}else {
+			rootUser = newUser;
 		}
 		return added;
 	}
@@ -188,7 +211,7 @@ public class Vistara {
 	private User searchUser(User current, String username) {
 		if(current == null) {
 			return null;
-		}		
+		}
 	
 		if(username.compareTo(current.getUsername())<0) {
 			return searchUser(current.getLeftUser(), username);
@@ -339,22 +362,31 @@ public class Vistara {
 	 * @param description, String, the new description of the user
 	 * @param profilePicName, String, the new path of the user's profile picture
 	 * @throws RepeatedUsernameException in case the new username already exists in the app
+	 * @throws EmptyFieldsException in case any parameter is empty
 	 */
-	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException {
+	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException, EmptyFieldsException {
 		boolean repeatedName = searchUserByName(username);
-		if(!repeatedName) {
-			User copy = user.getClone();
-			removeUser(user);
-			copy.setUsername(username);
-			copy.setPassword(password);
-			copy.setEmail(email);
-			copy.setDescription(description);
-			Image profilePic = new Image(IMAGE_PATH + profilePicName);
-			copy.setProfilePic(profilePic);
-			addUser(rootUser, copy);
+		if(username != null && password != null && email != null && description != null) {
+			if(username.isEmpty() || password.isEmpty() || email.isEmpty() || description.isEmpty()) {
+				throw new EmptyFieldsException(username, password);
+			}
 			
-		}else {
-			throw new RepeatedUsernameException(username);
+			if(!repeatedName) {
+				User copy = user.getClone();
+				removeUser(user);
+				copy.setUsername(username);
+				copy.setPassword(password);
+				copy.setEmail(email);
+				copy.setDescription(description);
+				if(profilePicName != null) {
+					Image profilePic = new Image(IMAGE_PATH + profilePicName);
+					copy.setProfilePic(profilePic);
+				}
+				addUser(copy);
+				
+			}else {
+				throw new RepeatedUsernameException(username);
+			}
 		}
 	}
 	
@@ -463,7 +495,6 @@ public class Vistara {
 	public ArrayList<String> loadPossibleCategories(Category current, ArrayList<String> cats) {
 		if(current != null) {
 			cats = loadPossibleCategories(current.getLeftCategory(), cats);
-			//System.out.println(current.getName());
 			cats.add(current.getName());
 			cats = loadPossibleCategories(current.getRightCategory(), cats);
 		}

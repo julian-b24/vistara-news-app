@@ -109,7 +109,7 @@ class VistaraTest {
 		}
 	}
 	
-	/*
+	
 	@Test
 	public void testEditUser(){
 		
@@ -117,31 +117,46 @@ class VistaraTest {
 		String newPassword = "123";
 		String newEmail = "me@po.co";
 		String newDesc = "Artist";
-		Image newPic = null;
+		String newPic = null;
 
 		setupScenary2();
-		assertTrue(vistara.editUser(newUsername, newPassword, newEmail,
-									newDesc, newPic));
+		try {
+			vistara.editUser(vistara.getRootUser(), newUsername, newPassword, newEmail,
+							 newDesc, newPic);
+		} catch (RepeatedUsernameException | EmptyFieldsException e1) {
+			fail("1");
+		} 
+		User editedUser = vistara.searchUser(newUsername);
+		if(editedUser == null) {
+			fail("Error en search");
+		}
+		assertEquals(newUsername, editedUser.getUsername());
+		assertEquals(newPassword, editedUser.getPassword());
+		assertEquals(newEmail, editedUser.getEmail());
+		assertEquals(newDesc, editedUser.getDescription());
+		assertEquals(newPic, editedUser.getProfilePic());
 		
 		setupScenary3();
+		String toEditUsername = "Andres";
+		User toEditUser = vistara.searchUser(toEditUsername);
 		try {
-			vistara.editUser(newUsername, newPassword, newEmail,
+			vistara.editUser(toEditUser, newUsername, newPassword, newEmail,
 							 newDesc, newPic);
 		}catch (RepeatedUsernameException e) {
 			assertTrue(true);
 		}catch (EmptyFieldsException e) {
-			fail();
+			fail("2");
 		}
 		
 		setupScenary2();
 		try {
-			vistara.editUser("", newPassword, newEmail,
+			vistara.editUser(toEditUser, "", newPassword, newEmail,
 							 newDesc, newPic);
 		}catch (RepeatedUsernameException e) {
-			fail();
+			fail("3");
 		}catch (EmptyFieldsException e) {
 			assertTrue(true);
 		}
-	}*/
+	}
 
 }
