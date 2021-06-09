@@ -341,5 +341,37 @@ class VistaraTest {
 			assertTrue(true);
 		}
 	}
+	
+	@Test
+	public void testConvertUser() {
+		fail();
+	}
+	
+	@Test
+	public void testAddCategory() {
+	
+		String categoryName = "Religion";
+		setupScenary1();
+		vistara.addCategory(categoryName);
+		boolean oneElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
+							 vistara.getRootCategory().getRightCategory() == null;
+		assertTrue(oneElement);
+		
+		setupScenary4();
+		vistara.addCategory(categoryName);
+		boolean twoElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
+				 			 vistara.getRootCategory().getRightCategory() != null;
+		assertTrue(twoElement);
+	}
+	
+	@Test
+	public  void testDeletePost() {
+		fail();
+	}
+	
+	@Test
+	public void testVerifyPost() {
+		fail();
+	}
 
 }
