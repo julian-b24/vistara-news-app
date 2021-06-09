@@ -45,12 +45,14 @@ public class PostController {
     private Post post;
     private Vistara vistara;
     private User currentUser;
+    private VistaraGUI vistaraGUI;
     
-    public void setData (Post post, Vistara vis, User user) {
+    public void setData (Post post, Vistara vis, User user, VistaraGUI visGui) {
     	
     	this.post = post;
     	vistara = vis;
     	currentUser = user;
+    	vistaraGUI = visGui;
     	//post image
     	//Image image = new Image(getClass().getResourceAsStream(post.getImgPath()));
     	//newsImage.setImage(image);
@@ -70,11 +72,12 @@ public class PostController {
     
     @FXML
     void commentOnPost(ActionEvent event) {
-
+    	
     }
     
     @FXML
     void reactToPost(ActionEvent event) {
     	vistara.reactToPost(post, currentUser);
+    	vistaraGUI.loadFeed(null);
     }
 }

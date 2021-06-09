@@ -2,7 +2,6 @@ package ui;
 
 import model.Moderator;
 import model.Post;
-import model.State;
 import model.User;
 import model.Vistara;
 
@@ -337,7 +336,7 @@ public class VistaraGUI {
 				
 					AnchorPane postBox = fxmlLoader.load();	
 					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getFeed().get(i), vistara, currentUser);
+					postController.setData(currentUser.getFeed().get(i), vistara, currentUser, this);
 					
 					if(columns == 1) {
 						 columns = 0;
@@ -397,16 +396,16 @@ public class VistaraGUI {
 	@FXML
     public void deletePost(ActionEvent event) {
 		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
+			
 			String creatorString = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
-			User creatorUser = null;
+			Post postToRemove = ((Moderator) currentUser).getPendingPosts().get(0);
+			
 			try {
-				creatorUser = vistara.searchUser(creatorString);
+				vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
 			} catch (InvalidUserException e) {
 				
 			}
-			LocalDateTime publicationTime = ((Moderator) currentUser).getPendingPosts().get(0).getDate();
-			((Moderator) currentUser).getPendingPosts().remove(0);
-			creatorUser.deletePost(publicationTime);
+			
 			vistara.reOrderModerators();
 			loadVerifyPost(null);
 		}
@@ -416,41 +415,28 @@ public class VistaraGUI {
     @FXML
     public void verifyPost(ActionEvent event) {
     	if(currentUser instanceof Moderator) {
-    		
-    		State state = null;
+    		String state = null;
     		
     		if(verifiedNew.isSelected()) {
-    			state = State.VERIFIED;
+    			state = vistara.VERIFIED;
     		}else if(fakeNew.isSelected()){
-    			state = State.FAKE_NEW;
+    			state = vistara.FAKE;
     		}
     		
-    		if(state != null && ((Moderator) currentUser).getPendingPosts().size() > 0) {
-    			//sets the state of the post to verified or fake
-				((Moderator) currentUser).getPendingPosts().get(0).setState(state);
-				
-				//edit info of creator user
-				String userString = (((Moderator) currentUser).getPendingPosts().get(0).getAuthor());
-				User user = null;
-				try {
-					user = vistara.searchUser(userString);
+    		if(state != null) {
+    			Post postToVerify = ((Moderator) currentUser).getPendingPosts().get(0);
+        		String creatorUser = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
+        		
+        		try {
+					vistara.verifyPost(creatorUser, currentUser.getUsername(), postToVerify, state);
 				} catch (InvalidUserException e) {
-					
-					e.printStackTrace();
 				}
-				if(state == State.VERIFIED) {
-					user.setVerifiedPosts(user.getVerifiedPosts()+1);
-				}else if(state == State.FAKE_NEW) {
-					user.setFakePosts(user.getFakePosts()+1);
-				}
-				
-	    		((Moderator) currentUser).getPendingPosts().remove(0);
-	    		
-	    		showInfoAlert();
-	    		vistara.reOrderModerators();
-	    		
-	    		loadVerifyPost(null);
-    		}
+    	    		
+    	    	showInfoAlert();
+    	    	vistara.reOrderModerators();
+    	    		
+    	   		loadVerifyPost(null);
+    		}  
     	}
     }
 	
@@ -528,7 +514,7 @@ public class VistaraGUI {
 					PostController postController = fxmlLoader.getController();					
 					
 					System.out.println(((Moderator) currentUser).getPendingPosts().get(0).getContent());
-					postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser);
+					postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser, this);
 					
 					postVerifyPost.getChildren().clear();
 					postVerifyPost.getChildren().setAll(postToVerify);
@@ -711,7 +697,7 @@ public class VistaraGUI {
 				
 					AnchorPane postBox = fxmlLoader.load();	
 					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser);
+					postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser, this);
 					
 					if(columns == 1) {
 						 columns = 0;
@@ -739,7 +725,7 @@ public class VistaraGUI {
 				
 					AnchorPane postBox = fxmlLoader.load();	
 					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser);
+					postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser, this);
 					
 					if(columns == 1) {
 						 columns = 0;
@@ -979,7 +965,7 @@ public class VistaraGUI {
 					
 						AnchorPane postBox = fxmlLoader.load();	
 						PostController postController = fxmlLoader.getController();
-						postController.setData(vistara.getPosts().get(i), vistara, currentUser);
+						postController.setData(vistara.getPosts().get(i), vistara, currentUser, this);
 						System.out.println("gen gen");
 						if(columns == 1) {
 							 columns = 0;
@@ -1083,13 +1069,4 @@ public class VistaraGUI {
 		}
     }
     
-    @FXML
-    void commentOnPost(ActionEvent event) {
-
-    }
-
-    @FXML
-    void reactToPost(ActionEvent event) {
-    	
-    }
 }
