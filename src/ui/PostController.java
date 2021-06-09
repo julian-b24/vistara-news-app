@@ -72,7 +72,8 @@ public class PostController {
     
     @FXML
     void commentOnPost(ActionEvent event) {
-    	
+    	vistaraGUI.setCurrentPost(post);
+    	vistaraGUI.loadCommentsOfPost(post);
     }
     
     @FXML

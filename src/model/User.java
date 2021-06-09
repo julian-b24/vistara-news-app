@@ -299,4 +299,10 @@ public class User implements StatsCalculable, Serializable{
 		}
 		return reactedAlready;
 	}
+
+	@Override
+	public String reportToString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

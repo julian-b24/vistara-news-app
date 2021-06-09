@@ -17,7 +17,7 @@ public class Comment extends Content implements Serializable {
 	 */
 	public Comment(String user, String cont) {
 		super(user);
-		throw new UnsupportedOperationException();
+		content = cont;
 	}
 
 	public Comment getNextComment() {
