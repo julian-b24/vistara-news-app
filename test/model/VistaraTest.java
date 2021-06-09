@@ -33,6 +33,11 @@ class VistaraTest {
 		}
 	}
 	
+	public void setupScenary4() {
+		vistara = new Vistara(); 
+		vistara.addCategory("Politica");
+	}
+	
 	@Test
 	public void testAddUser() {
 		
@@ -198,7 +203,28 @@ class VistaraTest {
 		} catch (InvalidUserException e) {
 			assertTrue(true);
 		}
+	}
+	
+	@Test
+	public void testSearchCategory() {
 		
+		String category = "Politica";
+		
+		setupScenary1();
+		Category categoryTest = vistara.searchCategory(category);
+		try {
+			categoryTest.getName();
+		}catch(NullPointerException e) {
+			assertTrue(true);
+		}
+		
+		setupScenary4();
+		categoryTest = vistara.searchCategory(category);
+		try {
+			assertEquals(category, categoryTest.getName());
+		}catch(NullPointerException e) {
+			fail();
+		}
 		
 	}
 
