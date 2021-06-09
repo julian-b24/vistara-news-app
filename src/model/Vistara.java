@@ -741,6 +741,47 @@ public class Vistara {
 		}
 	}
 	
+	/**
+	 * Sort the post's list using insertion sort
+	 */
+	public void sortPosts() {
+		for (int i = 1; i < posts.size(); i++) {
+			for (int j = i; j > 0 && posts.get(j-1).compareTo(posts.get(j)) > 0; j--) {
+				Post temp = posts.get(j-1);
+				posts.set(j-1, posts.get(j));
+				posts.set(j, temp);
+			}
+		}
+	}
+
+	/**
+	 * Search a posts according to the title. This method implements binary search cause the list is sorted
+	 * @param title, String, the title of the posts to search. It must be different from null and an empty string
+	 * @return the searched post or null in case the post does not exist
+	 */
+	public Post searchPost(String title) {
+		
+		Post post = null;
+		
+		int low = 0;
+		int top = posts.size();
+		boolean found = false;
+		while(low <= top && !found) {
+			int mid = (low + top)/2;
+			if (posts.get(mid).getTitle().equals(title)) {
+				post = posts.get(mid);
+				found = true;
+			
+			} else if (posts.get(mid).getTitle().compareTo(title) < 0) {
+				low = mid + 1;
+			} else {
+				top = mid - 1;
+			}
+		}
+
+		return post;
+	}
+	
 	/*
 	 *  //
 		 LocalDateTime a = LocalDateTime.of(2021, 6, 6, 12, 00);

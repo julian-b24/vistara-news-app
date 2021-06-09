@@ -195,6 +195,15 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 			return getAmountOfComments(currentComment, amount + 1);
 		}
 	}
+	
+	/**
+	 * Compare the posts according to their title
+	 * @param otherPost
+	 * @return
+	 */
+	public int compareTo(Post otherPost) {
+		return title.compareTo(otherPost.getTitle());
+	}
 
 	public String getImgPath() {
 		return imgPath;

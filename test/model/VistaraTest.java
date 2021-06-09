@@ -2,6 +2,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import exceptions.EmptyFieldsException;
@@ -36,6 +38,30 @@ class VistaraTest {
 	public void setupScenary4() {
 		vistara = new Vistara(); 
 		vistara.addCategory("Politica");
+	}
+	
+	public void setupScenary5() {
+		vistara = new Vistara();
+		String username = "Camilo";
+		String email = "per@yt.com";
+		String password = "now1";
+		try {
+			vistara.addUser(username, email, password);
+		} catch (RepeatedUsernameException | EmptyFieldsException e) {
+			e.printStackTrace();
+		}
+		
+		String title = "Avalancha";
+		String content = "Armero";
+		LocalDateTime date = LocalDateTime.of(2020, 3, 12, 12, 30);
+		State state = State.VERIFIED;
+		try {
+			vistara.createPost(title, content, "hola", vistara.searchUser(username), "");
+			vistara.getPosts().get(0).setState(state);
+			vistara.getPosts().get(0).setDate(date);
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -253,13 +279,34 @@ class VistaraTest {
 		setupScenary2();
 		try {
 			User followedUser = vistara.searchUser(followed);
-			int previousFollowers = followedUser.getFollowers().size();
+			followedUser.getFollowers().size();
 		} catch (InvalidUserException e) {
 			assertTrue(true);
 		}
+	}
+	
+	@Test
+	public void testReactPost() {
 		
+		setupScenary5();
+		String username = "Camilo";
+		String title = "Avalancha";
 		
-		
+		Post post = vistara.searchPost(title);
+		int reactions = post.getReactions();
+		User user;
+		try {
+			user = vistara.searchUser(username);
+			int reactedPosts = user.getReactedPosts().size();
+			
+			vistara.reactToPost(post, user);
+			
+			assertEquals(reactions + 1, post.getReactions());
+			assertEquals(reactedPosts + 1, user.getReactedPosts().size());
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
