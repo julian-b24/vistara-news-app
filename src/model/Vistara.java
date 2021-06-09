@@ -59,7 +59,7 @@ public class Vistara {
 		boolean added = true;
 		
 		if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-			throw new EmptyFieldsException(username, password);
+			throw new EmptyFieldsException(new String[] {username, password});
 		}
 		
 		if(rootUser != null) {
@@ -173,7 +173,7 @@ public class Vistara {
 	public User verifyLogin(String username, String password) throws InvalidUserException, EmptyFieldsException {
 		
 		if(username.isEmpty() || password.isEmpty()) {
-			throw new EmptyFieldsException(username, password);
+			throw new EmptyFieldsException(new String[] {username, password});
 		}
 		
 		//search the user in the binary tree
@@ -232,17 +232,23 @@ public class Vistara {
 	 * @param content, String, the content of the post. It must be different from null and an empty string
 	 * @param categoryName, String, name of the category. It must be different from null and an empty string
 	 * @param author, User, the user that is creating the post
+	 * @throws EmptyFieldsException in case any of the parameters is an empty string
 	 */
-	public void createPost(String title, String content, String categoryName, User author, String link) {
+	public void createPost(String title, String content, String categoryName, User author, String link) throws EmptyFieldsException {
 		
-		Category category = searchCategory(categoryName);
-		LocalDateTime date = LocalDateTime.now();
-		Post post = new Post(author.getUsername(), title, content, category, date, link);
-		posts.add(post);
-		author.getOwnPosts().add(post);
-		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);
-		addPostToModeratorList(post);
-		addThread.start();
+		if(title.isEmpty() || content.isEmpty() || categoryName.isEmpty() || link.isEmpty()) {
+			throw new EmptyFieldsException(new String[] {title, content, categoryName, link});
+		}else {
+
+			Category category = searchCategory(categoryName);
+			LocalDateTime date = LocalDateTime.now();
+			Post post = new Post(author.getUsername(), title, content, category, date, link);
+			posts.add(post);
+			author.getOwnPosts().add(post);
+			ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(author, post);
+			addPostToModeratorList(post);
+			addThread.start();
+		}
 	}
 	
 	/**
@@ -370,7 +376,7 @@ public class Vistara {
 		boolean repeatedName = searchUserByName(username);
 		if(username != null && password != null && email != null && description != null) {
 			if(username.isEmpty() || password.isEmpty() || email.isEmpty() || description.isEmpty()) {
-				throw new EmptyFieldsException(username, password);
+				throw new EmptyFieldsException(new String[] {username, password});
 			}
 			
 			if(!repeatedName) {
@@ -762,20 +768,22 @@ public class Vistara {
 	public Post searchPost(String title) {
 		
 		Post post = null;
-		
-		int low = 0;
-		int top = posts.size();
-		boolean found = false;
-		while(low <= top && !found) {
-			int mid = (low + top)/2;
-			if (posts.get(mid).getTitle().equals(title)) {
-				post = posts.get(mid);
-				found = true;
+		if(posts.size() > 0) {
 			
-			} else if (posts.get(mid).getTitle().compareTo(title) < 0) {
-				low = mid + 1;
-			} else {
-				top = mid - 1;
+			int low = 0;
+			int top = posts.size();
+			boolean found = false;
+			while(low <= top && !found) {
+				int mid = (low + top)/2;
+				if (posts.get(mid).getTitle().equals(title)) {
+					post = posts.get(mid);
+					found = true;
+				
+				} else if (posts.get(mid).getTitle().compareTo(title) < 0) {
+					low = mid + 1;
+				} else {
+					top = mid - 1;
+				}
 			}
 		}
 

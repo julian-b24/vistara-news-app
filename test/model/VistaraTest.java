@@ -56,12 +56,17 @@ class VistaraTest {
 		LocalDateTime date = LocalDateTime.of(2020, 3, 12, 12, 30);
 		State state = State.VERIFIED;
 		try {
-			vistara.createPost(title, content, "hola", vistara.searchUser(username), "");
+			vistara.createPost(title, content, "hola", vistara.searchUser(username), "link");
 			vistara.getPosts().get(0).setState(state);
 			vistara.getPosts().get(0).setDate(date);
-		} catch (InvalidUserException e) {
+		} catch (InvalidUserException | EmptyFieldsException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setupScenary6() {
+		setupScenary2();
+		vistara.addCategory("Politica");
 	}
 	
 	@Test
@@ -306,7 +311,35 @@ class VistaraTest {
 		} catch (InvalidUserException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	@Test
+	public void testCreatePost() {
+		setupScenary6();
+		String title = "Title";
+		String content = "content";
+		String category = "Politica";
+		String fullNewLink = "go.com";
+		try {
+			vistara.createPost(title, content, category, vistara.getRootUser(), fullNewLink);
+		} catch (EmptyFieldsException e) {
+			fail();
+		}
+		
+		Post post = vistara.searchPost(title);
+		assertEquals(title, post.getTitle());
+		assertEquals(content, post.getContent());
+		assertEquals(fullNewLink, post.getFullNewLink());
+		assertEquals(category, post.getCategory().getName());
+		
+		setupScenary6();
+		title = "";
+		try {
+			vistara.createPost(title, content, category, vistara.getRootUser(), fullNewLink);
+			fail();
+		} catch (EmptyFieldsException e) {
+			assertTrue(true);
+		}
 	}
 
 }

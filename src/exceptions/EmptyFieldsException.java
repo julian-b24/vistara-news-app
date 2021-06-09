@@ -4,26 +4,22 @@ public class EmptyFieldsException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String username;
-	private String password;
+	private String[] emptyFields;
 	
-	public EmptyFieldsException(String username, String password) {
+	public EmptyFieldsException(String[] emptyFields) {
 		super("Some fields are empty");
-		this.username = username;
-		this.password = password;
+		this.emptyFields = emptyFields;
 	}
 	
 	public String getEmptyFields() {
-		String empty = "";
-		if(username.isEmpty()) {
-			empty+= "username ";
+		int empties = 0;
+		for (String field : emptyFields) {
+			if(field.isEmpty()) {
+				empties++;
+			}
 		}
 		
-		if(password.isEmpty()) {
-			empty+= "password ";
-		}
-		
-		return empty;
+		return "Hay " + empties + " vacíos";
 	}
 	
 }
