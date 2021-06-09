@@ -230,6 +230,14 @@ public class VistaraGUI {
     @FXML
     private Label searchedNumFakePosts;
     
+    //profile
+    
+    @FXML
+    private GridPane reactedPostsGrid;
+    
+    @FXML
+    private GridPane ownPostsGrid;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -294,7 +302,7 @@ public class VistaraGUI {
     
     @FXML
 	public void loadFeed(ActionEvent event) {
-		
+		System.out.println("ey");
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("feed-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -303,6 +311,7 @@ public class VistaraGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(feedFXML);
 			
+			System.out.println("loading feed");
 			loadProfileBar();
 			loadComments();
 			loadFeedPosts();
@@ -389,11 +398,17 @@ public class VistaraGUI {
     public void deletePost(ActionEvent event) {
 		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
 			String creatorString = ((Moderator) currentUser).getPendingPosts().get(0).getAuthor();
-			User creatorUser = vistara.searchUser(creatorString);
+			User creatorUser = null;
+			try {
+				creatorUser = vistara.searchUser(creatorString);
+			} catch (InvalidUserException e) {
+				
+			}
 			LocalDateTime publicationTime = ((Moderator) currentUser).getPendingPosts().get(0).getDate();
-			
+			((Moderator) currentUser).getPendingPosts().remove(0);
 			creatorUser.deletePost(publicationTime);
 			vistara.reOrderModerators();
+			loadVerifyPost(null);
 		}
 		
     }
@@ -416,7 +431,13 @@ public class VistaraGUI {
 				
 				//edit info of creator user
 				String userString = (((Moderator) currentUser).getPendingPosts().get(0).getAuthor());
-				User user = vistara.searchUser(userString);
+				User user = null;
+				try {
+					user = vistara.searchUser(userString);
+				} catch (InvalidUserException e) {
+					
+					e.printStackTrace();
+				}
 				if(state == State.VERIFIED) {
 					user.setVerifiedPosts(user.getVerifiedPosts()+1);
 				}else if(state == State.FAKE_NEW) {
@@ -668,8 +689,9 @@ public class VistaraGUI {
 				upgradeBtn.setVisible(false);
 				upgradeBtn.setDisable(true);
 			}
+			loadOwnPosts(null);
 			loadStatistics(null);
-	
+			loadReactedPosts(null);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -677,9 +699,59 @@ public class VistaraGUI {
 	}
 	
 	@FXML
-    public void loadReactedPosts(ActionEvent event) {
-
+	private void loadOwnPosts(ActionEvent event) {
 		
+		int columns = 0;
+    	int rows = 1;
+    	    
+    	try {
+			for (int i = 0; i < currentUser.getOwnPosts().size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				
+					AnchorPane postBox = fxmlLoader.load();	
+					PostController postController = fxmlLoader.getController();
+					postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser);
+					
+					if(columns == 1) {
+						 columns = 0;
+						 rows++;
+					}
+					
+					ownPostsGrid.add(postBox, columns++, rows);
+			}
+			
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+    public void loadReactedPosts(ActionEvent event) {
+		
+		int columns = 0;
+    	int rows = 1;
+    	    
+    	try {
+			for (int i = 0; i < currentUser.getReactedPosts().size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				
+					AnchorPane postBox = fxmlLoader.load();	
+					PostController postController = fxmlLoader.getController();
+					postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser);
+					
+					if(columns == 1) {
+						 columns = 0;
+						 rows++;
+					}
+					
+					reactedPostsGrid.add(postBox, columns++, rows);
+			}
+			
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -822,7 +894,11 @@ public class VistaraGUI {
     			&& !postLink.getText().trim().isEmpty()) {
     		
     		if(postImagePath.getText().isEmpty()) {
-    			vistara.createPost(postTittle.getText(), postDetails.getText(), postCategory.getValue(), currentUser, postLink.getText());
+    			try {
+					vistara.createPost(postTittle.getText(), postDetails.getText(), postCategory.getValue(), currentUser, postLink.getText());
+				} catch (EmptyFieldsException e) {
+					emptyFieldAlert();
+				}
     		}
     	}else {
     		//warning something went wrong
@@ -922,7 +998,13 @@ public class VistaraGUI {
 	@FXML
     void searchUserInFeed(ActionEvent event) {
 
-    	User searchedUser = vistara.searchUser(serachUser.getText().trim());
+    	User searchedUser = null;
+		try {
+			searchedUser = vistara.searchUser(serachUser.getText().trim());
+		} catch (InvalidUserException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	if(searchedUser != null) {
     		try {
     			
@@ -975,15 +1057,30 @@ public class VistaraGUI {
     void followUser(ActionEvent event) {
     	
     	if(followBtnText.getText().equals("Follow")) {
-    		vistara.followUser(currentUser, searchedUsername.getText());
+    		try {
+				vistara.followUser(currentUser, searchedUsername.getText());
+			} catch (InvalidUserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}else {
-    		vistara.unfollowUser(currentUser, searchedUsername.getText());
+    		try {
+				vistara.unfollowUser(currentUser, searchedUsername.getText());
+			} catch (InvalidUserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     }
     
     @FXML
     void upgradeUser(ActionEvent event) {
-    	vistara.upgradeUser(searchedUsername.getText());
+    	try {
+			vistara.upgradeUser(searchedUsername.getText());
+		} catch (InvalidUserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     @FXML
