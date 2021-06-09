@@ -124,39 +124,82 @@ class VistaraTest {
 			vistara.editUser(vistara.getRootUser(), newUsername, newPassword, newEmail,
 							 newDesc, newPic);
 		} catch (RepeatedUsernameException | EmptyFieldsException e1) {
-			fail("1");
+			fail();
 		} 
-		User editedUser = vistara.searchUser(newUsername);
-		if(editedUser == null) {
-			fail("Error en search");
+		User editedUser;
+		try {
+			editedUser = vistara.searchUser(newUsername);
+			assertEquals(newUsername, editedUser.getUsername());
+			assertEquals(newPassword, editedUser.getPassword());
+			assertEquals(newEmail, editedUser.getEmail());
+			assertEquals(newDesc, editedUser.getDescription());
+			assertEquals(newPic, editedUser.getProfilePic());
+		} catch (InvalidUserException e1) {
+			fail();
 		}
-		assertEquals(newUsername, editedUser.getUsername());
-		assertEquals(newPassword, editedUser.getPassword());
-		assertEquals(newEmail, editedUser.getEmail());
-		assertEquals(newDesc, editedUser.getDescription());
-		assertEquals(newPic, editedUser.getProfilePic());
+		
 		
 		setupScenary3();
 		String toEditUsername = "Andres";
-		User toEditUser = vistara.searchUser(toEditUsername);
+		User toEditUser;
 		try {
+			toEditUser = vistara.searchUser(toEditUsername);
 			vistara.editUser(toEditUser, newUsername, newPassword, newEmail,
-							 newDesc, newPic);
+					 	newDesc, newPic);		
 		}catch (RepeatedUsernameException e) {
 			assertTrue(true);
-		}catch (EmptyFieldsException e) {
-			fail("2");
+		}catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
 		}
 		
 		setupScenary2();
 		try {
+			toEditUser = vistara.searchUser(toEditUsername);
 			vistara.editUser(toEditUser, "", newPassword, newEmail,
 							 newDesc, newPic);
-		}catch (RepeatedUsernameException e) {
-			fail("3");
+		}catch (RepeatedUsernameException | InvalidUserException e) {
+			fail();
 		}catch (EmptyFieldsException e) {
 			assertTrue(true);
 		}
+	}
+	
+	@Test
+	public void testSearchUser() {
+		
+		setupScenary2();
+		String username = "Andres";
+		User user;
+		try {
+			user = vistara.searchUser(username);
+			assertEquals(username, user.getUsername());
+		} catch (InvalidUserException e) {
+			fail();
+		}
+		
+		
+		setupScenary3();
+		username = "Camilo";
+		try {
+			user = vistara.searchUser(username);
+			assertEquals(username, user.getUsername());
+		} catch (InvalidUserException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		setupScenary2();
+		username = "Camilo";
+		try {
+			user = vistara.searchUser(username);
+			fail();
+		} catch(NullPointerException e) {
+			fail();
+		} catch (InvalidUserException e) {
+			assertTrue(true);
+		}
+		
+		
 	}
 
 }

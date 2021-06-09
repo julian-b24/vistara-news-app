@@ -195,8 +195,9 @@ public class Vistara {
 	* <b> pos </b> <br>
 	* @param username The String with the username of the searched user
 	* @return current The searched User object. It is null if the user is not found.
+	* @throws InvalidUserException 
 	*/
-	public User searchUser(String username) {
+	public User searchUser(String username) throws InvalidUserException {
 		return searchUser(rootUser, username);		
 	}
 	
@@ -207,10 +208,11 @@ public class Vistara {
 	* @param current The current node of the binary tree
 	* @param username The String with the username of the searched user
 	* @return current The searched User object. It is null if the user is not found.
+	 * @throws InvalidUserException 
 	*/
-	private User searchUser(User current, String username) {
+	private User searchUser(User current, String username) throws InvalidUserException {
 		if(current == null) {
-			return null;
+			throw new InvalidUserException(username, "");
 		}
 	
 		if(username.compareTo(current.getUsername())<0) {
@@ -653,8 +655,9 @@ public class Vistara {
 	* <b> pos </b> <br>
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
+	* @throws InvalidUserException 
 	*/
-	public void followUser(User currentUser, String searchedUsername) {
+	public void followUser(User currentUser, String searchedUsername) throws InvalidUserException {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().add(currentUser);
     	currentUser.getFollowing().add(followedUser);
@@ -666,8 +669,9 @@ public class Vistara {
 	* <b> pos </b> <br>
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
+	* @throws InvalidUserException 
 	*/
-	public void unfollowUser(User currentUser, String searchedUsername) {
+	public void unfollowUser(User currentUser, String searchedUsername) throws InvalidUserException {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().remove(currentUser);
     	currentUser.getFollowing().remove(followedUser);
@@ -713,7 +717,7 @@ public class Vistara {
 		this.trending = trending;
 	}
 
-	public void upgradeUser(String username) {
+	public void upgradeUser(String username) throws InvalidUserException {
 		User user = searchUser(username);
 		LocalDateTime nowTime = LocalDateTime.now();
 		Duration timeInVistara = Duration.between(user.getCreationDate(), nowTime);
