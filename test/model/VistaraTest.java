@@ -298,7 +298,7 @@ class VistaraTest {
 		String title = "Avalancha";
 		
 		Post post = vistara.searchPost(title);
-		int reactions = post.getReactions();
+		double reactions = post.getReactions();
 		User user;
 		try {
 			user = vistara.searchUser(username);

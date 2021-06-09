@@ -2,14 +2,20 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class Post extends Content implements StatsCalculable, Rateable, Serializable{
 
 	private static final long serialVersionUID = 1L;
+	public static final String MAP_KEY_COMMENTS = "comments";
+	public static final String MAP_KEY_REACTIONS = "reactions";
+	public static final String MAP_KEY_RATING = "rating";
+	public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 	
 	private String title;
 	private String content;
@@ -23,8 +29,9 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	private double rating;
 	private String imgPath;
 	private String userImagePath;
-	private int reactions;
-	private int comments;
+	private double reactions;
+	private double comments;
+	private HashMap<String, HashMap<String, Double>> report;
 
 	public Post(String user, String title, String content, Category category, LocalDateTime date, String link) {
 		super(user);
@@ -36,16 +43,29 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		state = State.UNVERIFIED;
 		reactedUsers = new ArrayList<User>();
 		rating = 0;
+		reactions = 0;
+		comments = 0;
+		report = new HashMap<String, HashMap<String, Double>>();
+		increaseReport();
 	}
 	
+	/**
+	 * Increase the report and its fields: Amount of comments, reactions and rating
+	 */
+	public void increaseReport() {
+		
+		HashMap<String, Double> temp = new HashMap<String, Double>();
+		temp.put(MAP_KEY_COMMENTS, comments);
+		temp.put(MAP_KEY_RATING, rating);
+		temp.put(MAP_KEY_REACTIONS, reactions);
+		  
+		report.put(LocalDateTime.now().format(FORMAT), temp);
+	}
+
 	public String getTitle() {
 		return this.title;
 	}
 
-	/**
-	 * 
-	 * @param title
-	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -54,10 +74,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.content;
 	}
 
-	/**
-	 * 
-	 * @param content
-	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -66,10 +82,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.category;
 	}
 
-	/**
-	 * 
-	 * @param category
-	 */
 	public void setCategory(Category category) {
 		this.category = category;
 	}
@@ -78,10 +90,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.date;
 	}
 
-	/**
-	 * 
-	 * @param date
-	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
@@ -90,10 +98,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.fullNewLink;
 	}
 
-	/**
-	 * 
-	 * @param fullNewLink
-	 */
 	public void setFullNewLink(String fullNewLink) {
 		this.fullNewLink = fullNewLink;
 	}
@@ -102,10 +106,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.state;
 	}
 
-	/**
-	 * 
-	 * @param state
-	 */
 	public void setState(State state) {
 		this.state = state;
 	}
@@ -114,10 +114,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.reactedUsers;
 	}
 
-	/**
-	 * 
-	 * @param reactedUsers
-	 */
 	public void setReactedUsers(ArrayList<User> reactedUsers) {
 		this.reactedUsers = reactedUsers;
 	}
@@ -126,10 +122,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.firstComment;
 	}
 
-	/**
-	 * 
-	 * @param comments
-	 */
 	public void setFirstComment(Comment comments) {
 		this.firstComment = comments;
 	}
@@ -139,36 +131,30 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return this.rating;
 	}
 
-	/**
-	 * 
-	 * @param rating
-	 */
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
 
 	@Override
-	public HashMap<String, Double> generateStats() {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<String, HashMap<String, Double>> generateStats() {
+		return report;
 	}
 
 	@Override
-	public void calculateRating() {
+	public void calculateRating() {	
+		int amountReactions = reactedUsers.size();
+		int amountComments = getAmountOfComments();
 		
-		boolean isRateable = isRateable();
-		if(isRateable) {	
-			int amountReactions = reactedUsers.size();
-			int amountComments = getAmountOfComments();
-			
-			LocalDateTime now = LocalDateTime.now();
-			long difference = ChronoUnit.DAYS.between(now, date);
-			rating = (amountComments + amountReactions)/difference;
-		}
-
+		LocalDateTime now = LocalDateTime.now();
+		long difference = ChronoUnit.DAYS.between(now, date);
+		rating = (amountComments + amountReactions)/difference;
 	}
 
-	private boolean isRateable() {
+	/**
+	 * Define if a post is rateable according to the trending restrictions
+	 * @return true in case the post is not older than a day, false any otherwise
+	 */
+	public boolean isRateable() {
 		boolean rateable = false;
 		LocalDateTime now = LocalDateTime.now();
 		long difference = ChronoUnit.DAYS.between(now, date);
@@ -180,6 +166,10 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return rateable;
 	}
 
+	/**
+	 * Calculates the amount of comments in the post
+	 * @return the amount of comments
+	 */
 	public int getAmountOfComments() {
 		if(firstComment != null) {
 			return getAmountOfComments(firstComment, 1);
@@ -188,6 +178,12 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		}
 	}
 
+	/**
+	 * Calculates recursively the amount of comments in the post
+	 * @param currentComment, the current comment in the recursion
+	 * @param amount, int the current amount of comments
+	 * @return the amount of comments
+	 */
 	private int getAmountOfComments(Comment currentComment, int amount) {
 		if(currentComment.getNextComment().equals(firstComment)) {
 			return amount;
@@ -221,15 +217,15 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		this.userImagePath = userImagePath;
 	}
 
-	public int getReactions() {
+	public double getReactions() {
 		return reactions;
 	}
 
-	public void setReactions(int reactions) {
+	public void setReactions(double reactions) {
 		this.reactions = reactions;
 	}
 
-	public int getComments() {
+	public double getComments() {
 		return comments;
 	}
 
@@ -243,6 +239,20 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 
 	public void setLastComment(Comment lastComment) {
 		this.lastComment = lastComment;
+	}
+
+	@Override
+	public String reportToString() {
+		String reportString = "date;rating;comments;reactions\n";
+		for (Map.Entry<String, HashMap<String, Double>> entry : report.entrySet()) {
+			String tempDate = entry.getKey();
+			double tempRating = entry.getValue().get(MAP_KEY_RATING);
+			double tempComments = entry.getValue().get(MAP_KEY_COMMENTS);
+			double tempReactions = entry.getValue().get(MAP_KEY_REACTIONS);
+			String line = tempDate + ";" + tempRating + ";" + tempComments + ";" + tempReactions + "\n";
+			reportString += line;
+		}
+		return reportString;
 	}
 
 	

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class Vistara {
 	public final static String SAVE_PATH_TRENDING = "data/system/trending.txr";
 	public final static String SAVE_PATH_COMMENTS = "data/system/comments.txr";
 	
+	public final static String EXPORT_REPORT_POST_PATH = "data/reports/reportPost";
+	public final static String REPORTS_EXTENSION = ".csv";
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
@@ -683,6 +686,18 @@ public class Vistara {
     	currentUser.getFollowing().remove(followedUser);
 	}
 	
+	/**
+	 * Exports the post report in a csv file with the title of the post in the folder data
+	 * @param post, Post, the post to export the report
+	 * @throws FileNotFoundException in case the file where the report will be created does not exist
+	 */
+	public void exportPostReport(Post post) throws FileNotFoundException {
+		String report = post.reportToString();
+		String path = EXPORT_REPORT_POST_PATH + post.getTitle() + REPORTS_EXTENSION;
+		PrintWriter pw = new PrintWriter(path);
+		pw.println(report);
+	}
+	
 	public ArrayList<Moderator> getMods() {
 		return mods;
 	}
@@ -748,7 +763,7 @@ public class Vistara {
 	}
 	
 	/**
-	 * Sort the post's list using insertion sort
+	 * Sort the post's list using insertion sort based on their title
 	 */
 	public void sortPosts() {
 		for (int i = 1; i < posts.size(); i++) {

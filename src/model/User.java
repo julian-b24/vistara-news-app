@@ -216,7 +216,7 @@ public class User implements StatsCalculable, Serializable{
 	}
 
 	@Override
-	public HashMap<String, Double> generateStats() {
+	public HashMap<String, HashMap<String, Double>> generateStats() {
 		// TODO Auto-generated method stub
 		return null;
 	}
