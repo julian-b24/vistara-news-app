@@ -225,6 +225,40 @@ class VistaraTest {
 		}catch(NullPointerException e) {
 			fail();
 		}
+	}
+	
+	@Test
+	public void testFollowUser() {
+		
+		String followed = "Andres";
+		String follower = "Camilo";
+		
+		setupScenary3();
+		try {
+			User followerUser = vistara.searchUser(follower);
+			int previousFollowing = followerUser.getFollowing().size();
+			
+			User followedUser = vistara.searchUser(followed);
+			int previousFollowers = followedUser.getFollowers().size();
+			
+			vistara.followUser(followerUser, followed);
+			
+			assertEquals(previousFollowers + 1, followedUser.getFollowers().size());
+			assertEquals(previousFollowing + 1, followerUser.getFollowing().size());
+			
+		} catch (InvalidUserException e) {
+			fail();
+		}
+		
+		setupScenary2();
+		try {
+			User followedUser = vistara.searchUser(followed);
+			int previousFollowers = followedUser.getFollowers().size();
+		} catch (InvalidUserException e) {
+			assertTrue(true);
+		}
+		
+		
 		
 	}
 
