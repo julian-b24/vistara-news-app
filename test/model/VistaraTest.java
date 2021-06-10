@@ -69,6 +69,34 @@ class VistaraTest {
 		vistara.addCategory("Politica");
 	}
 	
+	public void setupScenary7() {
+		try {
+			setupScenary6();
+			Moderator mod = new Moderator("Camilo", "per@ytmcom", "now1");
+			mod.setDescription("Pinto");
+			vistara.addUser(mod);
+			vistara.getMods().add(mod);
+		} catch (RepeatedUsernameException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setupScenary8() {
+		setupScenary7();
+		String title = "Avalancha";
+		String content = "Armero";
+		LocalDateTime date = LocalDateTime.of(2020, 3, 12, 12, 30);
+		State state = State.VERIFIED;
+		try {
+			vistara.createPost(title, content, "Politica", vistara.searchUser("Andres"), "link");
+			vistara.getPosts().get(0).setState(state);
+			vistara.getPosts().get(0).setDate(date);
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@Test
 	public void testAddUser() {
 		
@@ -297,19 +325,19 @@ class VistaraTest {
 		String username = "Camilo";
 		String title = "Avalancha";
 		
-		Post post = vistara.searchPost(title);
-		double reactions = post.getReactions();
-		User user;
+		Post post;
 		try {
-			user = vistara.searchUser(username);
+			post = vistara.searchPost(title);
+			double reactions = post.getReactions();
+			User user = vistara.searchUser(username);
 			int reactedPosts = user.getReactedPosts().size();
 			
 			vistara.reactToPost(post, user);
 			
 			assertEquals(reactions + 1, post.getReactions());
 			assertEquals(reactedPosts + 1, user.getReactedPosts().size());
-		} catch (InvalidUserException e) {
-			e.printStackTrace();
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
 		}
 	}
 	
@@ -326,11 +354,16 @@ class VistaraTest {
 			fail();
 		}
 		
-		Post post = vistara.searchPost(title);
-		assertEquals(title, post.getTitle());
-		assertEquals(content, post.getContent());
-		assertEquals(fullNewLink, post.getFullNewLink());
-		assertEquals(category, post.getCategory().getName());
+		Post post;
+		try {
+			post = vistara.searchPost(title);
+			assertEquals(title, post.getTitle());
+			assertEquals(content, post.getContent());
+			assertEquals(fullNewLink, post.getFullNewLink());
+			assertEquals(category, post.getCategory().getName());
+		} catch (EmptyFieldsException e1) {
+			fail();
+		}
 		
 		setupScenary6();
 		title = "";
@@ -344,7 +377,7 @@ class VistaraTest {
 	
 	@Test
 	public void testConvertUser() {
-		fail();
+		fail("Pendiente");
 	}
 	
 	@Test
@@ -366,12 +399,66 @@ class VistaraTest {
 	
 	@Test
 	public  void testDeletePost() {
-		fail();
+		setupScenary8();
+		String title = "Avalancha";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			assertEquals(0, vistara.getPosts().size());
+			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
+			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			fail();
+		}
+		
+		setupScenary8();
+		title = "";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			fail("2");
+		} catch (InvalidUserException e) {
+			fail("3");
+		} catch (EmptyFieldsException e) {
+			assertTrue(true);
+		}
+		
+		setupScenary7();
+		title = "Avalancha";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			vistara.searchPost(title).getContent();
+			fail("3");
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			fail("4");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 	
 	@Test
 	public void testVerifyPost() {
-		fail();
+		setupScenary8();
+		String creator = "Andres";
+		String mod = "Camilo";
+		Post post;
+		String state;
+		try {
+			post = vistara.searchPost("Avalancha");
+			state = "VERIFIED";
+			vistara.verifyPost(creator, mod, post, state);
+			assertEquals(state, post.getState().toString());
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
+		}
+		
+		setupScenary8();
+		try {
+			post = vistara.searchPost("Avalancha");
+			state = "FAKE_NEW";
+			vistara.verifyPost(creator, mod, post, state);
+			assertEquals(state, post.getState().toString());
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
+		}
 	}
 
 }

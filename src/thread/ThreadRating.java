@@ -11,6 +11,10 @@ public class ThreadRating extends Thread{
 	
 	private Vistara vistara;
 	
+	public ThreadRating(Vistara vistara) {
+		this.vistara = vistara;
+	}
+	
 	@Override
 	public void run() {
 		
