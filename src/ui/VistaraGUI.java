@@ -30,11 +30,13 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 
@@ -401,9 +403,9 @@ public class VistaraGUI {
 			
 			fxmlLoader.setController(this);
 			Parent profileBar = fxmlLoader.load();
-			
 			profileBarPane.getChildren().clear();
 			profileBarPane.getChildren().setAll(profileBar);
+			loadProfilePicBar();
 			setProfileBarInfo();
 			
 		} catch (IOException e) {
@@ -411,6 +413,16 @@ public class VistaraGUI {
 		}
 	}
 	
+	private void loadProfilePicBar() {
+		Image image;
+		if(currentUser.getProfilePic() == null) {
+			image = new Image("file:imgs/no-profile.png");
+		}else {
+			image = currentUser.getProfilePic();
+		}
+		profileCircleBar.setFill(new ImagePattern(image));
+	}
+
 	@FXML
     public void deletePost(ActionEvent event) {
 		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
@@ -649,7 +661,10 @@ public class VistaraGUI {
 	}
 
 	private void setProfileBarInfo() {
-		//Loads the info of the current user in the bar
+		txtUsernameBar.setText(currentUser.getUsername());;
+		txtBioUserBar.setText(currentUser.getDescription());;
+		txtFollowersBar.setText(String.valueOf(currentUser.getFollowers().size()));;
+		txtFollowingBar.setText(String.valueOf(currentUser.getFollowing().size()));;
 	}
 	
 	@FXML

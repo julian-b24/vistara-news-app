@@ -474,7 +474,7 @@ public class Vistara {
 
 	/**
 	* reOrderModerators: It takes the list of moderators in the program and sort it by the amount of pending posts they have yet to confirm<br>
-	* It sorts using with selection sort
+	* It sorts using with selection sort.
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
 	*/
