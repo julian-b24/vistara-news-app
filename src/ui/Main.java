@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Vistara;
 import thread.ThreadRating;
 
@@ -12,9 +13,12 @@ public class Main extends Application{
 
 	private VistaraGUI vistaraGUI;
 	private Vistara vistara;
+	private ThreadRating threadRating;
+	
 	public Main() {
 		vistara = new Vistara();
 		vistaraGUI = new VistaraGUI(vistara);
+		threadRating = new ThreadRating(vistara);
 	}
 	
 	public static void main(String[] args) {
@@ -33,10 +37,14 @@ public class Main extends Application{
 		primaryStage.setTitle("Vistara");
 		primaryStage.show();
 		vistaraGUI.loadLogIn(null);
-		vistara.loadData();
+		//vistara.loadData();
 		
-		ThreadRating threadRating = new ThreadRating(vistara);
 		threadRating.start();
+		threadRating.join();
+	}
+	
+	public ThreadRating getThreadRating() {
+		return threadRating;
 	}
 
 }

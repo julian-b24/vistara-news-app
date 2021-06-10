@@ -9,6 +9,8 @@ import model.Vistara;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -23,6 +25,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -246,6 +250,10 @@ public class VistaraGUI {
     //trending
     @FXML
     private GridPane trendingGrid;
+    
+    //
+    @FXML
+    private LineChart<?, ?> lineChartPost;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -1021,7 +1029,7 @@ public class VistaraGUI {
     }
     
     @FXML
-    void filterFeedPosts(ActionEvent event) {
+    public void filterFeedPosts(ActionEvent event) {
 
     	if(filterCategory.getValue() != null) {
     		loadFeedByCategory(filterCategory.getValue());
@@ -1061,7 +1069,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void searchUserInFeed(ActionEvent event) {
+    public void searchUserInFeed(ActionEvent event) {
 
     	User searchedUser = null;
 		try {
@@ -1119,7 +1127,7 @@ public class VistaraGUI {
     }
     
     @FXML
-    void followUser(ActionEvent event) {
+    public void followUser(ActionEvent event) {
     	
     	if(followBtnText.getText().equals("Follow")) {
     		try {
@@ -1139,15 +1147,32 @@ public class VistaraGUI {
     }
     
     @FXML
-    void upgradeUser(ActionEvent event) {
+    public void upgradeUser(ActionEvent event) {
     	try {
 			vistara.upgradeUser(searchedUsername.getText());
 		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 
+    /**
+     * Loads the line chart according to the post report and stats
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void loadReportChartPost() {
+    	XYChart.Series serieComments = new XYChart.Series();
+    	XYChart.Series serieReactions = new XYChart.Series();
+    	XYChart.Series serieRating = new XYChart.Series();
+    	
+    	for (Map.Entry<String, HashMap<String, Double>> entry : currentPost.getReport().entrySet()) {
+			serieComments.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_COMMENTS)));
+			serieReactions.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_REACTIONS)));
+			serieRating.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_RATING)));
+    	}
+    	
+    	lineChartPost.getData().addAll(serieComments, serieReactions, serieRating);
+    }
+    
 	public Post getCurrentPost() {
 		return currentPost;
 	}

@@ -241,6 +241,14 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	public void setLastComment(Comment lastComment) {
 		this.lastComment = lastComment;
 	}
+	
+	public HashMap<String, HashMap<String, Double>> getReport() {
+		return report;
+	}
+	
+	public void setReport(HashMap<String, HashMap<String, Double>> report) {
+		this.report = report;
+	}
 
 	@Override
 	public String reportToString() {
