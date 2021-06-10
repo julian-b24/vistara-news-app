@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CommentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CommentController">
    <children>
       <Text fx:id="commentUser" layoutX="6.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text fx:id="commentContent" layoutX="6.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Label fx:id="commentContent" alignment="TOP_LEFT" layoutX="2.0" layoutY="30.0" prefHeight="122.0" prefWidth="250.0" text="Label" wrapText="true" />
    </children>
 </AnchorPane>

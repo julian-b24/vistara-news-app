@@ -23,7 +23,7 @@
       <Label layoutX="719.0" layoutY="62.0" text="###" textFill="WHITE" />
       <JFXButton layoutX="693.0" layoutY="345.0" text="More &gt;&gt;" textFill="WHITE" />
       <JFXButton layoutX="695.0" layoutY="644.0" text="&lt;&lt; Back" textFill="WHITE" />
-      <ScrollPane prefHeight="720.0" prefWidth="546.0">
+      <ScrollPane layoutY="1.0" prefHeight="720.0" prefWidth="546.0">
          <content>
             <GridPane fx:id="trendingGrid">
               <rowConstraints>
