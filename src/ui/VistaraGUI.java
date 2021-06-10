@@ -1,5 +1,6 @@
 package ui;
 
+import model.Comment;
 import model.Moderator;
 import model.Post;
 import model.User;
@@ -43,6 +44,7 @@ public class VistaraGUI {
 	//model fields
 	private User currentUser;
 	//private Post currentPost;
+	private Post currentPost;
 	
 	//Main pane
 	@FXML
@@ -237,6 +239,14 @@ public class VistaraGUI {
     @FXML
     private GridPane ownPostsGrid;
     
+    //comments
+    @FXML
+    private GridPane commentsGrid;
+    
+    //trending
+    @FXML
+    private GridPane trendingGrid;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -301,7 +311,7 @@ public class VistaraGUI {
     
     @FXML
 	public void loadFeed(ActionEvent event) {
-		System.out.println("ey");
+		
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("feed-pane.fxml"));
 			fxmlLoader.setController(this);
@@ -328,7 +338,7 @@ public class VistaraGUI {
     	
     	int columns = 0;
     	int rows = 1;
-    	    	System.out.println(currentUser.getFeed().size());
+    	    	
     	try {
 			for (int i = 0; i < currentUser.getFeed().size(); i++) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
@@ -462,22 +472,52 @@ public class VistaraGUI {
 			
 			commentsPane.getChildren().clear();
 			commentsPane.getChildren().setAll(feedFXML);
-			loadCommentsOfPost();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void loadCommentsOfPost() {
+	public void loadCommentsOfPost(Post post) {
 		//Loads the comments of the currentPost
 		
+		commentsGrid.getChildren().clear();
 		int amountComments = 0;
 		if(amountComments > 0) {
 			//load all the comments
 			iconNoComments.setVisible(false);
 			txtNoComments.setVisible(false);
 		}
+		
+		if(post.getFirstComment() != null) {
+			Comment current = post.getFirstComment();
+			int columns = 0;
+	    	int rows = 1;
+			do {
+		    	  	
+		    	try {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("comment-pane.fxml"));
+					
+					AnchorPane postBox = fxmlLoader.load();	
+					CommentController commentController = fxmlLoader.getController();
+					commentController.setData(current, vistara, this);
+						
+					if(columns == 1) {
+						 columns = 0;
+						rows++;
+					}
+							
+					commentsGrid.add(postBox, columns++, rows);
+					
+		    	} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				current = current.getNextComment();
+			}while(current != post.getFirstComment());
+		}
+		
 	}
 
 	@FXML
@@ -605,6 +645,13 @@ public class VistaraGUI {
 	@FXML
     public void addComment(ActionEvent event) {
 		//Add a new comment to the currentPost
+		if(!txtNewComment.getText().isEmpty()) {
+			vistara.createComment(currentUser, txtNewComment.getText(), currentPost);
+			txtNewComment.clear();
+		}else {
+			emptyFieldAlert();
+		}
+		
     }
 	
 	@FXML
@@ -786,7 +833,37 @@ public class VistaraGUI {
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
 			
+			loadTrendingPosts();
+			
+			
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadTrendingPosts() {
+		
+		int columns = 0;
+    	int rows = 1;
+    	    	
+    	try {
+			for (int i = 0; i < vistara.getTrending().size(); i++) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				
+					AnchorPane postBox = fxmlLoader.load();	
+					PostController postController = fxmlLoader.getController();
+					postController.setData(vistara.getTrending().get(i), vistara, currentUser, this);
+					
+					if(columns == 1) {
+						 columns = 0;
+						 rows++;
+					}
+					
+					trendingGrid.add(postBox, columns++, rows);
+			}
+			
+    	} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -1068,5 +1145,13 @@ public class VistaraGUI {
 			e.printStackTrace();
 		}
     }
-    
+
+	public Post getCurrentPost() {
+		return currentPost;
+	}
+
+	public void setCurrentPost(Post currentPost) {
+		this.currentPost = currentPost;
+	}
+	
 }

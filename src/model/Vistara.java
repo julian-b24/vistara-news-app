@@ -47,6 +47,7 @@ public class Vistara {
 		mods = new ArrayList<>();
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
+		comments = new ArrayList<>();
 		Moderator m = new Moderator("a", "a", "a");
 		mods.add(m);
 		rootUser = m;
@@ -267,11 +268,8 @@ public class Vistara {
 	 * @param post, Post, the post to be commented. It must be different from null.
 	 */
 	public void createComment(User author, String content, Post post) {
-		Comment lastComment = post.getLastComment();
-		Comment firstComment = post.getFirstComment();
 		Comment newComment = new Comment(author.getUsername(), content);
-		lastComment.setNextComment(newComment);
-		firstComment.setPreviousComment(newComment);
+		post.addComment(newComment);
 		comments.add(newComment);
 	}
 	

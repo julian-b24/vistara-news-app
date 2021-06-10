@@ -47,6 +47,7 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		comments = 0;
 		report = new HashMap<String, HashMap<String, Double>>();
 		increaseReport();
+		
 	}
 	
 	/**
@@ -263,6 +264,19 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 			newState = State.FAKE_NEW;
 		}
 		setState(newState);
+	}
+
+	public void addComment(Comment newComment) {
+		if(firstComment == null) {
+			firstComment = newComment;
+			lastComment = firstComment;
+			firstComment.setNextComment(lastComment);
+			comments++;
+		}else {
+			lastComment.setNextComment(newComment);
+			newComment.setNextComment(firstComment);
+			lastComment = newComment;
+		}
 	}
 
 	
