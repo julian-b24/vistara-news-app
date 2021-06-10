@@ -414,6 +414,8 @@ public class VistaraGUI {
 				vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
 			} catch (InvalidUserException e) {
 				
+			} catch (EmptyFieldsException e) {
+				
 			}
 			
 			vistara.reOrderModerators();
