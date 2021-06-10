@@ -69,6 +69,34 @@ class VistaraTest {
 		vistara.addCategory("Politica");
 	}
 	
+	public void setupScenary7() {
+		try {
+			setupScenary6();
+			Moderator mod = new Moderator("Camilo", "per@ytmcom", "now1");
+			mod.setDescription("Pinto");
+			vistara.addUser(mod);
+			vistara.getMods().add(mod);
+		} catch (RepeatedUsernameException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setupScenary8() {
+		setupScenary7();
+		String title = "Avalancha";
+		String content = "Armero";
+		LocalDateTime date = LocalDateTime.of(2020, 3, 12, 12, 30);
+		State state = State.VERIFIED;
+		try {
+			vistara.createPost(title, content, "Politica", vistara.searchUser("Andres"), "link");
+			vistara.getPosts().get(0).setState(state);
+			vistara.getPosts().get(0).setDate(date);
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@Test
 	public void testAddUser() {
 		
@@ -366,7 +394,42 @@ class VistaraTest {
 	
 	@Test
 	public  void testDeletePost() {
-		fail();
+		setupScenary8();
+		String title = "Avalancha";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			assertEquals(0, vistara.getPosts().size());
+			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
+			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			fail();
+		}
+		
+		setupScenary8();
+		title = "";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			assertEquals(0, vistara.getPosts().size());
+			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
+			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+		} catch (InvalidUserException e) {
+			fail();
+		} catch (EmptyFieldsException e) {
+			assertTrue(true);
+		}
+		
+		setupScenary7();
+		title = "Avalancha";
+		try {
+			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
+			assertEquals(0, vistara.getPosts().size());
+			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
+			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+		} catch (InvalidUserException | EmptyFieldsException e) {
+			fail();
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 	
 	@Test

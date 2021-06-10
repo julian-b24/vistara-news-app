@@ -809,7 +809,12 @@ public class Vistara {
 		return post;
 	}
 
-	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException {
+	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException {
+		
+		if(creatorString.isEmpty() || moderator.isEmpty()) {
+			throw new EmptyFieldsException(new String[] {creatorString, moderator});
+		}
+		
 		User creator = searchUser(creatorString);
 		User mod = searchUser(moderator);
 		

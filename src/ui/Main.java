@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Vistara;
+import thread.ThreadRating;
 
 public class Main extends Application{
 
@@ -32,7 +33,10 @@ public class Main extends Application{
 		primaryStage.setTitle("Vistara");
 		primaryStage.show();
 		vistaraGUI.loadLogIn(null);
-		//vistara.loadData();
+		vistara.loadData();
+		
+		ThreadRating threadRating = new ThreadRating(vistara);
+		threadRating.start();
 	}
 
 }
