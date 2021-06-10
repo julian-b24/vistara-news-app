@@ -40,7 +40,7 @@ public class Main extends Application{
 		//vistara.loadData();
 		
 		threadRating.start();
-		threadRating.join();
+		//threadRating.join();
 	}
 	
 	public ThreadRating getThreadRating() {

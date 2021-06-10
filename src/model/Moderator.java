@@ -42,6 +42,6 @@ public class Moderator extends User implements ModeratorManagement, Comparable<M
 
 	@Override
 	public int compareTo(Moderator otherMod) {
-		return getCreationDate().compareTo(otherMod.getCreationDate());
+		return pendingPosts.size() - otherMod.getPendingPosts().size();
 	}
 }
