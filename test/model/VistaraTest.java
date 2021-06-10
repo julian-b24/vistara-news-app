@@ -325,19 +325,19 @@ class VistaraTest {
 		String username = "Camilo";
 		String title = "Avalancha";
 		
-		Post post = vistara.searchPost(title);
-		double reactions = post.getReactions();
-		User user;
+		Post post;
 		try {
-			user = vistara.searchUser(username);
+			post = vistara.searchPost(title);
+			double reactions = post.getReactions();
+			User user = vistara.searchUser(username);
 			int reactedPosts = user.getReactedPosts().size();
 			
 			vistara.reactToPost(post, user);
 			
 			assertEquals(reactions + 1, post.getReactions());
 			assertEquals(reactedPosts + 1, user.getReactedPosts().size());
-		} catch (InvalidUserException e) {
-			e.printStackTrace();
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
 		}
 	}
 	
@@ -354,11 +354,16 @@ class VistaraTest {
 			fail();
 		}
 		
-		Post post = vistara.searchPost(title);
-		assertEquals(title, post.getTitle());
-		assertEquals(content, post.getContent());
-		assertEquals(fullNewLink, post.getFullNewLink());
-		assertEquals(category, post.getCategory().getName());
+		Post post;
+		try {
+			post = vistara.searchPost(title);
+			assertEquals(title, post.getTitle());
+			assertEquals(content, post.getContent());
+			assertEquals(fullNewLink, post.getFullNewLink());
+			assertEquals(category, post.getCategory().getName());
+		} catch (EmptyFieldsException e1) {
+			fail();
+		}
 		
 		setupScenary6();
 		title = "";
@@ -372,7 +377,7 @@ class VistaraTest {
 	
 	@Test
 	public void testConvertUser() {
-		fail();
+		fail("Pendiente");
 	}
 	
 	@Test
@@ -409,11 +414,9 @@ class VistaraTest {
 		title = "";
 		try {
 			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
-			assertEquals(0, vistara.getPosts().size());
-			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
-			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+			fail("2");
 		} catch (InvalidUserException e) {
-			fail();
+			fail("3");
 		} catch (EmptyFieldsException e) {
 			assertTrue(true);
 		}
@@ -422,11 +425,10 @@ class VistaraTest {
 		title = "Avalancha";
 		try {
 			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
-			assertEquals(0, vistara.getPosts().size());
-			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
-			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+			vistara.searchPost(title).getContent();
+			fail("3");
 		} catch (InvalidUserException | EmptyFieldsException e) {
-			fail();
+			fail("4");
 		} catch (NullPointerException e) {
 			assertTrue(true);
 		}
@@ -434,7 +436,29 @@ class VistaraTest {
 	
 	@Test
 	public void testVerifyPost() {
-		fail();
+		setupScenary8();
+		String creator = "Andres";
+		String mod = "Camilo";
+		Post post;
+		String state;
+		try {
+			post = vistara.searchPost("Avalancha");
+			state = "VERIFIED";
+			vistara.verifyPost(creator, mod, post, state);
+			assertEquals(state, post.getState().toString());
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
+		}
+		
+		setupScenary8();
+		try {
+			post = vistara.searchPost("Avalancha");
+			state = "FAKE_NEW";
+			vistara.verifyPost(creator, mod, post, state);
+			assertEquals(state, post.getState().toString());
+		} catch (EmptyFieldsException | InvalidUserException e) {
+			fail();
+		}
 	}
 
 }

@@ -48,9 +48,6 @@ public class Vistara {
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
 		comments = new ArrayList<>();
-		Moderator m = new Moderator("a", "a", "a");
-		mods.add(m);
-		rootUser = m;
 	}
 
 	/**
@@ -783,8 +780,13 @@ public class Vistara {
 	 * Search a posts according to the title. This method implements binary search cause the list is sorted
 	 * @param title, String, the title of the posts to search. It must be different from null and an empty string
 	 * @return the searched post or null in case the post does not exist
+	 * @throws EmptyFieldsException in case the title is an empty string
 	 */
-	public Post searchPost(String title) {
+	public Post searchPost(String title) throws EmptyFieldsException {
+		
+		if(title.isEmpty()) {
+			throw new EmptyFieldsException(new String[] {title});
+		}
 		
 		Post post = null;
 		if(posts.size() > 0) {
@@ -817,11 +819,11 @@ public class Vistara {
 		
 		User creator = searchUser(creatorString);
 		User mod = searchUser(moderator);
-		
-		creator.getOwnPosts().remove(postToRemove);
-		
+
 		if(mod instanceof Moderator) {
+			creator.getOwnPosts().remove(postToRemove);
 			((Moderator) mod).getPendingPosts().remove(postToRemove);
+			posts.remove(postToRemove);
 		}
 	}
 
