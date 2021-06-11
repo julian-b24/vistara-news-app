@@ -19,7 +19,7 @@ import exceptions.RepeatedUsernameException;
 import javafx.scene.image.Image;
 import thread.ThreadAddPostFollowers;
 
-public class Vistara {
+public class Vistara implements ModeratorManagement{
 
 	public final static String IMAGE_PATH = "file:imgs/";
 	public final static int MIN_RATING = 5;
@@ -294,7 +294,8 @@ public class Vistara {
 	* @param newCat The new category thats going to be added
 	* @return added A boolean that determines whether or not the new category is already in the tree or not
 	*/
-	public boolean addCategory(String newCat) {
+	@Override
+	public boolean createCategory(String newCat) {
 		boolean added = true;
 		Category newCategory = new Category(newCat);
 		
@@ -860,6 +861,7 @@ public class Vistara {
 		return post;
 	}
 
+	@Override
 	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException {
 		
 		if(creatorString.isEmpty() || moderator.isEmpty()) {
@@ -869,6 +871,7 @@ public class Vistara {
 		User creator = searchUser(creatorString);
 		User mod = searchUser(moderator);
 
+		mod.deletePost(postToRemove.getDate());
 		if(mod instanceof Moderator) {
 			creator.getOwnPosts().remove(postToRemove);
 			((Moderator) mod).getPendingPosts().remove(postToRemove);
@@ -876,6 +879,7 @@ public class Vistara {
 		}
 	}
 
+	@Override
 	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException {
 		User creator = searchUser(creatorUser);		
 		User moderator = searchUser(mod);

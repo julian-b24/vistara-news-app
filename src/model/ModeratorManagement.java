@@ -1,15 +1,18 @@
 package model;
 
+import exceptions.EmptyFieldsException;
+import exceptions.InvalidUserException;
+
 public interface ModeratorManagement {
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void createCategory(String name);
+	public boolean createCategory(String name);
 
-	public void deletePost();
+	public void deletePost(String creator, String mod, Post postToRemove) throws InvalidUserException, EmptyFieldsException;
 
-	public void verifyPost();
+	public void verifyPost(String creator, String mod, Post postToVerify, String state) throws InvalidUserException ;
 
 }
