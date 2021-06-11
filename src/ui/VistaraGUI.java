@@ -1,11 +1,15 @@
 package ui;
 
+import model.Category;
 import model.Comment;
+import model.ImagePost;
 import model.Moderator;
 import model.Post;
 import model.User;
 import model.Vistara;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
 
 public class VistaraGUI {
@@ -389,19 +394,37 @@ public class VistaraGUI {
     	    	
     	try {
 			for (int i = 0; i < currentUser.getFeed().size(); i++) {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+				if(currentUser.getFeed().get(i) instanceof ImagePost) {
+					
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-image-pane.fxml"));
+					
+						AnchorPane postBox = fxmlLoader.load();	
+						PostImageController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getFeed().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						System.out.println("IMAGE POST");
+						postGrid.add(postBox, columns++, rows);
+				}else {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+					
+						AnchorPane postBox = fxmlLoader.load();	
+						PostController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getFeed().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						postGrid.add(postBox, columns++, rows);
+				}
 				
-					AnchorPane postBox = fxmlLoader.load();	
-					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getFeed().get(i), vistara, currentUser, this);
-					
-					if(columns == 1) {
-						 columns = 0;
-						 rows++;
-					}
-					
-					postGrid.add(postBox, columns++, rows);
 			}
 			
     	} catch (IOException e) {
@@ -615,23 +638,42 @@ public class VistaraGUI {
 		if(currentUser instanceof Moderator) {
 			
 			if(((Moderator) currentUser).getPendingPosts().size() > 0) {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
-				
-				try {
-					AnchorPane postToVerify = fxmlLoader.load();
-					PostController postController = fxmlLoader.getController();					
+				if(((Moderator) currentUser).getPendingPosts().get(0) instanceof ImagePost) {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-image-pane.fxml"));
 					
-					System.out.println(((Moderator) currentUser).getPendingPosts().get(0).getContent());
-					postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser, this);
+					try {
+						AnchorPane postToVerify = fxmlLoader.load();
+						PostImageController postController = fxmlLoader.getController();					
+						
+						postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser, this);
+						
+						postVerifyPost.getChildren().clear();
+						postVerifyPost.getChildren().setAll(postToVerify);
+						
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
+				}else {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
 					
-					postVerifyPost.getChildren().clear();
-					postVerifyPost.getChildren().setAll(postToVerify);
-					
-				} catch (IOException e) {
-					
-					e.printStackTrace();
+					try {
+						AnchorPane postToVerify = fxmlLoader.load();
+						PostController postController = fxmlLoader.getController();					
+						
+						postController.setData(((Moderator) currentUser).getPendingPosts().get(0), vistara, currentUser, this);
+						
+						postVerifyPost.getChildren().clear();
+						postVerifyPost.getChildren().setAll(postToVerify);
+						
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
 				}
+				
 			}
 		}
 	}
@@ -824,19 +866,35 @@ public class VistaraGUI {
     	    
     	try {
 			for (int i = 0; i < currentUser.getOwnPosts().size(); i++) {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
-				
-					AnchorPane postBox = fxmlLoader.load();	
-					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser, this);
+				if(currentUser.getOwnPosts().get(i) instanceof ImagePost) {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-image-pane.fxml"));
 					
-					if(columns == 1) {
-						 columns = 0;
-						 rows++;
-					}
+						AnchorPane postBox = fxmlLoader.load();	
+						PostImageController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						ownPostsGrid.add(postBox, columns++, rows);
+				}else {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
 					
-					ownPostsGrid.add(postBox, columns++, rows);
+						AnchorPane postBox = fxmlLoader.load();	
+						PostController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getOwnPosts().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						ownPostsGrid.add(postBox, columns++, rows);
+				}
 			}
 			
     	} catch (IOException e) {
@@ -852,19 +910,35 @@ public class VistaraGUI {
     	    
     	try {
 			for (int i = 0; i < currentUser.getReactedPosts().size(); i++) {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
-				
-					AnchorPane postBox = fxmlLoader.load();	
-					PostController postController = fxmlLoader.getController();
-					postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser, this);
+				if(currentUser.getReactedPosts().get(i) instanceof ImagePost) {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-image-pane.fxml"));
 					
-					if(columns == 1) {
-						 columns = 0;
-						 rows++;
-					}
+						AnchorPane postBox = fxmlLoader.load();	
+						PostImageController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						reactedPostsGrid.add(postBox, columns++, rows);
+				}else {
+					FXMLLoader fxmlLoader = new FXMLLoader();
+					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
 					
-					reactedPostsGrid.add(postBox, columns++, rows);
+						AnchorPane postBox = fxmlLoader.load();	
+						PostController postController = fxmlLoader.getController();
+						postController.setData(currentUser.getReactedPosts().get(i), vistara, currentUser, this);
+						
+						if(columns == 1) {
+							 columns = 0;
+							 rows++;
+						}
+						
+						reactedPostsGrid.add(postBox, columns++, rows);
+				}
 			}
 			
     	} catch (IOException e) {
@@ -1034,7 +1108,11 @@ public class VistaraGUI {
 	
 	@FXML
 	public void addPhotoToPost(ActionEvent event) {
-
+		FileChooser fc = new FileChooser();
+		File selectedFile = fc.showOpenDialog(null);
+		if(selectedFile != null) {
+			postImagePath.setText(selectedFile.getAbsolutePath());
+		}
     }
 
     @FXML
@@ -1049,6 +1127,8 @@ public class VistaraGUI {
 				} catch (EmptyFieldsException e) {
 					emptyFieldAlert();
 				}
+    		}else {
+    			vistara.createImagePost(currentUser, postTittle.getText(), postDetails.getText(), postCategory.getValue(), postLink.getText(), postImagePath.getText());
     		}
     	}else {
     		//warning something went wrong
@@ -1100,20 +1180,32 @@ public class VistaraGUI {
 
 	@FXML
 	public void changeProfilePic(ActionEvent event) {
-
+		FileChooser fc = new FileChooser();
+		File selectedFile = fc.showOpenDialog(null);
+		
+		if(selectedFile != null) {
+			try {
+				vistara.setUserProfilePic(currentUser.getUsername(), selectedFile);
+			} catch (InvalidUserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
     }
 
     @FXML
     public void confirmPorfileEdition(ActionEvent event) {
     	if(!editName.getText().isEmpty() && !editEmail.getText().isEmpty()) {
-    		
-    		try {
-				vistara.confirmPorfileEdition(currentUser.getUsername(), editName.getText().trim(), editEmail.getText().trim(), editBio.getText());
-			} catch (InvalidUserException | RepeatedUsernameException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
+			try {
+				vistara.confirmPorfileEdition(currentUser.getUsername(), editName.getText().trim(), editEmail.getText().trim(), editBio.getText());
+			} catch (InvalidUserException e) {
+				invalidUsernameAlert();
+			} catch (RepeatedUsernameException e) {
+				repeatedUsernameAlert();
+			} catch (IOException e) {
+				executionAlert();
+			}
     	}
     }
     
@@ -1135,25 +1227,39 @@ public class VistaraGUI {
     	postGrid.getChildren().clear();
     	int columns = 0;
     	int rows = 1;
-    	    	System.out.println(vistara.getPosts().size()+" ** POSTS VISTARA **");
-    	    	System.out.println(value);
+    	
     	try {
 			for (int i = 0; i < vistara.getPosts().size(); i++) {
 				if(vistara.getPosts().get(i).getCategory().getName().equals(value)) {
-					
-					FXMLLoader fxmlLoader = new FXMLLoader();
-					fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
-					
-						AnchorPane postBox = fxmlLoader.load();	
-						PostController postController = fxmlLoader.getController();
-						postController.setData(vistara.getPosts().get(i), vistara, currentUser, this);
-						System.out.println("gen gen");
-						if(columns == 1) {
-							 columns = 0;
-							 rows++;
-						}
+					if(vistara.getPosts().get(i) instanceof ImagePost) {
+						FXMLLoader fxmlLoader = new FXMLLoader();
+						fxmlLoader.setLocation(getClass().getResource("post-image-pane.fxml"));
 						
-						postGrid.add(postBox, columns++, rows);
+							AnchorPane postBox = fxmlLoader.load();	
+							PostImageController postController = fxmlLoader.getController();
+							postController.setData(vistara.getPosts().get(i), vistara, currentUser, this);
+							
+							if(columns == 1) {
+								 columns = 0;
+								 rows++;
+							}
+							
+							postGrid.add(postBox, columns++, rows);
+					}else {
+						FXMLLoader fxmlLoader = new FXMLLoader();
+						fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
+						
+							AnchorPane postBox = fxmlLoader.load();	
+							PostController postController = fxmlLoader.getController();
+							postController.setData(vistara.getPosts().get(i), vistara, currentUser, this);
+							
+							if(columns == 1) {
+								 columns = 0;
+								 rows++;
+							}
+							
+							postGrid.add(postBox, columns++, rows);
+					}
 				}
 			}
 			

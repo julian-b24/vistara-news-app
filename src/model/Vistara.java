@@ -24,7 +24,7 @@ public class Vistara implements ModeratorManagement{
 	public final static String IMAGE_PATH = "file:imgs/";
 	public final static int MIN_RATING = 5;
 	public final static String SAVE_PATH_USERS = "data/system/users.txr";
-	public final static String SAVE_PATH_MODS = "data/system/modss.txr";
+	public final static String SAVE_PATH_MODS = "data/system/mods.txr";
 	public final static String SAVE_PATH_CATEGORIES = "data/system/categories.txr";
 	public final static String SAVE_PATH_POSTS = "data/system/posts.txr";
 	public final static String SAVE_PATH_TRENDING = "data/system/trending.txr";
@@ -929,7 +929,25 @@ public class Vistara implements ModeratorManagement{
 				addUser(newUser);
 			}
 		}
+	}
+
+	public void setUserProfilePic(String username, File selectedFile) throws InvalidUserException {
+		User user = searchUser(username);
+		Image profilePic = new Image("file:"+selectedFile.getAbsolutePath());
+		user.setProfilePic(profilePic);
+	}
+
+	public void createImagePost(User currentUser, String title, String content, String category, String link, String path) {
+		Category cat = new Category(category);
+		LocalDateTime now = LocalDateTime.now();
+		Image img = new Image("file:"+path);
+		ImagePost post = new ImagePost(currentUser.getUsername(), title, content, cat, now, link, img);
 		
+		posts.add(post);
+		currentUser.getOwnPosts().add(post);
+		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(currentUser, post);
+		addPostToModeratorList(post);
+		addThread.start();
 	}
 	
 	/*
