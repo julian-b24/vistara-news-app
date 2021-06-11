@@ -738,14 +738,26 @@ public class Vistara implements ModeratorManagement{
 		String path = EXPORT_REPORT_POST_PATH + post.getTitle() + REPORTS_EXTENSION;
 		PrintWriter pw = new PrintWriter(path);
 		pw.println(report);
+		pw.close();
 	}
 	
+	/**
+	 * Imports some extra data for the app
+	 * @throws IOException
+	 * @throws RepeatedUsernameException
+	 * @throws EmptyFieldsException
+	 * @throws InvalidUserException
+	 */
 	public void importData() throws IOException, RepeatedUsernameException, EmptyFieldsException, InvalidUserException {
 		importUsers();
 		importCategories();
 		importPosts();
 	}
 	
+	/**
+	 * Import the file categories.csv and loads all the categories in it
+	 * @throws IOException
+	 */
 	private void importCategories() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_CATEGORIES));
 		br.readLine(); //Read first line
@@ -758,6 +770,13 @@ public class Vistara implements ModeratorManagement{
 		br.close();
 	}
 
+	/**
+	 * Import the file posts.csv and loads all the posts in it <br>
+	 * <b> pre: </b> The categories of categories.csv and the users of users.csv must be imported <br>
+	 * @throws IOException
+	 * @throws EmptyFieldsException
+	 * @throws InvalidUserException
+	 */
 	private void importPosts() throws IOException, EmptyFieldsException, InvalidUserException {
 		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_POSTS));
 		br.readLine(); //Read first line
@@ -778,6 +797,13 @@ public class Vistara implements ModeratorManagement{
 		br.close();
 	}
 
+	/**
+	 * Import the file users.csv and loads all the users in it
+	 * @throws IOException
+	 * @throws RepeatedUsernameException
+	 * @throws EmptyFieldsException
+	 * @throws InvalidUserException
+	 */
 	private void importUsers() throws IOException, RepeatedUsernameException, EmptyFieldsException, InvalidUserException {
 		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_USERS));
 		br.readLine(); //Read first line
@@ -805,11 +831,19 @@ public class Vistara implements ModeratorManagement{
 		br.close();
 	}
 
+	/**
+	 * Gets a date accorfing to a string in format dd/mm/yy
+	 * @param dateString, String, date to get in format dd/mm/yy, it must be different of null and an empty string
+	 * @return LocalDateTime, the date founded.
+	 */
 	private LocalDateTime createDate(String dateString) {
 		String[] dateValues = dateString.split("/");
 		int year = Integer.valueOf(dateValues[2]);
+		int month = Integer.valueOf(dateValues[1]);
+		int day = Integer.valueOf(dateValues[0]);
 		
-		return null;
+		LocalDateTime date = LocalDateTime.of(year, month, day, 0, 0);
+		return date;
 	}
 
 	public ArrayList<Moderator> getMods() {
