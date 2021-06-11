@@ -9,6 +9,8 @@ import model.Vistara;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -23,14 +25,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 
@@ -247,6 +253,10 @@ public class VistaraGUI {
     @FXML
     private GridPane trendingGrid;
     
+    //
+    @FXML
+    private LineChart<?, ?> lineChartPost;
+    
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -393,9 +403,9 @@ public class VistaraGUI {
 			
 			fxmlLoader.setController(this);
 			Parent profileBar = fxmlLoader.load();
-			
 			profileBarPane.getChildren().clear();
 			profileBarPane.getChildren().setAll(profileBar);
+			loadProfilePicBar();
 			setProfileBarInfo();
 			
 		} catch (IOException e) {
@@ -403,6 +413,16 @@ public class VistaraGUI {
 		}
 	}
 	
+	private void loadProfilePicBar() {
+		Image image;
+		if(currentUser.getProfilePic() == null) {
+			image = new Image("file:imgs/no-profile.png");
+		}else {
+			image = currentUser.getProfilePic();
+		}
+		profileCircleBar.setFill(new ImagePattern(image));
+	}
+
 	@FXML
     public void deletePost(ActionEvent event) {
 		if(currentUser instanceof Moderator && ((Moderator) currentUser).getPendingPosts().size() > 0) {
@@ -644,7 +664,10 @@ public class VistaraGUI {
 	}
 
 	private void setProfileBarInfo() {
-		//Loads the info of the current user in the bar
+		txtUsernameBar.setText(currentUser.getUsername());;
+		txtBioUserBar.setText(currentUser.getDescription());;
+		txtFollowersBar.setText(String.valueOf(currentUser.getFollowers().size()));;
+		txtFollowingBar.setText(String.valueOf(currentUser.getFollowing().size()));;
 	}
 	
 	@FXML
@@ -1024,7 +1047,7 @@ public class VistaraGUI {
     }
     
     @FXML
-    void filterFeedPosts(ActionEvent event) {
+    public void filterFeedPosts(ActionEvent event) {
 
     	if(filterCategory.getValue() != null) {
     		loadFeedByCategory(filterCategory.getValue());
@@ -1064,7 +1087,7 @@ public class VistaraGUI {
 	}
 
 	@FXML
-    void searchUserInFeed(ActionEvent event) {
+    public void searchUserInFeed(ActionEvent event) {
 
     	User searchedUser = null;
 		try {
@@ -1122,7 +1145,7 @@ public class VistaraGUI {
     }
     
     @FXML
-    void followUser(ActionEvent event) {
+    public void followUser(ActionEvent event) {
     	
     	if(followBtnText.getText().equals("Follow")) {
     		try {
@@ -1147,10 +1170,27 @@ public class VistaraGUI {
 			vistara.upgradeUser(searchedUsername.getText());
 		} catch (InvalidUserException | RepeatedUsernameException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
     }
 
+    /**
+     * Loads the line chart according to the post report and stats
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void loadReportChartPost() {
+    	XYChart.Series serieComments = new XYChart.Series();
+    	XYChart.Series serieReactions = new XYChart.Series();
+    	XYChart.Series serieRating = new XYChart.Series();
+    	
+    	for (Map.Entry<String, HashMap<String, Double>> entry : currentPost.getReport().entrySet()) {
+			serieComments.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_COMMENTS)));
+			serieReactions.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_REACTIONS)));
+			serieRating.getData().add(new XYChart.Data(entry.getKey(), entry.getValue().get(currentPost.MAP_KEY_RATING)));
+    	}
+    	
+    	lineChartPost.getData().addAll(serieComments, serieReactions, serieRating);
+    }
+    
 	public Post getCurrentPost() {
 		return currentPost;
 	}

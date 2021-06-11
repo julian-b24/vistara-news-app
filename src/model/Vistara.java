@@ -478,11 +478,25 @@ public class Vistara {
 
 	/**
 	* reOrderModerators: It takes the list of moderators in the program and sort it by the amount of pending posts they have yet to confirm<br>
+	* It sorts using with selection sort.
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
 	*/
 	public void reOrderModerators() {
-		Collections.sort(mods);
+		for (int i = 0; i < mods.size(); i++) {
+			
+			Moderator min = mods.get(i);
+			
+			for (int j = i + 1; j < mods.size(); j++) {
+				
+				if (mods.get(j).compareTo(min) < 0) {
+					Moderator temp = mods.get(i);
+					mods.set(j, min);
+					min = temp;
+				}
+			}
+			mods.set(i, min);
+		}
 	}
 	
 	/**
