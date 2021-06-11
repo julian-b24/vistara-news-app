@@ -253,9 +253,22 @@ public class VistaraGUI {
     @FXML
     private GridPane trendingGrid;
     
-    //
+    //stats posts
     @FXML
     private LineChart<?, ?> lineChartPost;
+    
+    //edit profile
+    @FXML
+    private Circle editCircleProfile;
+    
+    @FXML
+    private JFXTextField editName;
+
+    @FXML
+    private JFXTextField editEmail;
+
+    @FXML
+    private JFXTextArea editBio;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -405,7 +418,7 @@ public class VistaraGUI {
 			Parent profileBar = fxmlLoader.load();
 			profileBarPane.getChildren().clear();
 			profileBarPane.getChildren().setAll(profileBar);
-			loadProfilePicBar();
+			loadProfilePic(profileCircleBar, currentUser);
 			setProfileBarInfo();
 			
 		} catch (IOException e) {
@@ -413,14 +426,14 @@ public class VistaraGUI {
 		}
 	}
 	
-	private void loadProfilePicBar() {
+	public void loadProfilePic(Circle circle, User user) {
 		Image image;
-		if(currentUser.getProfilePic() == null) {
+		if(user.getProfilePic() == null) {
 			image = new Image("file:imgs/no-profile.png");
 		}else {
-			image = currentUser.getProfilePic();
+			image = user.getProfilePic();
 		}
-		profileCircleBar.setFill(new ImagePattern(image));
+		circle.setFill(new ImagePattern(image));
 	}
 
 	@FXML
@@ -1022,13 +1035,21 @@ public class VistaraGUI {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-profile-pane.fxml"));
 			fxmlLoader.setController(this);
 			Parent profile = fxmlLoader.load();
-			
+			loadEditData();
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void loadEditData() {
+		editName.setText(currentUser.getUsername());
+		editEmail.setText(currentUser.getEmail());
+		editBio.setText(currentUser.getDescription());
+		loadProfilePic(editCircleProfile, currentUser);
 	}
 
 	@FXML

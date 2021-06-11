@@ -31,9 +31,6 @@ public class PostController {
     private Label numberCommmentaries;
 
     @FXML
-    private ImageView profilePicPost;
-
-    @FXML
     private Label postDetails;
 
     @FXML
@@ -53,21 +50,14 @@ public class PostController {
     	vistara = vis;
     	currentUser = user;
     	vistaraGUI = visGui;
-    	//post image
-    	//Image image = new Image(getClass().getResourceAsStream(post.getImgPath()));
-    	//newsImage.setImage(image);
-    	//post user image
-    	//image = new Image(getClass().getResourceAsStream(post.getUserImagePath()));
-    	//profilePicPost.setImage(image);
-    	//texts
-    	postUsername.setText("MISSING THIS ON CODE XD");
+    	postUsername.setText(post.getAuthor());
     	postDetails.setText(post.getContent());
-    	verificationText.setText(post.getState()+"");
+    	verificationText.setText(post.getState().toString());
     	postTittle.setText(post.getTitle());
     	numberReactions.setText(post.getReactions()+"");
     	numberCommmentaries.setText(post.getComments()+"");
     	newsLink.setText(post.getFullNewLink());
-    	
+    	visGui.loadProfilePic(postProfileImage, user);
     }
     
     @FXML

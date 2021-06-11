@@ -27,8 +27,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	private Comment firstComment;
 	private Comment lastComment;
 	private double rating;
-	private String imgPath;
-	private String userImagePath;
 	private double reactions;
 	private double comments;
 	private HashMap<String, HashMap<String, Double>> report;
@@ -200,22 +198,6 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	 */
 	public int compareTo(Post otherPost) {
 		return title.compareTo(otherPost.getTitle());
-	}
-
-	public String getImgPath() {
-		return imgPath;
-	}
-
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-
-	public String getUserImagePath() {
-		return userImagePath;
-	}
-
-	public void setUserImagePath(String userImagePath) {
-		this.userImagePath = userImagePath;
 	}
 
 	public double getReactions() {
