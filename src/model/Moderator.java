@@ -27,8 +27,24 @@ public class Moderator extends User implements Comparable<Moderator>, Serializab
 		return pendingPosts.size() - otherMod.getPendingPosts().size();
 	}
 
+	/**
+	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
+	 * Implements bubble sort
+	 */
 	public void sortPendingPosts() {
-		// TODO Auto-generated method stub
-		
+		boolean changed = true;
+		for (int i = 1; i < pendingPosts.size() - 1 && changed; i++) {
+			changed = false;
+			
+			for (int j = 0; j < pendingPosts.size() - i; j++) {
+				
+				if (pendingPosts.get(j).getReactions() > pendingPosts.get(j + 1).getReactions()) {
+					Post temp = pendingPosts.get(j);
+					pendingPosts.set(j, pendingPosts.get(j + 1));
+					pendingPosts.set(j + 1, temp);
+					changed = true;
+				}
+			}	
+		}
 	}
 }

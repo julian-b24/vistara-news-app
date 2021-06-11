@@ -503,13 +503,11 @@ public class Vistara implements ModeratorManagement{
 	
 	/**
 	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
-	 * It implements bubble sort.
 	 */
 	private void sortPendingPosts() {
 		for (Moderator mod : mods) {
 			mod.sortPendingPosts();
 		}
-		
 	}
 
 	/**
