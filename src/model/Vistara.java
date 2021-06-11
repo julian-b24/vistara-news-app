@@ -92,7 +92,7 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = user;
 		}
-		saveUsersData();
+		//saveUsersData();
 		
 		return added;
 	}
@@ -118,7 +118,7 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = newUser;
 		}
-		saveUsersData();
+		//saveUsersData();
 		
 		return added;
 	}
@@ -245,6 +245,10 @@ public class Vistara implements ModeratorManagement{
 			return searchUser(current.getRightUser(), username);
 			
 		}else {
+			if(current.getProfilePic() != null) {
+				System.out.println("USER: "+current.getUsername()+". "+current.getProfilePic().impl_getUrl());
+			}
+			
 			return current;
 		}
 	}
@@ -272,6 +276,7 @@ public class Vistara implements ModeratorManagement{
 			addPostToModeratorList(post);
 			addThread.start();
 		}
+		sortPosts();
 	}
 	
 	/**
@@ -634,7 +639,7 @@ public class Vistara implements ModeratorManagement{
 	public void saveData() throws IOException {
 		saveCommentsData();
 		saveModsData();
-		saveUsersData();
+		//saveUsersData();
 		saveTrendingData();
 		saveCategoriesData();
 		savePostsData();
@@ -766,6 +771,7 @@ public class Vistara implements ModeratorManagement{
 		while (line != null) {
 			String categoryName = line;
 			createCategory(categoryName);
+			line = br.readLine();
 		}
 		br.close();
 	}
@@ -793,6 +799,7 @@ public class Vistara implements ModeratorManagement{
 			LocalDateTime creationDate = createDate(creationString);
 			createPost(title, content, categoryName, searchUser(author), link);
 			searchPost(title).setDate(creationDate);
+			line = br.readLine();
 		}
 		br.close();
 	}
@@ -810,6 +817,7 @@ public class Vistara implements ModeratorManagement{
 		
 		String line = br.readLine();
 		while (line != null) {
+			System.out.println(line);
 			String[] values = line.split(";");
 			String username = values[0];
 			String email = values[1];
@@ -827,6 +835,7 @@ public class Vistara implements ModeratorManagement{
 			searchUser(username).setCreationDate(creationDate);
 			searchUser(username).setDescription(bio);
 			searchUser(username).setProfilePic(profilePic);
+			line = br.readLine();
 		}
 		br.close();
 	}
@@ -837,12 +846,17 @@ public class Vistara implements ModeratorManagement{
 	 * @return LocalDateTime, the date founded.
 	 */
 	private LocalDateTime createDate(String dateString) {
-		String[] dateValues = dateString.split("/");
-		int year = Integer.valueOf(dateValues[2]);
-		int month = Integer.valueOf(dateValues[1]);
-		int day = Integer.valueOf(dateValues[0]);
-		
-		LocalDateTime date = LocalDateTime.of(year, month, day, 0, 0);
+		LocalDateTime date;
+		if(dateString.equals("now")) {
+			date = LocalDateTime.now();
+		}else {
+			String[] dateValues = dateString.split("/");
+			int year = Integer.valueOf(dateValues[2]);
+			int month = Integer.valueOf(dateValues[1]);
+			int day = Integer.valueOf(dateValues[0]);
+			
+			date = LocalDateTime.of(year, month, day, 0, 0);
+		}		
 		return date;
 	}
 
@@ -1060,6 +1074,7 @@ public class Vistara implements ModeratorManagement{
 		ThreadAddPostFollowers addThread = new ThreadAddPostFollowers(currentUser, post);
 		addPostToModeratorList(post);
 		addThread.start();
+		sortPosts();
 	}
 	
 	public void addCategoryImage(String path, String cat) {

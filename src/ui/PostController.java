@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.InvalidUserException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,7 +57,11 @@ public class PostController {
     	numberReactions.setText(post.getReactions()+"");
     	numberCommmentaries.setText(post.getComments()+"");
     	newsLink.setText(post.getFullNewLink());
-    	visGui.loadProfilePic(postProfileImage, user);
+    	try {
+			visGui.loadProfilePic(postProfileImage, vistara.searchUser(post.getAuthor()));
+		} catch (InvalidUserException e) {
+			visGui.invalidUsernameAlert();
+		}
     }
     
     @FXML

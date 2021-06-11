@@ -1380,7 +1380,7 @@ public class VistaraGUI {
   			}      			
   			
   			loadProfileBar(); 
-  			loadProfilePic(searchCircleProfile, currentUser);
+  			loadProfilePic(searchCircleProfile, searchedUser);
   			
   			if(searchedUser == currentUser) {
   				followBtnText.setVisible(false);
@@ -1472,6 +1472,7 @@ public class VistaraGUI {
 			vistara.importData();
 		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
 			executionAlert();
+			e.printStackTrace();
 		}
     }
 }
