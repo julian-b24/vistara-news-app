@@ -7,11 +7,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/verify-post-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXRadioButton fx:id="verifiedNew" layoutX="87.0" layoutY="350.0" text="Verify">
+      <JFXRadioButton fx:id="verifiedNew" layoutX="73.0" layoutY="434.0" text="Verify">
          <toggleGroup>
             <ToggleGroup fx:id="verifyS" />
          </toggleGroup></JFXRadioButton>
-      <JFXRadioButton fx:id="fakeNew" layoutX="86.0" layoutY="419.0" text="Fake new" toggleGroup="$verifyS" />
+      <JFXRadioButton fx:id="fakeNew" layoutX="72.0" layoutY="503.0" text="Fake new" toggleGroup="$verifyS" />
       <JFXButton id="confirm-button" layoutX="72.0" layoutY="604.0" onAction="#verifyPost" prefHeight="53.0" prefWidth="154.0" style="-fx-background-color: #505050;" text="Confirm" textFill="#e2e2e2" />
       <JFXButton id="delete-button" layoutX="568.0" layoutY="29.0" onAction="#deletePost" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #505050;" text="Delete" textFill="#e2e2e2" />
       <AnchorPane fx:id="postVerifyPost" layoutX="87.0" layoutY="29.0" prefHeight="288.0" prefWidth="448.0" />
