@@ -265,6 +265,24 @@ public class VistaraGUI {
     @FXML
     private LineChart<?, ?> lineChartPost;
     
+    @FXML
+    private Label statsPostTitle;
+
+    @FXML
+    private Label statsPostStatus;
+
+    @FXML
+    private Label statsPostsReactions;
+
+    @FXML
+    private Label statsPostComments;
+
+    @FXML
+    private JFXTextArea statsPostContent;
+    
+    @FXML
+    private Label statsPostHeader;
+
     //edit profile
     @FXML
     private Circle editCircleProfile;
@@ -312,7 +330,7 @@ public class VistaraGUI {
 			mainPane.getChildren().setAll(login);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -383,7 +401,7 @@ public class VistaraGUI {
 			filterCategory.getItems().addAll(categories);			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -428,7 +446,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -444,7 +462,7 @@ public class VistaraGUI {
 			mainPane.getChildren().setAll(signup);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -470,7 +488,7 @@ public class VistaraGUI {
 			setProfileBarInfo();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -495,11 +513,10 @@ public class VistaraGUI {
 				try {
 					vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
 				} catch (EmptyFieldsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					emptyFieldAlert();
 				}
 			} catch (InvalidUserException e) {
-				
+				invalidUsernameAlert();
 			}
 			
 			vistara.reOrderModerators();
@@ -560,7 +577,7 @@ public class VistaraGUI {
 			commentsPane.getChildren().setAll(feedFXML);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -584,8 +601,7 @@ public class VistaraGUI {
 				try {
 					userCreatorComment = vistara.searchUser(current.getAuthor());
 				} catch (InvalidUserException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					invalidUsernameAlert();
 				}
 		    	try {
 					FXMLLoader fxmlLoader = new FXMLLoader();
@@ -603,7 +619,7 @@ public class VistaraGUI {
 					commentsGrid.add(postBox, columns++, rows);
 					
 		    	} catch (IOException e) {
-					e.printStackTrace();
+		    		executionAlert();
 				}
 				
 				current = current.getNextComment();
@@ -627,7 +643,7 @@ public class VistaraGUI {
 			loadPostToVerify();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -669,11 +685,9 @@ public class VistaraGUI {
 						postVerifyPost.getChildren().setAll(postToVerify);
 						
 					} catch (IOException e) {
-						
-						e.printStackTrace();
+						executionAlert();
 					}
 				}
-				
 			}
 		}
 	}
@@ -688,8 +702,34 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
+	}
+	
+	@FXML
+	public void loadStatsPost(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("posts-stats.fxml"));
+			fxmlLoader.setController(this);
+			Parent stats = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(stats);
+
+			loadStatsPostData();
+			loadReportChartPost();
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
+
+	private void loadStatsPostData() {
+		statsPostHeader.setText(currentPost.getTitle());
+		statsPostComments.setText(String.valueOf(currentPost.getComments()).replace(".0",""));
+		statsPostsReactions.setText(String.valueOf(currentPost.getReactions()).replace(".0",""));
+		statsPostTitle.setText(currentPost.getTitle());
+		statsPostStatus.setText(currentPost.getState().toString());
 	}
 
 	@FXML
@@ -707,7 +747,7 @@ public class VistaraGUI {
 			loadCreateCategoryTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -745,7 +785,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -779,6 +819,13 @@ public class VistaraGUI {
 		} catch (IOException e) {
 			executionAlert();
 		}
+	}
+	
+	private void notFoundUserAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Not User found");
+		warning.setContentText("Any user has the username you are looking for");
+		warning.showAndWait();
 	}
 	
 	public void executionAlert() {
@@ -826,7 +873,7 @@ public class VistaraGUI {
 			loadProfileTabPane();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -854,7 +901,7 @@ public class VistaraGUI {
 			loadReactedPosts(null);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -898,7 +945,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -942,7 +989,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
     }
 
@@ -959,7 +1006,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -978,7 +1025,7 @@ public class VistaraGUI {
 			loadTrendingTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -996,7 +1043,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1025,7 +1072,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -1044,7 +1091,7 @@ public class VistaraGUI {
 			loadCalendartab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -1059,7 +1106,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1082,7 +1129,7 @@ public class VistaraGUI {
 			postCategory.setValue(categories.get(0));
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 
@@ -1097,7 +1144,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1131,7 +1178,7 @@ public class VistaraGUI {
     			vistara.createImagePost(currentUser, postTittle.getText(), postDetails.getText(), postCategory.getValue(), postLink.getText(), postImagePath.getText());
     		}
     	}else {
-    		//warning something went wrong
+    		executionAlert();
     	}
     	
     }
@@ -1151,7 +1198,7 @@ public class VistaraGUI {
 			loadEditProfileTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -1167,7 +1214,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1264,7 +1311,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -1275,74 +1322,71 @@ public class VistaraGUI {
 		try {
 			searchedUser = vistara.searchUser(serachUser.getText().trim());
 		} catch (InvalidUserException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			invalidUsernameAlert();
 		}
-    	if(searchedUser != null) {
-    		try {
-    			
-      			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("serach-user-pane.fxml"));
-      			fxmlLoader.setController(this);
-      			Parent searchFXML = fxmlLoader.load();
-      			
-      			mainPane.getChildren().clear();
-      			mainPane.getChildren().setAll(searchFXML);
-      			
-      			
-      			//Verify that the current user has the option to turn other into moderatoes or if the searched user is already a moderator
-      			if(!(currentUser instanceof Moderator) || searchedUser instanceof Moderator) {
-      				upgradeModBtn.setVisible(false);
-      				upgradeModBtn.setDisable(true);
-      			}      			
-      			
-      			loadProfileBar(); 
-      			loadProfilePic(searchCircleProfile, currentUser);
-      			
-      			if(searchedUser == currentUser) {
-      				followBtnText.setVisible(false);
-      				followBtnText.setDisable(true);
-      			}
-      			//set text for following
-      			User userSearched = currentUser.searchUserFollowing(searchedUser.getUsername());
-      			if(userSearched == null) {
-      				followingText.setText("Not following");
-      			}
-      			else {
-      				followBtnText.setText("Unfollow");
-      			}
-      			//Set searched user data
-      			searchedUsername.setText(searchedUser.getUsername());
-      			searchedNumPosts.setText(searchedUser.getOwnPosts().size()+"");
-      			searchedNumVerPosts.setText(searchedUser.getVerifiedPosts()+"");
-      			searchedNumFollowers.setText(searchedUser.getFollowers().size()+"");
-      			searchedNumFollowing.setText(searchedUser.getFollowing().size()+"");
-      			searchedNumFakePosts.setText(searchedUser.getFakePosts()+"");
-      			
-      		} catch (IOException e) {
-      			e.printStackTrace();
-      		}
-    	}else {
-    		//WARNING USER NOT FOUND
-    		System.out.println("not found");
-    	}
+		
+		try {
+			
+  			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("serach-user-pane.fxml"));
+  			fxmlLoader.setController(this);
+  			Parent searchFXML = fxmlLoader.load();
+  			
+  			mainPane.getChildren().clear();
+  			mainPane.getChildren().setAll(searchFXML);
+  			
+  			
+  			//Verify that the current user has the option to turn other into moderatoes or if the searched user is already a moderator
+  			if(!(currentUser instanceof Moderator) || searchedUser instanceof Moderator) {
+  				upgradeModBtn.setVisible(false);
+  				upgradeModBtn.setDisable(true);
+  			}      			
+  			
+  			loadProfileBar(); 
+  			loadProfilePic(searchCircleProfile, currentUser);
+  			
+  			if(searchedUser == currentUser) {
+  				followBtnText.setVisible(false);
+  				followBtnText.setDisable(true);
+  			}
+  			//set text for following
+  			User userSearched = currentUser.searchUserFollowing(searchedUser.getUsername());
+  			if(userSearched == null) {
+  				followingText.setText("Not following");
+  			}
+  			else {
+  				followBtnText.setText("Unfollow");
+  			}
+  			//Set searched user data
+  			searchedUsername.setText(searchedUser.getUsername());
+  			searchedNumPosts.setText(searchedUser.getOwnPosts().size()+"");
+  			searchedNumVerPosts.setText(searchedUser.getVerifiedPosts()+"");
+  			searchedNumFollowers.setText(searchedUser.getFollowers().size()+"");
+  			searchedNumFollowing.setText(searchedUser.getFollowing().size()+"");
+  			searchedNumFakePosts.setText(searchedUser.getFakePosts()+"");
+  			
+  		} catch (IOException e) {
+  			executionAlert();
+  		} catch (NullPointerException e) {
+  			notFoundUserAlert();
+  		}
     }
-    
-    @FXML
+
+   
+
+	@FXML
     public void followUser(ActionEvent event) {
     	
     	if(followBtnText.getText().equals("Follow")) {
     		try {
 				vistara.followUser(currentUser, searchedUsername.getText());
 			} catch (InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				invalidUsernameAlert();
 			}
     	}else {
     		try {
 				vistara.unfollowUser(currentUser, searchedUsername.getText());
 			} catch (InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				invalidUsernameAlert();
 			}
     	}
     }
