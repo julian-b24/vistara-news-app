@@ -6,7 +6,7 @@ import model.Moderator;
 import model.Post;
 import model.User;
 import model.Vistara;
-import thread.ThreadLoadingPane;
+import thread.ThreadImportData;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import animatefx.animation.Bounce;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
@@ -44,6 +45,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 
 public class VistaraGUI {
@@ -336,9 +338,30 @@ public class VistaraGUI {
     @FXML
 	private Circle circle3;
     
-    @FXML
-	private Rectangle lineRectangle;
-    
+	public Circle getCircle1() {
+		return circle1;
+	}
+
+	public void setCircle1(Circle circle1) {
+		this.circle1 = circle1;
+	}
+
+	public Circle getCircle2() {
+		return circle2;
+	}
+
+	public void setCircle2(Circle circle2) {
+		this.circle2 = circle2;
+	}
+
+	public Circle getCircle3() {
+		return circle3;
+	}
+
+	public void setCircle3(Circle circle3) {
+		this.circle3 = circle3;
+	}
+
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -1499,8 +1522,12 @@ public class VistaraGUI {
     @FXML
     public void importData(MouseEvent event) {
     	try {
-    		ThreadLoadingPane threadLoadingPane = new ThreadLoadingPane(this, circle1, circle2, circle3, lineRectangle);
-    		threadLoadingPane.start();
+    		//ThreadLoadingPane threadLoadingPane = new ThreadLoadingPane(this);
+    		//Thread thread = new Thread(threadLoadingPane);
+    		loadLoadingPane();
+    		//thread.start();
+    		//thread.join();
+    		executeLoading();
 			vistara.importData();
 		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
 			executionAlert();
@@ -1509,15 +1536,27 @@ public class VistaraGUI {
 
 	public void loadLoadingPane() {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loading-pane.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("load-pane.fxml"));
 			fxmlLoader.setController(this);
 			Parent loading = fxmlLoader.load();
 			
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(loading);
+			executeLoading();
 			
 		} catch (IOException e) {
 			executionAlert();
 		}
+	}
+	
+	public void executeLoading() {
+
+		//circles animation
+		new Bounce(circle1).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("500ms")).play();
+		new Bounce(circle2).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1000ms")).play();
+		new Bounce(circle3).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1100ms")).play();
+		
+		
+		loadFeed(null);
 	}
 }
