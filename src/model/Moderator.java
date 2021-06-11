@@ -26,4 +26,9 @@ public class Moderator extends User implements Comparable<Moderator>, Serializab
 	public int compareTo(Moderator otherMod) {
 		return pendingPosts.size() - otherMod.getPendingPosts().size();
 	}
+
+	public void sortPendingPosts() {
+		// TODO Auto-generated method stub
+		
+	}
 }

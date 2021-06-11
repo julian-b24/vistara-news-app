@@ -498,8 +498,20 @@ public class Vistara implements ModeratorManagement{
 			}
 			mods.set(i, min);
 		}
+		sortPendingPosts();
 	}
 	
+	/**
+	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
+	 * It implements bubble sort.
+	 */
+	private void sortPendingPosts() {
+		for (Moderator mod : mods) {
+			mod.sortPendingPosts();
+		}
+		
+	}
+
 	/**
 	* loadPossibleCategories: Obtains the names of all categories within the binary tree of categories<br>
 	* <b> pre </b> <br>
@@ -716,6 +728,7 @@ public class Vistara implements ModeratorManagement{
 		String path = EXPORT_REPORT_POST_PATH + post.getTitle() + REPORTS_EXTENSION;
 		PrintWriter pw = new PrintWriter(path);
 		pw.println(report);
+		pw.close();
 	}
 	
 	public ArrayList<Moderator> getMods() {

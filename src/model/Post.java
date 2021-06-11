@@ -156,7 +156,7 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	public boolean isRateable() {
 		boolean rateable = false;
 		LocalDateTime now = LocalDateTime.now();
-		long difference = ChronoUnit.MINUTES.between(now, date);
+		long difference = ChronoUnit.DAYS.between(now, date);
 		
 		if(difference < 1) {
 			rateable = true;
