@@ -1,10 +1,13 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -30,8 +33,13 @@ public class Vistara implements ModeratorManagement{
 	public final static String SAVE_PATH_TRENDING = "data/system/trending.txr";
 	public final static String SAVE_PATH_COMMENTS = "data/system/comments.txr";
 	
+	public final static String IMPORT_CSV_USERS = "data/csv/users.csv";
+	public final static String IMPORT_CSV_CATEGORIES = "data/csv/categories.csv";
+	public final static String IMPORT_CSV_POSTS = "data/csv/posts.csv";
+	
 	public final static String EXPORT_REPORT_POST_PATH = "data/reports/reportPost";
 	public final static String REPORTS_EXTENSION = ".csv";
+	public final static String PROFILE_PIC_EXTENSION = ".png";
 	
 	public final static String VERIFIED = "VERIFIED";
 	public final static String FAKE = "FAKE_NEW";	
@@ -734,6 +742,78 @@ public class Vistara implements ModeratorManagement{
 		pw.println(report);
 	}
 	
+	public void importData() throws IOException, RepeatedUsernameException, EmptyFieldsException, InvalidUserException {
+		importUsers();
+		importCategories();
+		importPosts();
+	}
+	
+	private void importCategories() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_CATEGORIES));
+		br.readLine(); //Read first line
+		
+		String line = br.readLine();
+		while (line != null) {
+			String categoryName = line;
+			createCategory(categoryName);
+		}
+		br.close();
+	}
+
+	private void importPosts() throws IOException, EmptyFieldsException, InvalidUserException {
+		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_POSTS));
+		br.readLine(); //Read first line
+		
+		String line = br.readLine();
+		while (line != null) {
+			String[] values = line.split(";");
+			String author = values[0];
+			String title = values[1];
+			String content = values[2];
+			String categoryName = values[3];
+			String link = values[4];
+			String creationString = values[5];
+			LocalDateTime creationDate = createDate(creationString);
+			createPost(title, content, categoryName, searchUser(author), link);
+			searchPost(title).setDate(creationDate);
+		}
+		br.close();
+	}
+
+	private void importUsers() throws IOException, RepeatedUsernameException, EmptyFieldsException, InvalidUserException {
+		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_USERS));
+		br.readLine(); //Read first line
+		
+		String line = br.readLine();
+		while (line != null) {
+			String[] values = line.split(";");
+			String username = values[0];
+			String email = values[1];
+			String password = values[2];
+			String creationString = values[3];
+			LocalDateTime creationDate = createDate(creationString);
+			String bio = values[4];
+			boolean isMod = Boolean.valueOf(values[5]);
+			String profilePicPath = IMAGE_PATH + values[6] + PROFILE_PIC_EXTENSION;
+			Image profilePic = new Image(profilePicPath);
+			addUser(username, email, password);
+			if(!isMod) {
+				upgradeUser(username);
+			}
+			searchUser(username).setCreationDate(creationDate);
+			searchUser(username).setDescription(bio);
+			searchUser(username).setProfilePic(profilePic);
+		}
+		br.close();
+	}
+
+	private LocalDateTime createDate(String dateString) {
+		String[] dateValues = dateString.split("/");
+		int year = Integer.valueOf(dateValues[2]);
+		
+		return null;
+	}
+
 	public ArrayList<Moderator> getMods() {
 		return mods;
 	}
