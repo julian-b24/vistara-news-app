@@ -127,7 +127,7 @@
             </JFXButton>
          </children>
       </VBox>
-      <FontAwesomeIconView glyphName="DOWNLOAD" layoutX="252.0" layoutY="31.0" size="20" text="" AnchorPane.bottomAnchor="686.1428565979004" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="19.428571701049805" AnchorPane.topAnchor="13.85714340209961" />
+      <FontAwesomeIconView glyphName="DOWNLOAD" layoutX="252.0" layoutY="31.0" onMouseClicked="#importData" size="20" text="" AnchorPane.bottomAnchor="686.1428565979004" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="19.428571701049805" AnchorPane.topAnchor="13.85714340209961" />
       <JFXButton layoutX="94.0" layoutY="59.0" onAction="#loadProfile" prefHeight="150.0" prefWidth="100.0" style="-fx-opacity: .1;" text="." textFill="TRANSPARENT" />
    </children>
 </AnchorPane>

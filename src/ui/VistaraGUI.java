@@ -1,6 +1,5 @@
 package ui;
 
-import model.Category;
 import model.Comment;
 import model.ImagePost;
 import model.Moderator;
@@ -9,7 +8,6 @@ import model.User;
 import model.Vistara;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,6 +33,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
@@ -355,9 +354,7 @@ public class VistaraGUI {
         		vistara.createCategory("a");
         		
         		loadFeed(null);
-        		
-        		
-        		
+
     			if(currentUser instanceof Moderator) {
     				//TEST
     				LocalDateTime lc = LocalDateTime.now();
@@ -371,9 +368,7 @@ public class VistaraGUI {
     				//
     			}
         	}
-        	
-        	
-        	
+
     	}catch(InvalidUserException e) {
     		invalidUsernameAlert();
     	}catch(EmptyFieldsException e) {
@@ -528,7 +523,8 @@ public class VistaraGUI {
 		
     }
 
-    @FXML
+    @SuppressWarnings("static-access")
+	@FXML
     public void verifyPost(ActionEvent event) {
     	if(currentUser instanceof Moderator) {
     		String state = null;
@@ -1413,8 +1409,6 @@ public class VistaraGUI {
   		}
     }
 
-   
-
 	@FXML
     public void followUser(ActionEvent event) {
     	
@@ -1449,7 +1443,7 @@ public class VistaraGUI {
     /**
      * Loads the line chart according to the post report and stats
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	public void loadReportChartPost() {
     	XYChart.Series serieComments = new XYChart.Series();
     	XYChart.Series serieReactions = new XYChart.Series();
@@ -1472,4 +1466,12 @@ public class VistaraGUI {
 		this.currentPost = currentPost;
 	}
 	
+    @FXML
+    public void importData(MouseEvent event) {
+    	try {
+			vistara.importData();
+		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
+			executionAlert();
+		}
+    }
 }
