@@ -26,5 +26,6 @@
       <Label fx:id="newsLink" layoutX="26.0" layoutY="222.0" text="link" />
       <JFXButton layoutX="18.0" layoutY="88.0" onAction="#reactToPost" prefHeight="31.0" prefWidth="135.0" text="." />
       <JFXButton layoutX="176.0" layoutY="89.0" onAction="#commentOnPost" prefHeight="31.0" prefWidth="178.0" text="." />
+      <JFXButton layoutX="373.0" layoutY="217.0" onAction="#loadPostStats" text="..." />
    </children>
 </AnchorPane>

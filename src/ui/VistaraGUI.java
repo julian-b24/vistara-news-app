@@ -262,9 +262,13 @@ public class VistaraGUI {
     private GridPane trendingGrid;
     
     //stats posts
+
+    @FXML
+    private Label statsPostHeader;
+
     @FXML
     private LineChart<?, ?> lineChartPost;
-    
+
     @FXML
     private Label statsPostTitle;
 
@@ -279,9 +283,6 @@ public class VistaraGUI {
 
     @FXML
     private JFXTextArea statsPostContent;
-    
-    @FXML
-    private Label statsPostHeader;
 
     //edit profile
     @FXML
@@ -711,15 +712,32 @@ public class VistaraGUI {
 	@FXML
 	public void loadStatsPost(ActionEvent event) {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("posts-stats.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
 			fxmlLoader.setController(this);
 			Parent stats = fxmlLoader.load();
 			
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(stats);
 
+			loadProfileBar();
+			loadStatsPane(null);
 			loadStatsPostData();
 			loadReportChartPost();
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
+	
+	@FXML
+	public void loadStatsPane(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post-stats.fxml"));
+			fxmlLoader.setController(this);
+			Parent stats = fxmlLoader.load();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(stats);
 			
 		} catch (IOException e) {
 			executionAlert();
@@ -760,14 +778,40 @@ public class VistaraGUI {
 		if(categoryName.isEmpty()) {
 			emptyFieldAlert();
 		}else {
-			boolean created = vistara.createCategory(categoryName);
-			if(created) {
-				genericSuccessMessage();
+			if(categoryName.length() <= 20) {
+				boolean created = vistara.createCategory(categoryName);
+				if(created) {
+					genericSuccessMessage();
+				}else {
+					repeatedCategoryAlert();
+				}
+				
+				if(!newCategoryImagePath.getText().isEmpty()) {
+					vistara.addCategoryImage(newCategoryImagePath.getText(), categoryName);
+				}
 			}else {
-				repeatedCategoryAlert();
-			}
+				lengthWarning();
+			}			
 		}
     }
+	
+    @FXML
+    void chooseCategoryImage(ActionEvent event) {
+    	
+    	FileChooser fc = new FileChooser();
+		File selectedFile = fc.showOpenDialog(null);
+		
+		if(selectedFile != null) {
+			newCategoryImagePath.setText("file:"+selectedFile.getAbsolutePath());
+		}
+    }
+	
+	private void lengthWarning() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Maximun amount of characters exceded");
+		warning.setContentText("more characters than the ones allowed");
+		warning.showAndWait();		
+	}
 	
 	private void repeatedCategoryAlert() {
 		Alert warning = new Alert(AlertType.WARNING);
@@ -783,6 +827,7 @@ public class VistaraGUI {
 			fxmlLoader.setController(this);
 			Parent profile = fxmlLoader.load();
 			
+			newCategoryImagePath.setEditable(false);
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
 			
@@ -1256,11 +1301,6 @@ public class VistaraGUI {
 				executionAlert();
 			}
     	}
-    }
-    
-    @FXML
-    public void turnModerator(ActionEvent event) {
-    	 
     }
     
     @FXML

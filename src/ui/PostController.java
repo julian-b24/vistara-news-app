@@ -71,4 +71,10 @@ public class PostController {
     	vistara.reactToPost(post, currentUser);
     	vistaraGUI.loadFeed(null);
     }
+    
+    @FXML
+    void loadPostStats(ActionEvent event) {
+    	vistaraGUI.setCurrentPost(post);
+    	vistaraGUI.loadStatsPost(null);
+    }
 }

@@ -1064,6 +1064,12 @@ public class Vistara implements ModeratorManagement{
 		addThread.start();
 	}
 	
+	public void addCategoryImage(String path, String cat) {
+		Category category = searchCategory(cat);
+		Image image = new Image(path);
+		category.setBackground(image);
+	}
+	
 	/*
 	 *  //
 		 LocalDateTime a = LocalDateTime.of(2021, 6, 6, 12, 00);
