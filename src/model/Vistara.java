@@ -245,10 +245,6 @@ public class Vistara implements ModeratorManagement{
 			return searchUser(current.getRightUser(), username);
 			
 		}else {
-			if(current.getProfilePic() != null) {
-				System.out.println("USER: "+current.getUsername()+". "+current.getProfilePic().impl_getUrl());
-			}
-			
 			return current;
 		}
 	}
@@ -516,6 +512,7 @@ public class Vistara implements ModeratorManagement{
 			}
 			mods.set(i, min);
 		}
+		sortPendingPosts();
 	}
 	
 	 /**
@@ -841,10 +838,12 @@ public class Vistara implements ModeratorManagement{
 	}
 
 	/**
-	 * Gets a date accorfing to a string in format dd/mm/yy
-	 * @param dateString, String, date to get in format dd/mm/yy, it must be different of null and an empty string
-	 * @return LocalDateTime, the date founded.
-	 */
+	* createDate: It creates a new LocalDateTime variable that contains the date of creation of an object<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param dateString String, Date in String format
+	* @param date LocalDateTime, date of creation of the object
+	*/
 	private LocalDateTime createDate(String dateString) {
 		LocalDateTime date;
 		if(dateString.equals("now")) {
@@ -860,46 +859,114 @@ public class Vistara implements ModeratorManagement{
 		return date;
 	}
 
+	/**
+	 * Creates a post and add it to the list of posts of vistara, the author and the followers of the author
+	 * @param title, String, the title of the post. It must be different from null and an empty string
+	 */
 	public ArrayList<Moderator> getMods() {
 		return mods;
 	}
 
+	/**
+	* setMods: Changes the moderators list<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param mods ArrayList of moderators
+	*/
 	public void setMods(ArrayList<Moderator> mods) {
 		this.mods = mods;
 	}
 
+	/**
+	* getRootUser: Obtains the root user in the binary tree of users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return rootUser User, root user of the binary tree
+	*/
 	public User getRootUser() {
 		return rootUser;
 	}
 
+	/**
+	* setRootUser: Sets the root user in the binary tree of users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param rootUser User, root user of the binary tree
+	*/
 	public void setRootUser(User rootUser) {
 		this.rootUser = rootUser;
 	}
 
+	/**
+	* getRootCategory: Obtains the root category in the binary tree of categories<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return rootCategory Category, root category of the binary tree
+	*/
 	public Category getRootCategory() {
 		return rootCategory;
 	}
+
+	/**
+	* g¿setRootCategory: Sets the root category in the binary tree of categories<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param rootCategory Category, root category of the binary tree
+	*/
 
 	public void setRootCategory(Category rootCategory) {
 		this.rootCategory = rootCategory;
 	}
 
+	/**
+	* getPosts: Obtains the list of posts<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return posts ArrayList of posts, posts from the app
+	*/
 	public ArrayList<Post> getPosts() {
 		return posts;
 	}
 
+	/**
+	* setPosts: Sets the list of posts<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param posts ArrayList of posts, posts from the app
+	*/
 	public void setPosts(ArrayList<Post> posts) {
 		this.posts = posts;
 	}
 
+	/**
+	* getTrending: Obtains the list of trending posts<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return trending ArrayList of posts, trending posts from the app
+	*/
 	public ArrayList<Post> getTrending() {
 		return trending;
 	}
 
+	/**
+	* setTrending: Sets the list of trending posts<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param trending ArrayList of posts, trending posts from the app
+	*/
 	public void setTrending(ArrayList<Post> trending) {
 		this.trending = trending;
 	}
 	
+	/**
+	* upgradeUser: Creates a new Moderator that replaces an old user. The old user is removed from the list of users and the moderator is added in order to take its place<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String, reference to the user that will be upgraded
+	* @throws InvalidUserException
+	* @throws RepeatedUsernameException
+	* @throws IOException
+	*/
 	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(username);
 		LocalDateTime nowTime = LocalDateTime.now();
@@ -940,15 +1007,20 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 
+	/**
+	* reactToPost: Allows the current user of the app to interact with a post, incrementing or decreasing the amount of reactions of th epost<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param post Post, post with which the user is interacting
+	* @param currentUser String, reference to the user that will be upgraded
+	*/
 	public void reactToPost(Post post, User currentUser) {
 		boolean reacted = currentUser.searchReactedPost(post);		
 		if(reacted) {
-			System.out.println("REMOVE");
 			post.getReactedUsers().remove(currentUser);
 			post.setReactions(post.getReactions()-1);
 			currentUser.getReactedPosts().remove(post);
 		}else {
-			System.out.println("ADD");
 			post.getReactedUsers().add(currentUser);
 			post.setReactions(post.getReactions()+1);
 			currentUser.getReactedPosts().add(post);
@@ -1003,6 +1075,16 @@ public class Vistara implements ModeratorManagement{
 		return post;
 	}
 
+	/**
+	* deletePost: Deletes a post form all places in the app<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param creatorString String, post creator
+	* @param moderator String, actual moderator deleting the post
+	* @param postToRemove Post, post to delete
+	* @throws InvalidUserException
+	* @throws EmptyFieldsException
+	*/
 	@Override
 	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException {
 		
@@ -1021,6 +1103,17 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 
+	/**
+	* verifyPost: Verifies a post<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param creatorUser String, post creator
+	* @param mod String, actual moderator deleting the post
+	* @param postToVerify Post, post to verify
+	* @param state String, state of verification
+	* @throws InvalidUserException
+	* @throws EmptyFieldsException
+	*/
 	@Override
 	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException {
 		User creator = searchUser(creatorUser);		
@@ -1039,6 +1132,18 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 
+	/**
+	* confirmPorfileEdition: Changes current user info<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param oldName String, old user username
+	* @param newName String, new user username
+	* @param email String, new email
+	* @param bio String, users new description
+	* @throws InvalidUserException
+	* @throws RepeatedUsernameException
+	* @throws IOException
+	*/
 	public void confirmPorfileEdition(String oldName,String newName, String email, String bio) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(oldName);
 		if(oldName.equals(newName)) {
@@ -1057,12 +1162,31 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 
+	/**
+	* setUserProfilePic: Changes the profile picture of the user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String, username of the user
+	* @param selectedFile File, Image path file
+	* @throws InvalidUserException
+	*/
 	public void setUserProfilePic(String username, File selectedFile) throws InvalidUserException {
 		User user = searchUser(username);
 		Image profilePic = new Image("file:"+selectedFile.getAbsolutePath());
 		user.setProfilePic(profilePic);
 	}
 
+	/**
+	* createImagePost: Creates a post with an image<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param currentUser User, current user
+	* @param title String, title of the post
+	* @param content String, post content
+	* @param category String, post category
+	* @param link String, news link
+	* @param path String, image path
+	*/
 	public void createImagePost(User currentUser, String title, String content, String category, String link, String path) {
 		Category cat = new Category(category);
 		LocalDateTime now = LocalDateTime.now();
@@ -1077,26 +1201,16 @@ public class Vistara implements ModeratorManagement{
 		sortPosts();
 	}
 	
+	/**
+	* addCategoryImage: Add an image to a category<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param cat String, new category
+	* @param path String, image path
+	*/
 	public void addCategoryImage(String path, String cat) {
 		Category category = searchCategory(cat);
 		Image image = new Image(path);
 		category.setBackground(image);
 	}
-	
-	/*
-	 *  //
-		 LocalDateTime a = LocalDateTime.of(2021, 6, 6, 12, 00);
-		 LocalDateTime b = LocalDateTime.now();
-		 System.out.println("/////");
-		 Duration duraiton = Duration.between(a, b);
-		 System.out.println(duraiton.toDays());
-		 
-		  LocalDateTime a = LocalDateTime.of(2021, 5, 6, 12, 00);
-		 LocalDateTime b = LocalDateTime.now();
-		 Duration timeInVistara = Duration.between(a, b);
-		 if(timeInVistara.toDays() >= 30) {
-			 System.out.println("WAAAAA");
-		 }
-		 //
-	 */
 }
