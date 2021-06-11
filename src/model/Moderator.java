@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Moderator extends User implements ModeratorManagement, Comparable<Moderator>, Serializable{
+public class Moderator extends User implements Comparable<Moderator>, Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -16,24 +16,6 @@ public class Moderator extends User implements ModeratorManagement, Comparable<M
 	
 	public void setPendingPosts(ArrayList<Post> pendingPosts) {
 		this.pendingPosts = pendingPosts;
-	}
-
-	@Override
-	public void createCategory(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deletePost() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void verifyPost() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public ArrayList<Post> getPendingPosts() {
