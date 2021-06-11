@@ -260,6 +260,24 @@ public class VistaraGUI {
     @FXML
     private LineChart<?, ?> lineChartPost;
     
+    @FXML
+    private Label statsPostTitle;
+
+    @FXML
+    private Label statsPostStatus;
+
+    @FXML
+    private Label statsPostsReactions;
+
+    @FXML
+    private Label statsPostComments;
+
+    @FXML
+    private JFXTextArea statsPostContent;
+    
+    @FXML
+    private Label statsPostHeader;
+
     //edit profile
     @FXML
     private Circle editCircleProfile;
@@ -646,6 +664,32 @@ public class VistaraGUI {
 		} catch (IOException e) {
 			executionAlert();
 		}
+	}
+	
+	@FXML
+	public void loadStatsPost(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("posts-stats.fxml"));
+			fxmlLoader.setController(this);
+			Parent stats = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(stats);
+
+			loadStatsPostData();
+			loadReportChartPost();
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
+
+	private void loadStatsPostData() {
+		statsPostHeader.setText(currentPost.getTitle());
+		statsPostComments.setText(String.valueOf(currentPost.getComments()).replace(".0",""));
+		statsPostsReactions.setText(String.valueOf(currentPost.getReactions()).replace(".0",""));
+		statsPostTitle.setText(currentPost.getTitle());
+		statsPostStatus.setText(currentPost.getState().toString());
 	}
 
 	@FXML
