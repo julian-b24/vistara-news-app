@@ -734,9 +734,18 @@ public class VistaraGUI {
 			repeatedUsernameAlert();
 		} catch (EmptyFieldsException e) {
 			emptyFieldAlert();
+		} catch (IOException e) {
+			executionAlert();
 		}
 	}
 	
+	public void executionAlert() {
+		Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Executions errors");
+		warning.setContentText("An unexpected error occurred in the process!");
+		warning.showAndWait();
+	}
+
 	public void emptyFieldAlert() {
 		Alert warning = new Alert(AlertType.WARNING);
 		warning.setTitle("There are empty fields");
@@ -1100,10 +1109,11 @@ public class VistaraGUI {
     		
     		try {
 				vistara.confirmPorfileEdition(currentUser.getUsername(), editName.getText().trim(), editEmail.getText().trim(), editBio.getText());
-			} catch (InvalidUserException | RepeatedUsernameException e) {
+			} catch (InvalidUserException | RepeatedUsernameException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
     	}
     }
     
@@ -1232,11 +1242,15 @@ public class VistaraGUI {
     }
     
     @FXML
-    void upgradeUser(ActionEvent event) {
+    public void upgradeUser(ActionEvent event) {
 		try {
 			vistara.upgradeUser(searchedUsername.getText());
-		} catch (InvalidUserException | RepeatedUsernameException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidUserException e) {
+			invalidUsernameAlert();
+		} catch (RepeatedUsernameException e) {
+			repeatedUsernameAlert();
+		} catch (IOException e) {
+			executionAlert();
 		}
     }
 

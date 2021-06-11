@@ -62,8 +62,9 @@ public class Vistara implements ModeratorManagement{
 	* @param email String with the email of the new user
 	* @param password String with the password of the new user
 	* @return added Boolean that determines if the user can be added or not
+	 * @throws IOException 
 	*/
-	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException {
+	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException, IOException {
 		
 		User user = new User(username, email, password);
 
@@ -85,6 +86,8 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = user;
 		}
+		saveUsersData();
+		
 		return added;
 	}
 	
@@ -93,8 +96,9 @@ public class Vistara implements ModeratorManagement{
 	 * @param newUser
 	 * @return true in case the user was added, any otherwise it throws an exception
 	 * @throws RepeatedUsernameException, in case the name of the user to be added is already in use by other user in the BST
+	 * @throws IOException 
 	 */
-	public boolean addUser(User newUser) throws RepeatedUsernameException {
+	public boolean addUser(User newUser) throws RepeatedUsernameException, IOException {
 		boolean added = true;
 		if(rootUser != null) {
 			//Search for any coincidence with the username	
@@ -108,6 +112,8 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = newUser;
 		}
+		saveUsersData();
+		
 		return added;
 	}
 
@@ -380,8 +386,9 @@ public class Vistara implements ModeratorManagement{
 	 * @param profilePicName, String, the new path of the user's profile picture
 	 * @throws RepeatedUsernameException in case the new username already exists in the app
 	 * @throws EmptyFieldsException in case any parameter is empty
+	 * @throws IOException in case a serialization happened
 	 */
-	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException, EmptyFieldsException {
+	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException, EmptyFieldsException, IOException {
 		boolean repeatedName = searchUserByName(username);
 		if(username != null && password != null && email != null && description != null) {
 			if(username.isEmpty() || password.isEmpty() || email.isEmpty() || description.isEmpty()) {
@@ -500,6 +507,15 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 	
+	 /**
+	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
+	 */
+	private void sortPendingPosts() {
+		for (Moderator mod : mods) {
+			mod.sortPendingPosts();
+		}
+	}
+
 	/**
 	* loadPossibleCategories: Obtains the names of all categories within the binary tree of categories<br>
 	* <b> pre </b> <br>
@@ -758,7 +774,7 @@ public class Vistara implements ModeratorManagement{
 		this.trending = trending;
 	}
 	
-	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException {
+	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(username);
 		LocalDateTime nowTime = LocalDateTime.now();
 		Duration timeInVistara = Duration.between(user.getCreationDate(), nowTime);
@@ -897,7 +913,7 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 
-	public void confirmPorfileEdition(String oldName,String newName, String email, String bio) throws InvalidUserException, RepeatedUsernameException {
+	public void confirmPorfileEdition(String oldName,String newName, String email, String bio) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(oldName);
 		if(oldName.equals(newName)) {
 			user.setEmail(email);
