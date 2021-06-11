@@ -307,7 +307,7 @@ public class VistaraGUI {
 			mainPane.getChildren().setAll(login);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -378,7 +378,7 @@ public class VistaraGUI {
 			filterCategory.getItems().addAll(categories);			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -405,7 +405,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -421,7 +421,7 @@ public class VistaraGUI {
 			mainPane.getChildren().setAll(signup);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -447,7 +447,7 @@ public class VistaraGUI {
 			setProfileBarInfo();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -472,11 +472,10 @@ public class VistaraGUI {
 				try {
 					vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
 				} catch (EmptyFieldsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					emptyFieldAlert();
 				}
 			} catch (InvalidUserException e) {
-				
+				invalidUsernameAlert();
 			}
 			
 			vistara.reOrderModerators();
@@ -537,7 +536,7 @@ public class VistaraGUI {
 			commentsPane.getChildren().setAll(feedFXML);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -561,8 +560,7 @@ public class VistaraGUI {
 				try {
 					userCreatorComment = vistara.searchUser(current.getAuthor());
 				} catch (InvalidUserException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					invalidUsernameAlert();
 				}
 		    	try {
 					FXMLLoader fxmlLoader = new FXMLLoader();
@@ -580,7 +578,7 @@ public class VistaraGUI {
 					commentsGrid.add(postBox, columns++, rows);
 					
 		    	} catch (IOException e) {
-					e.printStackTrace();
+		    		executionAlert();
 				}
 				
 				current = current.getNextComment();
@@ -604,7 +602,7 @@ public class VistaraGUI {
 			loadPostToVerify();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -630,7 +628,7 @@ public class VistaraGUI {
 					
 				} catch (IOException e) {
 					
-					e.printStackTrace();
+					executionAlert();
 				}
 			}
 		}
@@ -646,7 +644,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -665,7 +663,7 @@ public class VistaraGUI {
 			loadCreateCategoryTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 	
@@ -703,7 +701,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -791,7 +789,7 @@ public class VistaraGUI {
 			loadProfileTabPane();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -819,7 +817,7 @@ public class VistaraGUI {
 			loadReactedPosts(null);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 	
@@ -847,7 +845,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -875,7 +873,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
     }
 
@@ -892,7 +890,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -911,7 +909,7 @@ public class VistaraGUI {
 			loadTrendingTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -929,7 +927,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -958,7 +956,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
@@ -977,7 +975,7 @@ public class VistaraGUI {
 			loadCalendartab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -992,7 +990,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1015,7 +1013,7 @@ public class VistaraGUI {
 			postCategory.setValue(categories.get(0));
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
 
@@ -1030,7 +1028,7 @@ public class VistaraGUI {
 			profilePane.getChildren().setAll(profile);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1058,7 +1056,7 @@ public class VistaraGUI {
 				}
     		}
     	}else {
-    		//warning something went wrong
+    		executionAlert();
     	}
     	
     }
@@ -1078,7 +1076,7 @@ public class VistaraGUI {
 			loadEditProfileTab();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
     }
     
@@ -1094,7 +1092,7 @@ public class VistaraGUI {
 			
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			executionAlert();
 		}
 	}
 
@@ -1116,9 +1114,12 @@ public class VistaraGUI {
     		
     		try {
 				vistara.confirmPorfileEdition(currentUser.getUsername(), editName.getText().trim(), editEmail.getText().trim(), editBio.getText());
-			} catch (InvalidUserException | RepeatedUsernameException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InvalidUserException e) {
+				invalidUsernameAlert();
+			} catch (IOException e) {
+				executionAlert();
+			} catch (RepeatedUsernameException e) {
+				repeatedUsernameAlert();
 			}
 
     	}
@@ -1165,7 +1166,7 @@ public class VistaraGUI {
 			}
 			
     	} catch (IOException e) {
-			e.printStackTrace();
+    		executionAlert();
 		}
 	}
 
