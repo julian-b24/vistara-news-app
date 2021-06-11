@@ -6,8 +6,8 @@ import model.Post;
 import model.Vistara;
 
 public class ThreadRating extends Thread{
-	
-	public final static int SLEEP = 300000;
+	//300000
+	public final static int SLEEP = 70000;
 	
 	private Vistara vistara;
 	

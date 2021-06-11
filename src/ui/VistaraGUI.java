@@ -928,6 +928,8 @@ public class VistaraGUI {
     	int rows = 1;
     	    	
     	try {
+    		System.out.println(vistara.getTrending());
+    		
 			for (int i = 0; i < vistara.getTrending().size(); i++) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(getClass().getResource("post-pane.fxml"));
