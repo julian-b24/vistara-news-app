@@ -6,6 +6,7 @@ import model.Moderator;
 import model.Post;
 import model.User;
 import model.Vistara;
+import thread.ThreadLoadingPane;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 
@@ -323,6 +325,19 @@ public class VistaraGUI {
     
     @FXML
     private Label descriptionProfile;
+    
+    //loading pane
+    @FXML
+    private Circle circle1;
+    
+    @FXML
+	private Circle circle2;
+    
+    @FXML
+	private Circle circle3;
+    
+    @FXML
+	private Rectangle lineRectangle;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -808,7 +823,7 @@ public class VistaraGUI {
     }
 	
     @FXML
-    void chooseCategoryImage(ActionEvent event) {
+    public void chooseCategoryImage(ActionEvent event) {
     	
     	FileChooser fc = new FileChooser();
 		File selectedFile = fc.showOpenDialog(null);
@@ -1293,8 +1308,7 @@ public class VistaraGUI {
 			try {
 				vistara.setUserProfilePic(currentUser.getUsername(), selectedFile);
 			} catch (InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				executionAlert();
 			}
 		}
     }
@@ -1485,10 +1499,25 @@ public class VistaraGUI {
     @FXML
     public void importData(MouseEvent event) {
     	try {
+    		ThreadLoadingPane threadLoadingPane = new ThreadLoadingPane(this, circle1, circle2, circle3, lineRectangle);
+    		threadLoadingPane.start();
 			vistara.importData();
 		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
 			executionAlert();
-			e.printStackTrace();
 		}
     }
+
+	public void loadLoadingPane() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loading-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent loading = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(loading);
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
 }
