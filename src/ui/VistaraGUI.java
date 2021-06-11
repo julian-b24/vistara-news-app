@@ -205,6 +205,9 @@ public class VistaraGUI {
     //search user
 
     @FXML
+    private Circle searchCircleProfile;
+    
+    @FXML
     private AnchorPane searchPane;
 
     @FXML
@@ -269,6 +272,28 @@ public class VistaraGUI {
 
     @FXML
     private JFXTextArea editBio;
+    
+    //profileTabPane
+    @FXML
+    private Circle profileCircle;
+
+    @FXML
+    private Label numPostProfile;
+
+    @FXML
+    private Label numFollowersProfile;
+
+    @FXML
+    private Label numFollowingProfile;
+
+    @FXML
+    private Label numVerifiedPostsProfile;
+    
+    @FXML
+    private Label usernameProfile;
+    
+    @FXML
+    private Label descriptionProfile;
     
 	@FXML
     public void loadLogIn(ActionEvent event) {
@@ -532,14 +557,20 @@ public class VistaraGUI {
 			int columns = 0;
 	    	int rows = 1;
 			do {
-		    	  	
+		    	User userCreatorComment = null;
+				try {
+					userCreatorComment = vistara.searchUser(current.getAuthor());
+				} catch (InvalidUserException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    	try {
 					FXMLLoader fxmlLoader = new FXMLLoader();
 					fxmlLoader.setLocation(getClass().getResource("comment-pane.fxml"));
 					
 					AnchorPane postBox = fxmlLoader.load();	
 					CommentController commentController = fxmlLoader.getController();
-					commentController.setData(current, vistara, this);
+					commentController.setData(current, vistara, this, userCreatorComment);
 						
 					if(columns == 1) {
 						 columns = 0;
@@ -689,10 +720,10 @@ public class VistaraGUI {
 		if(!txtNewComment.getText().isEmpty()) {
 			vistara.createComment(currentUser, txtNewComment.getText(), currentPost);
 			txtNewComment.clear();
+			loadCommentsOfPost(currentPost);
 		}else {
 			emptyFieldAlert();
 		}
-		
     }
 	
 	@FXML
@@ -763,6 +794,15 @@ public class VistaraGUI {
 				upgradeBtn.setVisible(false);
 				upgradeBtn.setDisable(true);
 			}
+			
+			loadProfilePic(profileCircle, currentUser);
+			usernameProfile.setText(currentUser.getUsername());
+			numPostProfile.setText(currentUser.getOwnPosts().size()+"");
+			numFollowersProfile.setText(currentUser.getFollowers().size()+"");
+			numFollowingProfile.setText(currentUser.getFollowing().size()+"");
+			numVerifiedPostsProfile.setText(currentUser.getVerifiedPosts()+"");
+			descriptionProfile.setText(currentUser.getDescription());
+			
 			loadOwnPosts(null);
 			loadStatistics(null);
 			loadReactedPosts(null);
@@ -1135,6 +1175,7 @@ public class VistaraGUI {
       			}      			
       			
       			loadProfileBar(); 
+      			loadProfilePic(searchCircleProfile, currentUser);
       			
       			if(searchedUser == currentUser) {
       				followBtnText.setVisible(false);

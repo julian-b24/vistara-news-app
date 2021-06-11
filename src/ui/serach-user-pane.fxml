@@ -11,7 +11,7 @@
       <AnchorPane fx:id="searchPane" focusTraversable="true" layoutX="290.0" prefHeight="720.0" prefWidth="793.0" stylesheets="@../styles/feed.css">
          <children>
             <Label fx:id="searchedUsername" layoutX="155.0" layoutY="34.0" text="Username" />
-            <Circle fill="#ff7553" layoutX="79.0" layoutY="86.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="searchCircleProfile" fill="#ff7553" layoutX="79.0" layoutY="86.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" />
             <Label fx:id="searchedNumPosts" layoutX="155.0" layoutY="75.0" text="###" />
             <Label layoutX="203.0" layoutY="74.0" text="posts" />
             <JFXButton fx:id="followBtnText" layoutX="154.0" layoutY="166.0" onAction="#followUser" style="-fx-background-color: #505050;" text="Follow" textFill="#e2e2e2" />
