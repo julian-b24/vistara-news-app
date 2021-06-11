@@ -256,6 +256,12 @@ public class VistaraGUI {
     @FXML
     private GridPane commentsGrid;
     
+    @FXML
+    private Label commentNewTitle;
+    
+    @FXML
+    private Label commentCreatorTitle;
+    
     //trending
     @FXML
     private GridPane trendingGrid;
@@ -584,11 +590,14 @@ public class VistaraGUI {
 		//Loads the comments of the currentPost
 		
 		commentsGrid.getChildren().clear();
-		int amountComments = 0;
-		if(amountComments > 0) {
+
+		if(currentPost.getComments() > 0) {
 			//load all the comments
 			iconNoComments.setVisible(false);
 			txtNoComments.setVisible(false);
+		}else {
+			iconNoComments.setVisible(true);
+			txtNoComments.setVisible(true);
 		}
 		
 		if(post.getFirstComment() != null) {
@@ -625,6 +634,13 @@ public class VistaraGUI {
 			}while(current != post.getFirstComment());
 		}
 		
+	}
+	
+	public void updateCommentsTap() {
+		if(currentPost != null) {
+			commentNewTitle.setText(currentPost.getTitle());
+			commentCreatorTitle.setText(currentPost.getAuthor());
+		}
 	}
 
 	@FXML

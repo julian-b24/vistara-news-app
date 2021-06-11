@@ -28,5 +28,6 @@
       <JFXButton layoutX="18.0" layoutY="88.0" onAction="#reactToPost" prefHeight="31.0" prefWidth="135.0" text="." />
       <JFXButton layoutX="176.0" layoutY="89.0" onAction="#commentOnPost" prefHeight="31.0" prefWidth="178.0" text="." />
       <Rectangle fx:id="imagePost" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="96.0" layoutX="21.0" layoutY="126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="373.0" />
+      <JFXButton layoutX="379.0" layoutY="305.0" onAction="#loadPostStats" text="..." />
    </children>
 </AnchorPane>

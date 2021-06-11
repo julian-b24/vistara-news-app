@@ -35,10 +35,9 @@
         </content>
       </ScrollPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484848" height="100.0" stroke="#45454500" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label layoutX="21.0" layoutY="34.0" style="-fx-font-size: 14;" text="Comments" textFill="WHITE" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="34.0" />
-      <Label layoutX="21.0" layoutY="60.0" text="In respond to " textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="60.0" />
-      <Label layoutX="96.0" layoutY="60.0" text="NAME" textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="60.0" />
-      <Label layoutX="134.0" layoutY="60.0" text="new..." textFill="WHITE" AnchorPane.bottomAnchor="643.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="60.0" />
+      <Label layoutX="21.0" layoutY="34.0" prefHeight="20.0" prefWidth="170.0" style="-fx-font-size: 14;" text="Comments in respond to" textFill="WHITE" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="34.0" />
+      <Label fx:id="commentCreatorTitle" layoutX="184.0" layoutY="34.0" prefHeight="17.0" prefWidth="86.0" text="NAME" textFill="WHITE" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0" />
+      <Label layoutX="21.0" layoutY="63.0" prefHeight="17.0" prefWidth="67.0" text="New:" textFill="WHITE" AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="63.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#898989" height="84.0" layoutY="636.0" stroke="TRANSPARENT" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="636.0" />
       <JFXButton layoutX="201.0" layoutY="666.0" onAction="#addComment" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #4F4F4F; -fx-background-radius: 12;" text="Add" textFill="WHITE" />
       <JFXTextField fx:id="txtNewComment" focusColor="#ffffff00" focusTraversable="false" layoutX="21.0" layoutY="666.0" prefHeight="31.0" prefWidth="163.0" promptText="  Comment..." style="-fx-background-color: #C4C4C4; -fx-background-radius: 8;" unFocusColor="#4d4d4d00">
@@ -46,5 +45,6 @@
             <Insets left="10.0" />
          </opaqueInsets>
       </JFXTextField>
+      <Label fx:id="commentNewTitle" layoutX="70.0" layoutY="61.0" text="new..." textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -68,12 +68,14 @@ public class PostController {
     void commentOnPost(ActionEvent event) {
     	vistaraGUI.setCurrentPost(post);
     	vistaraGUI.loadCommentsOfPost(post);
+    	vistaraGUI.updateCommentsTap();
     }
     
     @FXML
     void reactToPost(ActionEvent event) {
     	vistara.reactToPost(post, currentUser);
     	vistaraGUI.loadFeed(null);
+    	vistaraGUI.updateCommentsTap();
     }
     
     @FXML

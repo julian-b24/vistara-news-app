@@ -22,11 +22,11 @@
       <AnchorPane layoutX="65.0" layoutY="121.0" prefHeight="278.0" prefWidth="278.0" style="-fx-background-color: #C4C4C4;">
          <children>
             <Label fx:id="statsPostTitle" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="135.0" style="-fx-font-size: 16;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="Title" wrapText="true" />
-            <Label fx:id="statsPostStatus" layoutX="286.0" layoutY="18.0" prefHeight="17.0" prefWidth="51.0" stylesheets="@../styles/standar-pane.css" text="verified" wrapText="true" />
+            <Label fx:id="statsPostStatus" layoutX="237.0" layoutY="16.0" prefHeight="17.0" prefWidth="51.0" stylesheets="@../styles/standar-pane.css" text="verified" wrapText="true" />
             <Label fx:id="statsPostsReactions" layoutX="15.0" layoutY="53.0" text="#" wrapText="true" />
-            <Label layoutX="29.0" layoutY="53.0" prefHeight="17.0" prefWidth="51.0" stylesheets="@../styles/standar-pane.css" text="Reactions" wrapText="true" />
+            <Label layoutX="43.0" layoutY="53.0" prefHeight="21.0" prefWidth="91.0" stylesheets="@../styles/standar-pane.css" text="Reactions" wrapText="true" />
             <Label fx:id="statsPostComments" layoutX="156.0" layoutY="53.0" text="#" wrapText="true" />
-            <Label layoutX="172.0" layoutY="53.0" prefHeight="17.0" prefWidth="88.0" stylesheets="@../styles/standar-pane.css" text="Commentaries" wrapText="true" />
+            <Label layoutX="189.0" layoutY="53.0" prefHeight="21.0" prefWidth="123.0" stylesheets="@../styles/standar-pane.css" text="Commentaries" wrapText="true" />
             <JFXTextArea fx:id="statsPostContent" editable="false" focusColor="#405aa800" layoutX="-6.0" layoutY="79.0" prefHeight="185.0" prefWidth="357.0" unFocusColor="#4d4d4d00" />
          </children>
       </AnchorPane>
