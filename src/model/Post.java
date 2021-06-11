@@ -145,7 +145,7 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		int amountComments = (int)comments;
 		
 		LocalDateTime now = LocalDateTime.now();
-		long difference = ChronoUnit.MINUTES.between(now, date);
+		long difference = ChronoUnit.MINUTES.between(date, now);
 		rating = (amountComments + amountReactions)/difference;
 	}
 
@@ -156,7 +156,7 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	public boolean isRateable() {
 		boolean rateable = false;
 		LocalDateTime now = LocalDateTime.now();
-		long difference = ChronoUnit.DAYS.between(now, date);
+		long difference = ChronoUnit.DAYS.between(date, now);
 		
 		if(difference < 1) {
 			rateable = true;

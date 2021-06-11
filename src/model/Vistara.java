@@ -505,10 +505,9 @@ public class Vistara implements ModeratorManagement{
 			}
 			mods.set(i, min);
 		}
-		sortPendingPosts();
 	}
 	
-	/**
+	 /**
 	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
 	 */
 	private void sortPendingPosts() {
@@ -733,7 +732,6 @@ public class Vistara implements ModeratorManagement{
 		String path = EXPORT_REPORT_POST_PATH + post.getTitle() + REPORTS_EXTENSION;
 		PrintWriter pw = new PrintWriter(path);
 		pw.println(report);
-		pw.close();
 	}
 	
 	public ArrayList<Moderator> getMods() {
@@ -913,6 +911,25 @@ public class Vistara implements ModeratorManagement{
 		if(moderator instanceof Moderator) {
 			((Moderator) moderator).getPendingPosts().remove(postToVerify);
 		}
+	}
+
+	public void confirmPorfileEdition(String oldName,String newName, String email, String bio) throws InvalidUserException, RepeatedUsernameException, IOException {
+		User user = searchUser(oldName);
+		if(oldName.equals(newName)) {
+			user.setEmail(email);
+			user.setDescription(bio);
+		}else {
+			boolean repeatedName = searchUserByName(newName);
+			if(!repeatedName) {
+				User newUser = user.getClone();
+				removeUser(user);
+				newUser.setUsername(newName);
+				newUser.setEmail(email);
+				newUser.setDescription(bio);			
+				addUser(newUser);
+			}
+		}
+		
 	}
 	
 	/*

@@ -806,11 +806,6 @@ public class VistaraGUI {
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
 			
-			if(!(currentUser instanceof Moderator)) {
-				upgradeBtn.setVisible(false);
-				upgradeBtn.setDisable(true);
-			}
-			
 			loadProfilePic(profileCircle, currentUser);
 			usernameProfile.setText(currentUser.getUsername());
 			numPostProfile.setText(currentUser.getOwnPosts().size()+"");
@@ -1117,7 +1112,16 @@ public class VistaraGUI {
 
     @FXML
     public void confirmPorfileEdition(ActionEvent event) {
+    	if(!editName.getText().isEmpty() && !editEmail.getText().isEmpty()) {
+    		
+    		try {
+				vistara.confirmPorfileEdition(currentUser.getUsername(), editName.getText().trim(), editEmail.getText().trim(), editBio.getText());
+			} catch (InvalidUserException | RepeatedUsernameException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+    	}
     }
     
     @FXML
