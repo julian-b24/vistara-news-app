@@ -297,13 +297,13 @@ public class VistaraGUI {
         	//verify account type        	
         	if(loggedUser != null) {
         		currentUser = loggedUser;
-        		vistara.addCategory("f");
-        		vistara.addCategory("g");
-        		vistara.addCategory("d");
-        		vistara.addCategory("e");
-        		vistara.addCategory("b");
-        		vistara.addCategory("h");
-        		vistara.addCategory("a");
+        		vistara.createCategory("f");
+        		vistara.createCategory("g");
+        		vistara.createCategory("d");
+        		vistara.createCategory("e");
+        		vistara.createCategory("b");
+        		vistara.createCategory("h");
+        		vistara.createCategory("a");
         		
         		loadFeed(null);
         		
@@ -645,7 +645,7 @@ public class VistaraGUI {
 		if(categoryName.isEmpty()) {
 			emptyFieldAlert();
 		}else {
-			boolean created = vistara.addCategory(categoryName);
+			boolean created = vistara.createCategory(categoryName);
 			if(created) {
 				genericSuccessMessage();
 			}else {
