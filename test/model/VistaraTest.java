@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class VistaraTest {
 		try {
 			vistara.addUser("Andres", "and@yt.com", "hola123");
 			vistara.addUser("Camilo", "per@yt.com", "now1");
-		} catch (RepeatedUsernameException | EmptyFieldsException e) {
+		} catch (RepeatedUsernameException | EmptyFieldsException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +48,7 @@ class VistaraTest {
 		String password = "now1";
 		try {
 			vistara.addUser(username, email, password);
-		} catch (RepeatedUsernameException | EmptyFieldsException e) {
+		} catch (RepeatedUsernameException | EmptyFieldsException | IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -76,7 +77,7 @@ class VistaraTest {
 			mod.setDescription("Pinto");
 			vistara.addUser(mod);
 			vistara.getMods().add(mod);
-		} catch (RepeatedUsernameException e) {
+		} catch (RepeatedUsernameException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -103,18 +104,14 @@ class VistaraTest {
 		setupScenary1();
 		try {
 			assertTrue(vistara.addUser("Andres", "and@yt.com", "Hola123") && vistara.getRootUser() != null);
-		} catch (RepeatedUsernameException e2) {
-			fail();
-		} catch (EmptyFieldsException e) {
+		} catch (RepeatedUsernameException | EmptyFieldsException | IOException e1) {
 			fail();
 		}
 		
 		setupScenary2();
 		try {
 			assertTrue(vistara.addUser("Cami", "cam@yt.com", "cam456") && vistara.getRootUser().getRightUser() != null);
-		} catch (RepeatedUsernameException e1) {
-			fail();
-		} catch (EmptyFieldsException e) {
+		} catch (RepeatedUsernameException | EmptyFieldsException | IOException e1) {
 			fail();
 		}
 		
@@ -123,14 +120,14 @@ class VistaraTest {
 			vistara.addUser("", "", "Hola123");
 		} catch (EmptyFieldsException e) {
 			assertTrue(true);
-		} catch (RepeatedUsernameException e) {
+		} catch (RepeatedUsernameException | IOException e) {
 			fail();
 		}
 		
 		setupScenary2();
 		try {
 			vistara.addUser("Andres", "mx@yt.com", "cam456");
-		} catch (EmptyFieldsException e) {
+		} catch (EmptyFieldsException | IOException e) {
 			fail();
 		}catch (RepeatedUsernameException e) {
 			assertTrue(true);
@@ -187,7 +184,7 @@ class VistaraTest {
 		try {
 			vistara.editUser(vistara.getRootUser(), newUsername, newPassword, newEmail,
 							 newDesc, newPic);
-		} catch (RepeatedUsernameException | EmptyFieldsException e1) {
+		} catch (RepeatedUsernameException | EmptyFieldsException | IOException e1) {
 			fail();
 		} 
 		User editedUser;
@@ -212,7 +209,7 @@ class VistaraTest {
 					 	newDesc, newPic);		
 		}catch (RepeatedUsernameException e) {
 			assertTrue(true);
-		}catch (EmptyFieldsException | InvalidUserException e) {
+		}catch (EmptyFieldsException | InvalidUserException | IOException e) {
 			fail();
 		}
 		
@@ -221,7 +218,7 @@ class VistaraTest {
 			toEditUser = vistara.searchUser(toEditUsername);
 			vistara.editUser(toEditUser, "", newPassword, newEmail,
 							 newDesc, newPic);
-		}catch (RepeatedUsernameException | InvalidUserException e) {
+		}catch (RepeatedUsernameException | InvalidUserException | IOException e) {
 			fail();
 		}catch (EmptyFieldsException e) {
 			assertTrue(true);
@@ -384,9 +381,7 @@ class VistaraTest {
 			creationDate = LocalDateTime.of(2021, 4, 5, 0, 0);
 			vistara.searchUser("Andres").setCreationDate(creationDate);;
 			vistara.upgradeUser("Andres");
-		} catch (InvalidUserException e) {
-			fail();
-		} catch (RepeatedUsernameException e) {
+		} catch (InvalidUserException | IOException | RepeatedUsernameException e) {
 			fail();
 		}
 		
@@ -395,9 +390,7 @@ class VistaraTest {
 			creationDate = LocalDateTime.now();
 			vistara.searchUser("Andres").setCreationDate(creationDate);;
 			vistara.upgradeUser("Andres");
-		} catch (InvalidUserException e) {
-			fail();
-		} catch (RepeatedUsernameException e) {
+		}  catch (InvalidUserException | IOException | RepeatedUsernameException e) {
 			fail();
 		}
 		
@@ -407,9 +400,7 @@ class VistaraTest {
 			vistara.searchUser("Andres").setCreationDate(creationDate);
 			vistara.searchUser("Andres").setVerifiedPosts(20);
 			vistara.upgradeUser("Andres");
-		} catch (InvalidUserException e) {
-			fail();
-		} catch (RepeatedUsernameException e) {
+		} catch (InvalidUserException | IOException | RepeatedUsernameException e) {
 			fail();
 		}
 	}
