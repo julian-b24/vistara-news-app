@@ -48,6 +48,10 @@ public class Vistara {
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
 		comments = new ArrayList<>();
+		
+		Moderator m = new Moderator("a", "a", "a");
+		mods.add(m);
+		rootUser = m;
 	}
 
 	/**
@@ -424,9 +428,9 @@ public class Vistara {
 				
 				User child;
 				if(user.getLeftUser() == null) {
-					child = user.getLeftUser();
-				} else {
 					child = user.getRightUser();
+				} else {
+					child = user.getLeftUser();
 				}
 				
 				child.setParentUser(user.getParentUser());
@@ -752,13 +756,44 @@ public class Vistara {
 	public void setTrending(ArrayList<Post> trending) {
 		this.trending = trending;
 	}
-
-	public void upgradeUser(String username) throws InvalidUserException {
+	
+	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException {
 		User user = searchUser(username);
 		LocalDateTime nowTime = LocalDateTime.now();
 		Duration timeInVistara = Duration.between(user.getCreationDate(), nowTime);
 		if(user.getVerifiedPosts() >=20 && timeInVistara.toDays() >= 30) {
-			//ascend
+		
+			ArrayList<User> userFollowers = user.getFollowers();
+			ArrayList<User> userFollowing = user.getFollowing();
+			String userUsername = user.getUsername();
+			Image userProfilePic = user.getProfilePic();
+			String userDescription = user.getDescription();
+			String userEmail = user.getEmail();
+			String userPassword = user.getPassword();
+			Event userFirstEvent = user.getFirstEvent();
+			LocalDateTime userCreationDate = user.getCreationDate();
+			ArrayList<Post> userFeed = user.getFeed();
+			ArrayList<Post> userOwnPosts = user.getOwnPosts();
+			ArrayList<Post> userReactedPosts = user.getReactedPosts();
+			int userVerifiedPosts = user.getVerifiedPosts();
+			int userFakePosts = user.getFakePosts();
+			removeUser(user);
+			//create and assign values to newMod
+			Moderator newMod = new Moderator(userUsername, userEmail, userPassword);
+			newMod.setFollowers(userFollowers);
+			newMod.setFollowing(userFollowing);
+			newMod.setProfilePic(userProfilePic);
+			newMod.setDescription(userDescription);
+			newMod.setFirstEvent(userFirstEvent);
+			newMod.setCreationDate(userCreationDate);
+			newMod.setFeed(userFeed);
+			newMod.setOwnPosts(userOwnPosts);
+			newMod.setReactedPosts(userReactedPosts);
+			newMod.setVerifiedPosts(userVerifiedPosts);
+			newMod.setFakePosts(userFakePosts);
+			//add newmod
+			mods.add(newMod);
+			addUser(newMod);
 		}
 	}
 
