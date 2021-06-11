@@ -47,4 +47,27 @@ public class Moderator extends User implements Comparable<Moderator>, Serializab
 			}	
 		}
 	}
+
+	public void removePost(Post postToRemove) throws IndexOutOfBoundsException{
+		int pos = -1;
+		if(pendingPosts.size() > 0) {
+			
+			int low = 0;
+			int top = pendingPosts.size();
+			boolean found = false;
+			while(low <= top && !found) {
+				int mid = (low + top)/2;
+				if (pendingPosts.get(mid).getReactions() == postToRemove.getReactions()) {
+					pos = mid;
+					found = true;
+				
+				} else if (pendingPosts.get(mid).getReactions() < postToRemove.getReactions()) {
+					low = mid + 1;
+				} else {
+					top = mid - 1;
+				}
+			}
+		}
+		pendingPosts.remove(pos);
+	}
 }

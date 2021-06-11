@@ -494,6 +494,8 @@ public class VistaraGUI {
 				}
 			} catch (InvalidUserException e) {
 				invalidUsernameAlert();
+			} catch (IndexOutOfBoundsException e) {
+				executionAlert();
 			}
 			
 			vistara.reOrderModerators();

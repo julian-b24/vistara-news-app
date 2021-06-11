@@ -890,7 +890,7 @@ public class Vistara implements ModeratorManagement{
 		mod.deletePost(postToRemove.getDate());
 		if(mod instanceof Moderator) {
 			creator.getOwnPosts().remove(postToRemove);
-			((Moderator) mod).getPendingPosts().remove(postToRemove);
+			((Moderator) mod).removePost(postToRemove);
 			posts.remove(postToRemove);
 		}
 	}
