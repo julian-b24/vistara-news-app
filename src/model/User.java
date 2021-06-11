@@ -50,6 +50,7 @@ public class User implements StatsCalculable, Serializable{
 		ownPosts = new ArrayList<Post>();
 		reactedPosts = new ArrayList<Post>();
 		verifiedPosts = 0;
+		fakePosts = 0;
 	}
 
 	public String getUsername() {

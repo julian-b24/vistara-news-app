@@ -376,8 +376,42 @@ class VistaraTest {
 	}
 	
 	@Test
-	public void testConvertUser() {
-		fail("Pendiente");
+	public void testUpgradeUser() {
+		
+		LocalDateTime creationDate;
+		setupScenary2();
+		try {
+			creationDate = LocalDateTime.of(2021, 4, 5, 0, 0);
+			vistara.searchUser("Andres").setCreationDate(creationDate);;
+			vistara.upgradeUser("Andres");
+		} catch (InvalidUserException e) {
+			fail();
+		} catch (RepeatedUsernameException e) {
+			fail();
+		}
+		
+		setupScenary2();
+		try {
+			creationDate = LocalDateTime.now();
+			vistara.searchUser("Andres").setCreationDate(creationDate);;
+			vistara.upgradeUser("Andres");
+		} catch (InvalidUserException e) {
+			fail();
+		} catch (RepeatedUsernameException e) {
+			fail();
+		}
+		
+		setupScenary2();
+		try {
+			creationDate = LocalDateTime.of(2021, 4, 5, 0, 0);
+			vistara.searchUser("Andres").setCreationDate(creationDate);
+			vistara.searchUser("Andres").setVerifiedPosts(20);
+			vistara.upgradeUser("Andres");
+		} catch (InvalidUserException e) {
+			fail();
+		} catch (RepeatedUsernameException e) {
+			fail();
+		}
 	}
 	
 	@Test
@@ -405,7 +439,7 @@ class VistaraTest {
 			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
 			assertEquals(0, vistara.getPosts().size());
 			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
-			assertEquals(0, vistara.getMods().get(0).getPendingPosts().size());
+			assertEquals(0, ((Moderator) vistara.searchUser("Camilo")).getPendingPosts().size());
 		} catch (InvalidUserException | EmptyFieldsException e) {
 			fail();
 		}
