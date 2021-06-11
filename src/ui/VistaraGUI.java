@@ -411,7 +411,12 @@ public class VistaraGUI {
 			Post postToRemove = ((Moderator) currentUser).getPendingPosts().get(0);
 			
 			try {
-				vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
+				try {
+					vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
+				} catch (EmptyFieldsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (InvalidUserException e) {
 				
 			}
@@ -1138,9 +1143,9 @@ public class VistaraGUI {
     
     @FXML
     void upgradeUser(ActionEvent event) {
-    	try {
+		try {
 			vistara.upgradeUser(searchedUsername.getText());
-		} catch (InvalidUserException e) {
+		} catch (InvalidUserException | RepeatedUsernameException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
