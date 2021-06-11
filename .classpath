@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/fontawesomefx-fontawesome-4.7.0-5.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.10.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/AnimateFX-1.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
