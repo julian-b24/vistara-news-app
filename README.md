@@ -28,7 +28,7 @@ The problem that we are triying to solve is [this](https://github.com/julian-b24
 
 These are [our wireframes](https://github.com/julian-b24/vistara-news-app/raw/master/docs/Wireframes.pdf).
 
-This is [our model/test diagram](https://github.com/julian-b24/vistara-news-app/blob/master/docs/class%20diagram/dise%C3%B1o_pruebas-model.pdf).
+This is [our class diagram](https://github.com/julian-b24/vistara-news-app/blob/master/docs/Class%20Diagram.pdf).
 
 This is [our java documantation](https://github.com/julian-b24/vistara-news-app/tree/master/docs/api).
 
