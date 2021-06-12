@@ -30,6 +30,24 @@ This is [our class diagram](https://github.com/julian-b24/vistara-news-app/blob/
 
 This is [our java documantation](https://github.com/julian-b24/vistara-news-app/tree/master/docs/api).
 
+# Users
+In roder to make easiest the way to test the program we created by deafult a moderator that you could use to test any option.
+
+| username | password |
+| -------- | -------- |
+| *mod*  | *mod*    |
+
+Using *mod* you could import some external users clicking the download icon. Here are some of them and their passwords:
+
+| username | password |
+| -------- | -------- |
+| *Cole*  | *Sweden*  |
+| *Dale*  | *Malta*   |
+| *Regina*  | *Angola*|
+| *Kathe*  | *Myanmar*|
+| *Troy*  | *Burundi* |
+
+Feel free to try them all! U can also open the file users.csv and take a look to the other users and search and interact with them in the app.
 # Explanation Video
 The next YouTube video explains all the functionalities of the vistara! Click [here]((https://www.youtube.com/)
 # **Developers**
