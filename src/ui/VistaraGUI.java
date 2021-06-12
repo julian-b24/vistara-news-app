@@ -6,6 +6,7 @@ import model.Moderator;
 import model.Post;
 import model.User;
 import model.Vistara;
+import thread.ThreadImportData;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import animatefx.animation.Bounce;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
@@ -41,7 +43,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 
 public class VistaraGUI {
@@ -324,6 +328,52 @@ public class VistaraGUI {
     @FXML
     private Label descriptionProfile;
     
+    //loading pane
+    @FXML
+    private Circle circle1;
+    
+    @FXML
+	private Circle circle2;
+    
+    @FXML
+	private Circle circle3;
+    
+    @FXML
+    private Rectangle square1;
+
+    @FXML
+    private Rectangle square3;
+
+    @FXML
+    private Rectangle square4;
+
+    @FXML
+    private Rectangle square2;
+    
+	public Circle getCircle1() {
+		return circle1;
+	}
+
+	public void setCircle1(Circle circle1) {
+		this.circle1 = circle1;
+	}
+
+	public Circle getCircle2() {
+		return circle2;
+	}
+
+	public void setCircle2(Circle circle2) {
+		this.circle2 = circle2;
+	}
+
+	public Circle getCircle3() {
+		return circle3;
+	}
+
+	public void setCircle3(Circle circle3) {
+		this.circle3 = circle3;
+	}
+
 	@FXML
     public void loadLogIn(ActionEvent event) {
    
@@ -808,7 +858,7 @@ public class VistaraGUI {
     }
 	
     @FXML
-    void chooseCategoryImage(ActionEvent event) {
+    public void chooseCategoryImage(ActionEvent event) {
     	
     	FileChooser fc = new FileChooser();
 		File selectedFile = fc.showOpenDialog(null);
@@ -1293,8 +1343,7 @@ public class VistaraGUI {
 			try {
 				vistara.setUserProfilePic(currentUser.getUsername(), selectedFile);
 			} catch (InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				executionAlert();
 			}
 		}
     }
@@ -1484,11 +1533,43 @@ public class VistaraGUI {
 	
     @FXML
     public void importData(MouseEvent event) {
-    	try {
-			vistara.importData();
-		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
+		ThreadImportData threadImportData = new ThreadImportData(vistara, this);
+		Thread thread = new Thread(threadImportData);
+		loadLoadingPane();
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
 			executionAlert();
-			e.printStackTrace();
 		}
     }
+
+	public void loadLoadingPane() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("load-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent loading = fxmlLoader.load();
+			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(loading);
+			executeLoading();
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
+	
+	public void executeLoading() {
+
+		//circles animation
+		new Bounce(circle1).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("500ms")).play();
+		new Bounce(circle2).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1000ms")).play();
+		new Bounce(circle3).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1100ms")).play();
+	
+		new Bounce(square1).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("250ms")).play();
+		new Bounce(square2).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("500ms")).play();
+		new Bounce(square3).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1000ms")).play();
+		new Bounce(square4).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1250ms")).play();
+		
+	}
 }
