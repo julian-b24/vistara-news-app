@@ -1,10 +1,8 @@
 <h1>
     <br>
     <p align="center">
+        <img src="imgs/vistara-logo.png" alt="Vistara" width="200">
         <br>
-        <b>
-        Vistara
-        </b>
     </p>
 </h1>
 
@@ -32,6 +30,8 @@ This is [our class diagram](https://github.com/julian-b24/vistara-news-app/blob/
 
 This is [our java documantation](https://github.com/julian-b24/vistara-news-app/tree/master/docs/api).
 
+# Explanation Video
+The next YouTube video explains all the functionalities of the vistara! Click [here]((https://www.youtube.com/)
 # **Developers**
 [Juan Felipe Blanco](https://github.com/JuanFeBlancoT)
 
