@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.scene.image.Image;
-import sun.security.action.GetBooleanAction;
-
 public class User implements StatsCalculable, Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -18,7 +15,7 @@ public class User implements StatsCalculable, Serializable{
 	private ArrayList<User> followers;
 	private ArrayList<User> following;
 	private String username;
-	private Image profilePic;
+	private String profilePicPath;
 	private String description;
 	private String email;
 	private String password;
@@ -68,23 +65,23 @@ public class User implements StatsCalculable, Serializable{
 	}
 
 	/**
-	* getProfilePic: Gets the profile pic<br>
+	* getprofilePicPath: Gets the profile pic<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
-	* @return profilePic Image
+	* @return profilePicPath Image
 	*/
-	public Image getProfilePic() {
-		return this.profilePic;
+	public String getProfilePicPath() {
+		return this.profilePicPath;
 	}
 
 	/**
-	* setProfilePic: Sets the profile pic<br>
+	* setprofilePicPath: Sets the profile pic<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
-	* @param profilePic Image
+	* @param profilePicPath Image
 	*/
-	public void setProfilePic(Image profilePic) {
-		this.profilePic = profilePic;
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
 	}
 
 	/**
@@ -321,7 +318,7 @@ public class User implements StatsCalculable, Serializable{
 		clone.setFollowers(this.getFollowers());
 		clone.setFollowing(this.getFollowing());
 		clone.setUsername(this.getUsername());
-		clone.setProfilePic(this.getProfilePic());
+		clone.setProfilePicPath(this.getProfilePicPath());
 		clone.setDescription(this.getDescription());
 		clone.setEmail(this.getEmail());
 		clone.setPassword(this.getPassword());

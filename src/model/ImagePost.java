@@ -3,13 +3,12 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javafx.scene.image.Image;
 
 public class ImagePost extends Post implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Image image;
+	private String imagePath;
 
 	/**
 	* ImagePost: ImagePost class constructor <br>
@@ -23,9 +22,9 @@ public class ImagePost extends Post implements Serializable{
 	* @param link String link to the full new
 	* @param image Image, profile picture
 	*/
-	public ImagePost(String user, String title, String content, Category category, LocalDateTime date, String link, Image image) {
+	public ImagePost(String user, String title, String content, Category category, LocalDateTime date, String link, String image) {
 		super(user, title, content, category, date, link);
-		this.image = image;
+		this.imagePath = image;
 	}
 	
 	/**
@@ -34,8 +33,8 @@ public class ImagePost extends Post implements Serializable{
 	* <b> pos </b> <br>
 	* @return image Image
 	*/
-	public Image getImage() {
-		return this.image;
+	public String getImage() {
+		return this.imagePath;
 	}
 
 	/**
@@ -44,8 +43,8 @@ public class ImagePost extends Post implements Serializable{
 	* <b> pos </b> <br>
 	* @param image Image
 	*/
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImage(String image) {
+		this.imagePath = image;
 	}
 
 }

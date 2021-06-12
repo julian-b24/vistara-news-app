@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.IOException;
+
 import exceptions.InvalidUserException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,21 +67,21 @@ public class PostController {
     }
     
     @FXML
-    void commentOnPost(ActionEvent event) {
+    public void commentOnPost(ActionEvent event) {
     	vistaraGUI.setCurrentPost(post);
     	vistaraGUI.loadCommentsOfPost(post);
     	vistaraGUI.updateCommentsTap();
     }
     
     @FXML
-    void reactToPost(ActionEvent event) {
+    public void reactToPost(ActionEvent event) throws IOException {
     	vistara.reactToPost(post, currentUser);
     	vistaraGUI.loadFeed(null);
     	vistaraGUI.updateCommentsTap();
     }
     
     @FXML
-    void loadPostStats(ActionEvent event) {
+    public void loadPostStats(ActionEvent event) {
     	vistaraGUI.setCurrentPost(post);
     	vistaraGUI.loadStatsPost(null);
     }

@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,8 +55,7 @@ public class PostImageController {
     public void setData (Post post, Vistara vis, User user, VistaraGUI visGui) {
     	
     	if(post instanceof ImagePost) {
-    		System.out.println("adjdsj");
-    		imagePost.setFill(new ImagePattern(((ImagePost) post).getImage()));
+    		imagePost.setFill(new ImagePattern(new Image(((ImagePost) post).getImage())));
     	}
     	this.post = post;
     	vistara = vis;
@@ -71,21 +72,21 @@ public class PostImageController {
     }
     
     @FXML
-    void commentOnPost(ActionEvent event) {
+    public void commentOnPost(ActionEvent event) {
     	vistaraGUI.setCurrentPost(post);
     	vistaraGUI.loadCommentsOfPost(post);
     	vistaraGUI.updateCommentsTap();
     }
     
     @FXML
-    void reactToPost(ActionEvent event) {
+    public void reactToPost(ActionEvent event) throws IOException {
     	vistara.reactToPost(post, currentUser);
     	vistaraGUI.loadFeed(null);
     	vistaraGUI.updateCommentsTap();
     }
     
     @FXML
-    void loadPostStats(ActionEvent event) {
+    public void loadPostStats(ActionEvent event) {
     	vistaraGUI.setCurrentPost(post);
     	vistaraGUI.loadStatsPost(null);
     }

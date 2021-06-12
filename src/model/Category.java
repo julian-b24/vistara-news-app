@@ -12,7 +12,6 @@ public class Category implements Serializable{
 	private Category rightCategory;
 	private Category parent;
 	private String name;
-	private Image background;
 
 	
 	/**
@@ -43,26 +42,6 @@ public class Category implements Serializable{
 	*/
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	* getBackground: Gets the background image <br>
-	* <b> pre </b> <br>
-	* <b> pos </b> <br>
-	* @return background Image
-	*/
-	public Image getBackground() {
-		return this.background;
-	}
-
-	/**
-	* setBackground: Sets the bg image <br>
-	* <b> pre </b> <br>
-	* <b> pos </b> <br>
-	* @param background Image
-	*/
-	public void setBackground(Image background) {
-		this.background = background;
 	}
 
 	/**
