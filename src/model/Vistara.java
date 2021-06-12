@@ -55,7 +55,7 @@ public class Vistara implements ModeratorManagement{
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
 		
-		Moderator m = new Moderator("a", "a", "a");
+		Moderator m = new Moderator("mod", "modgmail", "mod");
 		mods.add(m);
 		rootUser = m;
 	}
@@ -307,7 +307,6 @@ public class Vistara implements ModeratorManagement{
 			firstComment = newComment;
 			lastComment = firstComment;
 			firstComment.setNextCommentVistara(lastComment);
-			System.out.println("last:" + lastComment.getContent());
 		}else {
 			lastComment.setNextCommentVistara(newComment);
 			newComment.setNextCommentVistara(firstComment);
@@ -885,7 +884,6 @@ public class Vistara implements ModeratorManagement{
 		
 		String line = br.readLine();
 		while (line != null) {
-			System.out.println(line);
 			String[] values = line.split(";");
 			String username = values[0];
 			String email = values[1];

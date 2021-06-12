@@ -426,7 +426,6 @@ public class VistaraGUI {
     				
     				postx = new Post(currentUser.getUsername(), "B", "CONTNET 2", null, lc, "www.2");
     				((Moderator) currentUser).getPendingPosts().add(postx);
-    				System.out.println(((Moderator) currentUser).getPendingPosts().size());
     				//
     			}
         	}
@@ -448,8 +447,7 @@ public class VistaraGUI {
 			
 			mainPane.getChildren().clear();
 			mainPane.getChildren().setAll(feedFXML);
-			
-			System.out.println("loading feed");
+
 			loadProfileBar();
 			loadComments();
 			loadFeedPosts();
@@ -483,7 +481,7 @@ public class VistaraGUI {
 							 columns = 0;
 							 rows++;
 						}
-						System.out.println("IMAGE POST");
+	
 						postGrid.add(postBox, columns++, rows);
 				}else {
 					FXMLLoader fxmlLoader = new FXMLLoader();
@@ -548,7 +546,7 @@ public class VistaraGUI {
 			profileBarPane.getChildren().setAll(profileBar);
 			loadProfilePic(profileCircleBar, currentUser);
 			setProfileBarInfo();
-			
+						
 		} catch (IOException e) {
 			executionAlert();
 		}
@@ -1184,7 +1182,6 @@ public class VistaraGUI {
     	int rows = 1;
     	    	
     	try {
-    		System.out.println(vistara.getTrending());
     		
 			for (int i = 0; i < vistara.getTrending().size(); i++) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
