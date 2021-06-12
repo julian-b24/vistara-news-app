@@ -6,16 +6,13 @@ import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
 import model.Vistara;
-import ui.VistaraGUI;
 
 public class ThreadImportData implements Runnable{
 	
 	private Vistara vistara;
-	private VistaraGUI gui;
 	
-	public ThreadImportData(Vistara vistara, VistaraGUI gui) {
+	public ThreadImportData(Vistara vistara) {
 		this.vistara = vistara;
-		this.gui = gui;
 	}
 	
 	@Override
