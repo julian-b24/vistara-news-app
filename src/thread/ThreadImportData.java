@@ -23,7 +23,7 @@ public class ThreadImportData implements Runnable{
 		try {
 			vistara.importData();
 		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
-			gui.executionAlert();
+			e.printStackTrace();
 		}
 	}
 }

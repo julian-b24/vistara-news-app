@@ -401,13 +401,15 @@ public class VistaraGUI {
         	//verify account type        	
         	if(loggedUser != null) {
         		currentUser = loggedUser;
-        		vistara.createCategory("f");
-        		vistara.createCategory("g");
-        		vistara.createCategory("d");
-        		vistara.createCategory("e");
-        		vistara.createCategory("b");
-        		vistara.createCategory("h");
-        		vistara.createCategory("a");
+        		try {
+					vistara.createCategory("f");
+					vistara.createCategory("g");
+	        		vistara.createCategory("d");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		
         		
         		loadFeed(null);
 
@@ -546,10 +548,10 @@ public class VistaraGUI {
 	
 	public void loadProfilePic(Circle circle, User user) {
 		Image image;
-		if(user.getProfilePic() == null) {
+		if(user.getProfilePicPath() == null) {
 			image = new Image("file:imgs/no-profile.png");
 		}else {
-			image = user.getProfilePic();
+			image = new Image(user.getProfilePicPath()) ;
 		}
 		circle.setFill(new ImagePattern(image));
 	}
@@ -562,19 +564,18 @@ public class VistaraGUI {
 			Post postToRemove = ((Moderator) currentUser).getPendingPosts().get(0);
 			
 			try {
-				try {
-					vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
-				} catch (EmptyFieldsException e) {
-					emptyFieldAlert();
-				}
+				vistara.deletePost(creatorString, currentUser.getUsername(), postToRemove);
+				vistara.reOrderModerators();
+				loadVerifyPost(null);
+			} catch (EmptyFieldsException e) {
+				emptyFieldAlert();
 			} catch (InvalidUserException e) {
 				invalidUsernameAlert();
 			} catch (IndexOutOfBoundsException e) {
 				executionAlert();
+			} catch (IOException e) {
+				executionAlert();
 			}
-			
-			vistara.reOrderModerators();
-			loadVerifyPost(null);
 		}
 		
     }
@@ -598,10 +599,17 @@ public class VistaraGUI {
         		try {
 					vistara.verifyPost(creatorUser, currentUser.getUsername(), postToVerify, state);
 				} catch (InvalidUserException e) {
+					invalidUsernameAlert();
+				} catch (IOException e) {
+					executionAlert();
 				}
     	    		
     	    	showInfoAlert();
-    	    	vistara.reOrderModerators();
+    	    	try {
+					vistara.reOrderModerators();
+				} catch (IOException e) {
+					executionAlert();
+				}
     	    		
     	   		loadVerifyPost(null);
     		}  
@@ -841,16 +849,18 @@ public class VistaraGUI {
 			emptyFieldAlert();
 		}else {
 			if(categoryName.length() <= 20) {
-				boolean created = vistara.createCategory(categoryName);
-				if(created) {
-					genericSuccessMessage();
-				}else {
-					repeatedCategoryAlert();
+				boolean created;
+				try {
+					created = vistara.createCategory(categoryName);
+					if(created) {
+						genericSuccessMessage();
+					}else {
+						repeatedCategoryAlert();
+					}
+				} catch (IOException e) {
+					executionAlert();
 				}
 				
-				if(!newCategoryImagePath.getText().isEmpty()) {
-					vistara.addCategoryImage(newCategoryImagePath.getText(), categoryName);
-				}
 			}else {
 				lengthWarning();
 			}			
@@ -909,7 +919,11 @@ public class VistaraGUI {
     public void addComment(ActionEvent event) {
 		//Add a new comment to the currentPost
 		if(!txtNewComment.getText().isEmpty()) {
-			vistara.createComment(currentUser, txtNewComment.getText(), currentPost);
+			try {
+				vistara.createComment(currentUser, txtNewComment.getText(), currentPost);
+			} catch (IOException e) {
+				executionAlert();
+			}
 			txtNewComment.clear();
 			loadCommentsOfPost(currentPost);
 		}else {
@@ -1282,9 +1296,15 @@ public class VistaraGUI {
 					vistara.createPost(postTittle.getText(), postDetails.getText(), postCategory.getValue(), currentUser, postLink.getText());
 				} catch (EmptyFieldsException e) {
 					emptyFieldAlert();
+				} catch (IOException e) {
+					executionAlert();
 				}
     		}else {
-    			vistara.createImagePost(currentUser, postTittle.getText(), postDetails.getText(), postCategory.getValue(), postLink.getText(), postImagePath.getText());
+    			try {
+					vistara.createImagePost(currentUser, postTittle.getText(), postDetails.getText(), postCategory.getValue(), postLink.getText(), postImagePath.getText());
+				} catch (IOException e) {
+					executionAlert();
+				}
     		}
     	}else {
     		executionAlert();
@@ -1482,12 +1502,16 @@ public class VistaraGUI {
 				vistara.followUser(currentUser, searchedUsername.getText());
 			} catch (InvalidUserException e) {
 				invalidUsernameAlert();
+			} catch (IOException e) {
+				executionAlert();
 			}
     	}else {
     		try {
 				vistara.unfollowUser(currentUser, searchedUsername.getText());
 			} catch (InvalidUserException e) {
 				invalidUsernameAlert();
+			} catch (IOException e) {
+				executionAlert();
 			}
     	}
     }

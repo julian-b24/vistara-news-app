@@ -26,10 +26,10 @@ public class CommentController {
     	commentContent.setText(comment.getContent());
     	
     	Image image;
-		if(commentCreator.getProfilePic() == null) {
+		if(commentCreator.getProfilePicPath() == null) {
 			image = new Image("file:imgs/no-profile.png");
 		}else {
-			image = commentCreator.getProfilePic();
+			image = new Image(commentCreator.getProfilePicPath());
 		}
 		commentProfilePic.setFill(new ImagePattern(image));
     }

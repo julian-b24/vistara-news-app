@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import exceptions.EmptyFieldsException;
 import exceptions.InvalidUserException;
 import exceptions.RepeatedUsernameException;
-import javafx.scene.image.Image;
 import thread.ThreadAddPostFollowers;
 
 public class Vistara implements ModeratorManagement{
@@ -98,7 +97,7 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = user;
 		}
-		//saveUsersData();
+		saveUsersData();
 		
 		return added;
 	}
@@ -125,7 +124,7 @@ public class Vistara implements ModeratorManagement{
 		}else {
 			rootUser = newUser;
 		}
-		//saveUsersData();
+		saveUsersData();
 		
 		return added;
 	}
@@ -265,8 +264,9 @@ public class Vistara implements ModeratorManagement{
 	 * @param author, User, the user that is creating the post
 	 * @param link String link to the whole new
 	 * @throws EmptyFieldsException in case any of the parameters is an empty string
+	 * @throws IOException Serialization error
 	 */
-	public void createPost(String title, String content, String categoryName, User author, String link) throws EmptyFieldsException {
+	public void createPost(String title, String content, String categoryName, User author, String link) throws EmptyFieldsException, IOException {
 		
 		if(title.isEmpty() || content.isEmpty() || categoryName.isEmpty() || link.isEmpty()) {
 			throw new EmptyFieldsException(new String[] {title, content, categoryName, link});
@@ -282,6 +282,7 @@ public class Vistara implements ModeratorManagement{
 			addThread.start();
 		}
 		sortPosts();
+		savePostsData();
 	}
 	
 	/**
@@ -289,14 +290,20 @@ public class Vistara implements ModeratorManagement{
 	 * @param author, User, the author of the comment. It must be different from null.
 	 * @param content, String, the content of the comment. It must be different from null and an empty string
 	 * @param post, Post, the post to be commented. It must be different from null.
+	 * @throws IOException Error in serialize process
 	 */
-	public void createComment(User author, String content, Post post) {
+	public void createComment(User author, String content, Post post) throws IOException {
 		Comment newComment = new Comment(author.getUsername(), content);
 		post.addComment(newComment);
-		comments.add(newComment);
 		addCommentToVistara(newComment);
+		saveCommentsData();
+		savePostsData();
 	}
 	
+	/**
+	 * Adds recursively a comment to the general lists of comments
+	 * @param newComment, the comment to add
+	 */
 	private void addCommentToVistara(Comment newComment) {
 		if(firstComment == null) {
 			firstComment = newComment;
@@ -316,12 +323,14 @@ public class Vistara implements ModeratorManagement{
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
 	* @param post The new post
+	* @throws IOException Error in serialization
 	*/
-	private void addPostToModeratorList(Post post) {
+	private void addPostToModeratorList(Post post) throws IOException {
 		if(mods.size() > 0) {
 			mods.get(0).getPendingPosts().add(post);
 			reOrderModerators();
 		}
+		saveModsData();
 	}
 
 	/**
@@ -330,9 +339,10 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param newCat The new category thats going to be added
 	* @return added A boolean that determines whether or not the new category is already in the tree or not
+	 * @throws IOException 
 	*/
 	@Override
-	public boolean createCategory(String newCat) {
+	public boolean createCategory(String newCat) throws IOException {
 		boolean added = true;
 		Category newCategory = new Category(newCat);
 		
@@ -414,12 +424,12 @@ public class Vistara implements ModeratorManagement{
 	 * @param password, String, the new password of the user
 	 * @param email, String, the new email of the user
 	 * @param description, String, the new description of the user
-	 * @param profilePicName, String, the new path of the user's profile picture
+	 * @param profilePicPath, String, the new path of the user's profile picture
 	 * @throws RepeatedUsernameException in case the new username already exists in the app
 	 * @throws EmptyFieldsException in case any parameter is empty
 	 * @throws IOException in case a serialization happened
 	 */
-	public void editUser(User user, String username, String password, String email, String description, String profilePicName) throws RepeatedUsernameException, EmptyFieldsException, IOException {
+	public void editUser(User user, String username, String password, String email, String description, String profilePicPath) throws RepeatedUsernameException, EmptyFieldsException, IOException {
 		boolean repeatedName = searchUserByName(username);
 		if(username != null && password != null && email != null && description != null) {
 			if(username.isEmpty() || password.isEmpty() || email.isEmpty() || description.isEmpty()) {
@@ -433,11 +443,11 @@ public class Vistara implements ModeratorManagement{
 				copy.setPassword(password);
 				copy.setEmail(email);
 				copy.setDescription(description);
-				if(profilePicName != null) {
-					Image profilePic = new Image(IMAGE_PATH + profilePicName);
-					copy.setProfilePic(profilePic);
+				if(profilePicPath != null) {
+					copy.setProfilePicPath(profilePicPath);
 				}
 				addUser(copy);
+				saveUsersData();
 				
 			}else {
 				throw new RepeatedUsernameException(username);
@@ -448,8 +458,9 @@ public class Vistara implements ModeratorManagement{
 	/**
 	 * Removes an user from the BST of users
 	 * @param user, the user that will be removed
+	 * @throws IOException 
 	 */
-	private void removeUser(User user) {
+	private void removeUser(User user) throws IOException {
 		
 		if(user != null) {
 			
@@ -486,7 +497,7 @@ public class Vistara implements ModeratorManagement{
 				user.setFollowers(successor.getFollowers());
 				user.setFollowing(successor.getFollowing());
 				user.setUsername(successor.getUsername());
-				user.setProfilePic(successor.getProfilePic());
+				user.setProfilePicPath(successor.getProfilePicPath());
 				user.setDescription(successor.getDescription());
 				user.setEmail(successor.getEmail());
 				user.setPassword(successor.getPassword());
@@ -498,6 +509,7 @@ public class Vistara implements ModeratorManagement{
 				removeUser(successor);
 			}
 		}
+		saveUsersData();
 	}
 
 	/**
@@ -519,8 +531,9 @@ public class Vistara implements ModeratorManagement{
 	* It sorts using with selection sort.
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
+	 * @throws IOException 
 	*/
-	public void reOrderModerators() {
+	public void reOrderModerators() throws IOException {
 		for (int i = 0; i < mods.size(); i++) {
 			
 			Moderator min = mods.get(i);
@@ -536,15 +549,20 @@ public class Vistara implements ModeratorManagement{
 			mods.set(i, min);
 		}
 		sortPendingPosts();
+		saveModsData();
+		saveUsersData();
 	}
 	
 	 /**
 	 * Sorts the pending posts of all moderators list according to their amount of reactions <br>
+	 * @throws IOException Serialization error
 	 */
-	private void sortPendingPosts() {
+	private void sortPendingPosts() throws IOException {
 		for (Moderator mod : mods) {
 			mod.sortPendingPosts();
 		}
+		saveModsData();
+		saveUsersData();
 	}
 
 	/**
@@ -609,11 +627,11 @@ public class Vistara implements ModeratorManagement{
 	public void loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		File fileMods = new File(SAVE_PATH_MODS);
-		File fileCategories = new File(SAVE_PATH_MODS);
-		File fileComments = new File(SAVE_PATH_MODS);
-		File fileUsers = new File(SAVE_PATH_MODS);
-		File filePosts = new File(SAVE_PATH_MODS);
-		File fileTrending = new File(SAVE_PATH_MODS);
+		File fileCategories = new File(SAVE_PATH_CATEGORIES);
+		File fileComments = new File(SAVE_PATH_COMMENTS);
+		File fileUsers = new File(SAVE_PATH_USERS);
+		File filePosts = new File(SAVE_PATH_POSTS);
+		File fileTrending = new File(SAVE_PATH_TRENDING);
 		
 		if (fileMods.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileMods));
@@ -629,7 +647,7 @@ public class Vistara implements ModeratorManagement{
 		
 		if (fileComments.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileComments));
-			comments = (ArrayList<Comment>) ois.readObject();
+			firstComment = (Comment) ois.readObject();
 			ois.close();
 		}
 		
@@ -650,12 +668,13 @@ public class Vistara implements ModeratorManagement{
 			trending = (ArrayList<Post>) ois.readObject();
 			ois.close();
 		}
+		saveData();
 	}
 	
 	public void saveData() throws IOException {
 		saveCommentsData();
 		saveModsData();
-		//saveUsersData();
+		saveUsersData();
 		saveTrendingData();
 		saveCategoriesData();
 		savePostsData();
@@ -669,7 +688,7 @@ public class Vistara implements ModeratorManagement{
 	*/
 	public void saveCommentsData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_COMMENTS));
-		oosI.writeObject(comments);
+		oosI.writeObject(firstComment);
 		oosI.close();
 	}
 	
@@ -740,11 +759,13 @@ public class Vistara implements ModeratorManagement{
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
 	* @throws InvalidUserException Exception
+	 * @throws IOException Serialization error
 	*/
-	public void followUser(User currentUser, String searchedUsername) throws InvalidUserException {
+	public void followUser(User currentUser, String searchedUsername) throws InvalidUserException, IOException {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().add(currentUser);
     	currentUser.getFollowing().add(followedUser);
+    	saveUsersData();
 	}
 
 	/**
@@ -754,11 +775,13 @@ public class Vistara implements ModeratorManagement{
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
 	* @throws InvalidUserException Exception
+	 * @throws IOException 
 	*/
-	public void unfollowUser(User currentUser, String searchedUsername) throws InvalidUserException {
+	public void unfollowUser(User currentUser, String searchedUsername) throws InvalidUserException, IOException {
 		User followedUser = searchUser(searchedUsername);
     	followedUser.getFollowers().remove(currentUser);
     	currentUser.getFollowing().remove(followedUser);
+    	saveUsersData();
 	}
 	
 	/**
@@ -789,7 +812,7 @@ public class Vistara implements ModeratorManagement{
 	
 	/**
 	 * Import the file categories.csv and loads all the categories in it
-	 * @throws IOException
+	 * @throws IOException serialization or read error
 	 */
 	private void importCategories() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(IMPORT_CSV_CATEGORIES));
@@ -802,6 +825,7 @@ public class Vistara implements ModeratorManagement{
 			line = br.readLine();
 		}
 		br.close();
+		saveCategoriesData();
 	}
 
 	/**
@@ -830,6 +854,7 @@ public class Vistara implements ModeratorManagement{
 			line = br.readLine();
 		}
 		br.close();
+		savePostsData();
 	}
 
 	/**
@@ -855,17 +880,17 @@ public class Vistara implements ModeratorManagement{
 			String bio = values[4];
 			boolean isMod = Boolean.valueOf(values[5]);
 			String profilePicPath = IMAGE_PATH + values[6] + PROFILE_PIC_EXTENSION;
-			Image profilePic = new Image(profilePicPath);
 			addUser(username, email, password);
 			if(!isMod) {
 				upgradeUser(username);
 			}
 			searchUser(username).setCreationDate(creationDate);
 			searchUser(username).setDescription(bio);
-			searchUser(username).setProfilePic(profilePic);
+			searchUser(username).setProfilePicPath(profilePicPath);
 			line = br.readLine();
 		}
 		br.close();
+		saveUsersData();
 	}
 
 	/**
@@ -906,7 +931,7 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param mods ArrayList of moderators
 	*/
-	public void setMods(ArrayList<Moderator> mods) {
+	public void setMods(ArrayList<Moderator> mods) throws IOException {
 		this.mods = mods;
 	}
 
@@ -1009,7 +1034,7 @@ public class Vistara implements ModeratorManagement{
 			ArrayList<User> userFollowers = user.getFollowers();
 			ArrayList<User> userFollowing = user.getFollowing();
 			String userUsername = user.getUsername();
-			Image userProfilePic = user.getProfilePic();
+			String userProfilePic = user.getProfilePicPath();
 			String userDescription = user.getDescription();
 			String userEmail = user.getEmail();
 			String userPassword = user.getPassword();
@@ -1024,7 +1049,7 @@ public class Vistara implements ModeratorManagement{
 			Moderator newMod = new Moderator(userUsername, userEmail, userPassword);
 			newMod.setFollowers(userFollowers);
 			newMod.setFollowing(userFollowing);
-			newMod.setProfilePic(userProfilePic);
+			newMod.setProfilePicPath(userProfilePic);
 			newMod.setDescription(userDescription);
 			newMod.setCreationDate(userCreationDate);
 			newMod.setFeed(userFeed);
@@ -1036,16 +1061,19 @@ public class Vistara implements ModeratorManagement{
 			mods.add(newMod);
 			addUser(newMod);
 		}
+		saveUsersData();
+		saveModsData();
 	}
 
 	/**
 	* reactToPost: Allows the current user of the app to interact with a post, incrementing or decreasing the amount of reactions of th epost<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
-	* @param post Post, post with which the user is interacting
+	* @param post Post, post with the user is interacting
 	* @param currentUser String, reference to the user that will be upgraded
+	 * @throws IOException Serialization error
 	*/
-	public void reactToPost(Post post, User currentUser) {
+	public void reactToPost(Post post, User currentUser) throws IOException {
 		boolean reacted = currentUser.searchReactedPost(post);		
 		if(reacted) {
 			post.getReactedUsers().remove(currentUser);
@@ -1056,12 +1084,15 @@ public class Vistara implements ModeratorManagement{
 			post.setReactions(post.getReactions()+1);
 			currentUser.getReactedPosts().add(post);
 		}
+		savePostsData();
+		saveUsersData();
 	}
 	
 	/**
 	 * Sort the post's list using insertion sort based on their title
+	 * @throws IOException 
 	 */
-	public void sortPosts() {
+	public void sortPosts() throws IOException {
 		for (int i = 1; i < posts.size(); i++) {
 			for (int j = i; j > 0 && posts.get(j-1).compareTo(posts.get(j)) > 0; j--) {
 				Post temp = posts.get(j-1);
@@ -1069,6 +1100,7 @@ public class Vistara implements ModeratorManagement{
 				posts.set(j, temp);
 			}
 		}
+		savePostsData();
 	}
 
 	/**
@@ -1115,9 +1147,10 @@ public class Vistara implements ModeratorManagement{
 	* @param postToRemove Post, post to delete
 	* @throws InvalidUserException Exception
 	* @throws EmptyFieldsException Exception
+	 * @throws IOException serialization error
 	*/
 	@Override
-	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException {
+	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException, IOException {
 		
 		if(creatorString.isEmpty() || moderator.isEmpty()) {
 			throw new EmptyFieldsException(new String[] {creatorString, moderator});
@@ -1131,6 +1164,7 @@ public class Vistara implements ModeratorManagement{
 			creator.getOwnPosts().remove(postToRemove);
 			((Moderator) mod).removePost(postToRemove);
 			posts.remove(postToRemove);
+			savePostsData();
 		}
 	}
 
@@ -1143,9 +1177,10 @@ public class Vistara implements ModeratorManagement{
 	* @param postToVerify Post, post to verify
 	* @param state String, state of verification
 	* @throws InvalidUserException Exception
+	 * @throws IOException Serialization error
 	*/
 	@Override
-	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException {
+	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException, IOException {
 		User creator = searchUser(creatorUser);		
 		User moderator = searchUser(mod);
 		
@@ -1160,6 +1195,9 @@ public class Vistara implements ModeratorManagement{
 		if(moderator instanceof Moderator) {
 			((Moderator) moderator).getPendingPosts().remove(postToVerify);
 		}
+		savePostsData();
+		saveModsData();
+		saveUsersData();
 	}
 
 	/**
@@ -1190,6 +1228,7 @@ public class Vistara implements ModeratorManagement{
 				addUser(newUser);
 			}
 		}
+		saveUsersData();
 	}
 
 	/**
@@ -1202,8 +1241,7 @@ public class Vistara implements ModeratorManagement{
 	*/
 	public void setUserProfilePic(String username, File selectedFile) throws InvalidUserException {
 		User user = searchUser(username);
-		Image profilePic = new Image("file:"+selectedFile.getAbsolutePath());
-		user.setProfilePic(profilePic);
+		user.setProfilePicPath("file:"+selectedFile.getAbsolutePath());
 	}
 
 	/**
@@ -1216,12 +1254,12 @@ public class Vistara implements ModeratorManagement{
 	* @param category String, post category
 	* @param link String, news link
 	* @param path String, image path
+	 * @throws IOException error in serialization
 	*/
-	public void createImagePost(User currentUser, String title, String content, String category, String link, String path) {
+	public void createImagePost(User currentUser, String title, String content, String category, String link, String path) throws IOException {
 		Category cat = new Category(category);
 		LocalDateTime now = LocalDateTime.now();
-		Image img = new Image("file:"+path);
-		ImagePost post = new ImagePost(currentUser.getUsername(), title, content, cat, now, link, img);
+		ImagePost post = new ImagePost(currentUser.getUsername(), title, content, cat, now, link, "file:"+path);
 		
 		posts.add(post);
 		currentUser.getOwnPosts().add(post);
@@ -1231,16 +1269,4 @@ public class Vistara implements ModeratorManagement{
 		sortPosts();
 	}
 	
-	/**
-	* addCategoryImage: Add an image to a category<br>
-	* <b> pre </b> <br>
-	* <b> pos </b> <br>
-	* @param cat String, new category
-	* @param path String, image path
-	*/
-	public void addCategoryImage(String path, String cat) {
-		Category category = searchCategory(cat);
-		Image image = new Image(path);
-		category.setBackground(image);
-	}
 }

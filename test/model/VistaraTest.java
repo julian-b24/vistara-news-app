@@ -38,7 +38,11 @@ class VistaraTest {
 	
 	public void setupScenary4() {
 		vistara = new Vistara(); 
-		vistara.createCategory("Politica");
+		try {
+			vistara.createCategory("Politica");
+		} catch (IOException e) {
+			fail();
+		}
 	}
 	
 	public void setupScenary5() {
@@ -60,14 +64,18 @@ class VistaraTest {
 			vistara.createPost(title, content, "hola", vistara.searchUser(username), "link");
 			vistara.getPosts().get(0).setState(state);
 			vistara.getPosts().get(0).setDate(date);
-		} catch (InvalidUserException | EmptyFieldsException e) {
+		} catch (InvalidUserException | EmptyFieldsException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void setupScenary6() {
 		setupScenary2();
-		vistara.createCategory("Politica");
+		try {
+			vistara.createCategory("Politica");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setupScenary7() {
@@ -92,7 +100,7 @@ class VistaraTest {
 			vistara.createPost(title, content, "Politica", vistara.searchUser("Andres"), "link");
 			vistara.getPosts().get(0).setState(state);
 			vistara.getPosts().get(0).setDate(date);
-		} catch (InvalidUserException | EmptyFieldsException e) {
+		} catch (InvalidUserException | EmptyFieldsException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -194,7 +202,7 @@ class VistaraTest {
 			assertEquals(newPassword, editedUser.getPassword());
 			assertEquals(newEmail, editedUser.getEmail());
 			assertEquals(newDesc, editedUser.getDescription());
-			assertEquals(newPic, editedUser.getProfilePic());
+			assertEquals(newPic, editedUser.getProfilePicPath());
 		} catch (InvalidUserException e1) {
 			fail();
 		}
@@ -302,7 +310,7 @@ class VistaraTest {
 			assertEquals(previousFollowers + 1, followedUser.getFollowers().size());
 			assertEquals(previousFollowing + 1, followerUser.getFollowing().size());
 			
-		} catch (InvalidUserException e) {
+		} catch (InvalidUserException | IOException e) {
 			fail();
 		}
 		
@@ -333,7 +341,7 @@ class VistaraTest {
 			
 			assertEquals(reactions + 1, post.getReactions());
 			assertEquals(reactedPosts + 1, user.getReactedPosts().size());
-		} catch (EmptyFieldsException | InvalidUserException e) {
+		} catch (EmptyFieldsException | InvalidUserException | IOException e) {
 			fail();
 		}
 	}
@@ -347,7 +355,7 @@ class VistaraTest {
 		String fullNewLink = "go.com";
 		try {
 			vistara.createPost(title, content, category, vistara.getRootUser(), fullNewLink);
-		} catch (EmptyFieldsException e) {
+		} catch (EmptyFieldsException | IOException e) {
 			fail();
 		}
 		
@@ -369,6 +377,8 @@ class VistaraTest {
 			fail();
 		} catch (EmptyFieldsException e) {
 			assertTrue(true);
+		} catch (IOException e) {
+			fail();
 		}
 	}
 	
@@ -410,16 +420,25 @@ class VistaraTest {
 	
 		String categoryName = "Religion";
 		setupScenary1();
-		vistara.createCategory(categoryName);
-		boolean oneElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
-							 vistara.getRootCategory().getRightCategory() == null;
-		assertTrue(oneElement);
+		try {
+			vistara.createCategory(categoryName);
+			boolean oneElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
+					 vistara.getRootCategory().getRightCategory() == null;
+			assertTrue(oneElement);
+		} catch (IOException e) {
+			fail();
+		}
+		
 		
 		setupScenary4();
-		vistara.createCategory(categoryName);
-		boolean twoElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
-				 			 vistara.getRootCategory().getRightCategory() != null;
-		assertTrue(twoElement);
+		try {
+			vistara.createCategory(categoryName);
+		} catch (IOException e) {
+			boolean twoElement = vistara.getRootCategory() != null && vistara.getRootCategory().getLeftCategory() == null &&
+		 			 vistara.getRootCategory().getRightCategory() != null;
+			assertTrue(twoElement);
+		}
+		
 	}
 	
 	@Test
@@ -431,7 +450,7 @@ class VistaraTest {
 			assertEquals(0, vistara.getPosts().size());
 			assertEquals(0, vistara.searchUser("Andres").getOwnPosts().size());
 			assertEquals(0, ((Moderator) vistara.searchUser("Camilo")).getPendingPosts().size());
-		} catch (InvalidUserException | EmptyFieldsException e) {
+		} catch (InvalidUserException | EmptyFieldsException | IOException e) {
 			fail();
 		}
 		
@@ -439,9 +458,9 @@ class VistaraTest {
 		title = "";
 		try {
 			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
-			fail("2");
-		} catch (InvalidUserException e) {
-			fail("3");
+			fail();
+		} catch (InvalidUserException | IOException e) {
+			fail();
 		} catch (EmptyFieldsException e) {
 			assertTrue(true);
 		}
@@ -452,7 +471,7 @@ class VistaraTest {
 			vistara.deletePost("Andres", "Camilo", vistara.searchPost(title));
 			vistara.searchPost(title).getContent();
 			fail("3");
-		} catch (InvalidUserException | EmptyFieldsException e) {
+		} catch (InvalidUserException | EmptyFieldsException | IOException e) {
 			fail("4");
 		} catch (NullPointerException e) {
 			assertTrue(true);
@@ -471,7 +490,7 @@ class VistaraTest {
 			state = "VERIFIED";
 			vistara.verifyPost(creator, mod, post, state);
 			assertEquals(state, post.getState().toString());
-		} catch (EmptyFieldsException | InvalidUserException e) {
+		} catch (EmptyFieldsException | InvalidUserException | IOException e) {
 			fail();
 		}
 		
@@ -481,7 +500,7 @@ class VistaraTest {
 			state = "FAKE_NEW";
 			vistara.verifyPost(creator, mod, post, state);
 			assertEquals(state, post.getState().toString());
-		} catch (EmptyFieldsException | InvalidUserException e) {
+		} catch (EmptyFieldsException | InvalidUserException | IOException e) {
 			fail();
 		}
 	}
