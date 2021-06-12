@@ -1574,8 +1574,11 @@ public class VistaraGUI {
 			fxmlLoader.setController(this);
 			Parent loading = fxmlLoader.load();
 			
-			mainPane.getChildren().clear();
-			mainPane.getChildren().setAll(loading);
+			loadProfile(null);
+			loadProfileBar();
+			
+			profilePane.getChildren().clear();
+			profilePane.getChildren().setAll(loading);
 			executeLoading();
 			
 		} catch (IOException e) {
