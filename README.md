@@ -49,7 +49,7 @@ Using *mod* you could import some external users clicking the download icon. Her
 
 Feel free to try them all! U can also open the file users.csv and take a look to the other users and search and interact with them in the app.
 # Explanation Video
-The next YouTube video explains all the functionalities of the vistara! Click [here]((https://www.youtube.com/)
+The next YouTube video explains all the functionalities of the vistara! Click [here](https://youtu.be/9CcR4PJWGTc)
 # **Developers**
 [Juan Felipe Blanco](https://github.com/JuanFeBlancoT)
 
