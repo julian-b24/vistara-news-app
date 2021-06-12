@@ -1038,12 +1038,13 @@ public class Vistara implements ModeratorManagement{
 	* @throws RepeatedUsernameException Exception
 	* @throws IOException Exception
 	*/
-	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException, IOException {
+	public boolean upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException, IOException {
+		boolean done = false;
 		User user = searchUser(username);
 		LocalDateTime nowTime = LocalDateTime.now();
 		Duration timeInVistara = Duration.between(user.getCreationDate(), nowTime);
 		if(user.getVerifiedPosts() >=20 && timeInVistara.toDays() >= 30) {
-		
+			done = true;
 			ArrayList<User> userFollowers = user.getFollowers();
 			ArrayList<User> userFollowing = user.getFollowing();
 			String userUsername = user.getUsername();
@@ -1074,8 +1075,10 @@ public class Vistara implements ModeratorManagement{
 			mods.add(newMod);
 			addUser(newMod);
 		}
+		
 		saveUsersData();
 		saveModsData();
+		return done;
 	}
 
 	/**
