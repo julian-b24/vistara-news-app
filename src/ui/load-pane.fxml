@@ -21,7 +21,9 @@
          </children>
       </HBox>
       <Label layoutX="139.0" layoutY="209.0" style="-fx-font-size: 90;" styleClass="header" text="Loading" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="52.0" layoutX="139.0" layoutY="349.0" stroke="#ffffff00" strokeType="INSIDE" width="516.0" />
-      <Rectangle fx:id="lineRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="146.0" layoutY="360.0" stroke="TRANSPARENT" strokeType="INSIDE" width="10.0" />
+      <Rectangle fx:id="square1" arcHeight="5.0" arcWidth="5.0" fill="#1fa9ff" height="185.0" layoutY="539.0" stroke="TRANSPARENT" strokeType="INSIDE" width="177.0" />
+      <Rectangle fx:id="square3" arcHeight="5.0" arcWidth="5.0" fill="#2170ff" height="185.0" layoutX="408.0" layoutY="539.0" stroke="TRANSPARENT" strokeType="INSIDE" width="177.0" />
+      <Rectangle fx:id="square4" arcHeight="5.0" arcWidth="5.0" fill="#1f4cff" height="185.0" layoutX="613.0" layoutY="539.0" stroke="TRANSPARENT" strokeType="INSIDE" width="177.0" />
+      <Rectangle fx:id="square2" arcHeight="5.0" arcWidth="5.0" fill="#1f8bff" height="185.0" layoutX="204.0" layoutY="539.0" stroke="TRANSPARENT" strokeType="INSIDE" width="177.0" />
    </children>
 </AnchorPane>

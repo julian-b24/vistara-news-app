@@ -338,6 +338,18 @@ public class VistaraGUI {
     @FXML
 	private Circle circle3;
     
+    @FXML
+    private Rectangle square1;
+
+    @FXML
+    private Rectangle square3;
+
+    @FXML
+    private Rectangle square4;
+
+    @FXML
+    private Rectangle square2;
+    
 	public Circle getCircle1() {
 		return circle1;
 	}
@@ -1521,15 +1533,13 @@ public class VistaraGUI {
 	
     @FXML
     public void importData(MouseEvent event) {
-    	try {
-    		//ThreadLoadingPane threadLoadingPane = new ThreadLoadingPane(this);
-    		//Thread thread = new Thread(threadLoadingPane);
-    		loadLoadingPane();
-    		//thread.start();
-    		//thread.join();
-    		executeLoading();
-			vistara.importData();
-		} catch (IOException | RepeatedUsernameException | EmptyFieldsException | InvalidUserException e) {
+		ThreadImportData threadImportData = new ThreadImportData(vistara, this);
+		Thread thread = new Thread(threadImportData);
+		loadLoadingPane();
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
 			executionAlert();
 		}
     }
@@ -1555,8 +1565,11 @@ public class VistaraGUI {
 		new Bounce(circle1).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("500ms")).play();
 		new Bounce(circle2).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1000ms")).play();
 		new Bounce(circle3).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1100ms")).play();
+	
+		new Bounce(square1).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("250ms")).play();
+		new Bounce(square2).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("500ms")).play();
+		new Bounce(square3).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1000ms")).play();
+		new Bounce(square4).setCycleDuration(10).setCycleCount(10).setDelay(Duration.valueOf("1250ms")).play();
 		
-		
-		loadFeed(null);
 	}
 }
