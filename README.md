@@ -1,9 +1,10 @@
 <h1>
     <br>
     <p align="center">
+        <img src="imgs/vistara-logo.png" alt="Vistara" width="200">
         <br>
         <b>
-        Vistara
+            Vistara
         </b>
     </p>
 </h1>
