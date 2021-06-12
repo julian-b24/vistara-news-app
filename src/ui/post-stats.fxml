@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="65.0" layoutY="27.0" style="-fx-font-size: 18;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="Statistics of the post:" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="547.0" AnchorPane.topAnchor="27.0" />
-      <Label fx:id="statsPostHeader" layoutX="65.0" layoutY="54.0" style="-fx-font-size: 24;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="News tittle" wrapText="true" AnchorPane.bottomAnchor="631.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="54.0" />
+      <Label layoutX="65.0" layoutY="27.0" style="-fx-font-size: 18;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="Statistics of the post:" textFill="#3118aa" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="547.0" AnchorPane.topAnchor="27.0" />
+      <Label fx:id="statsPostHeader" layoutX="65.0" layoutY="54.0" style="-fx-font-size: 24;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="News tittle" textFill="#3118aa" wrapText="true" AnchorPane.bottomAnchor="631.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="54.0" />
       <LineChart fx:id="lineChartPost" layoutX="64.0" layoutY="412.0" prefHeight="275.0" prefWidth="662.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -19,7 +19,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <AnchorPane layoutX="65.0" layoutY="121.0" prefHeight="278.0" prefWidth="278.0" style="-fx-background-color: #C4C4C4;">
+      <AnchorPane layoutX="65.0" layoutY="121.0" prefHeight="278.0" prefWidth="278.0" style="-fx-background-color: #6A70E5;">
          <children>
             <Label fx:id="statsPostTitle" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="135.0" style="-fx-font-size: 16;" styleClass="header" stylesheets="@../styles/standar-pane.css" text="Title" wrapText="true" />
             <Label fx:id="statsPostStatus" layoutX="237.0" layoutY="16.0" prefHeight="17.0" prefWidth="51.0" stylesheets="@../styles/standar-pane.css" text="verified" wrapText="true" />

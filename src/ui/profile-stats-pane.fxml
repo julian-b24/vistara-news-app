@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton layoutX="507.0" layoutY="125.0" prefHeight="44.0" prefWidth="228.0" style="-fx-background-color: #505050; -fx-font-size: 16;" text="Export stats" textFill="#e2e2e2" AnchorPane.bottomAnchor="545.0" AnchorPane.leftAnchor="507.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="125.0" />
+      <JFXButton layoutX="507.0" layoutY="125.0" prefHeight="44.0" prefWidth="228.0" style="-fx-background-color: #4744d8; -fx-font-size: 16;" text="Export stats" textFill="#e2e2e2" AnchorPane.bottomAnchor="545.0" AnchorPane.leftAnchor="507.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="125.0" />
       <Pane fx:id="averagesPane" layoutX="56.0" layoutY="125.0" prefHeight="140.0" prefWidth="267.0" style="-fx-background-color: #C4C4C4;" AnchorPane.bottomAnchor="455.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="467.0" AnchorPane.topAnchor="125.0">
          <children>
             <Label contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="143.0" styleClass="header" text="Average reactions" />

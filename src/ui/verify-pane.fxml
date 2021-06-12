@@ -12,8 +12,8 @@
             <ToggleGroup fx:id="verifyS" />
          </toggleGroup></JFXRadioButton>
       <JFXRadioButton fx:id="fakeNew" layoutX="72.0" layoutY="503.0" text="Fake new" toggleGroup="$verifyS" />
-      <JFXButton id="confirm-button" layoutX="72.0" layoutY="604.0" onAction="#verifyPost" prefHeight="53.0" prefWidth="154.0" style="-fx-background-color: #505050;" text="Confirm" textFill="#e2e2e2" />
-      <JFXButton id="delete-button" layoutX="568.0" layoutY="29.0" onAction="#deletePost" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #505050;" text="Delete" textFill="#e2e2e2" />
+      <JFXButton id="confirm-button" layoutX="72.0" layoutY="604.0" onAction="#verifyPost" prefHeight="53.0" prefWidth="154.0" style="-fx-background-color: #4744d8;" text="Confirm" textFill="#e2e2e2" />
+      <JFXButton id="delete-button" layoutX="568.0" layoutY="29.0" onAction="#deletePost" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #4744d8;" text="Delete" textFill="#e2e2e2" />
       <AnchorPane fx:id="postVerifyPost" layoutX="87.0" layoutY="29.0" prefHeight="288.0" prefWidth="448.0" />
    </children>
 </AnchorPane>
