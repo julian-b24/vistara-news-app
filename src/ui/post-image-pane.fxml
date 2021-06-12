@@ -21,7 +21,7 @@
       <FontAwesomeIconView layoutX="184.0" layoutY="109.0" text="" />
       <Label fx:id="numberCommmentaries" layoutX="206.0" layoutY="94.0" text="###" />
       <Label layoutX="243.0" layoutY="93.0" text="Commentaries" />
-      <Line endX="78.0" layoutX="329.0" layoutY="42.0" startX="-13.0" strokeLineCap="ROUND" strokeWidth="2.0" />
+      <Line endX="78.0" layoutX="329.0" layoutY="42.0" startX="-13.0" stroke="#4744d8" strokeLineCap="ROUND" strokeWidth="2.0" />
       <Label fx:id="postDetails" alignment="TOP_LEFT" layoutX="19.0" layoutY="233.0" prefHeight="80.0" prefWidth="401.0" text="." wrapText="true" />
       <ImageView fx:id="newsImage" fitHeight="96.0" fitWidth="391.0" layoutX="24.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="newsLink" layoutX="19.0" layoutY="320.0" text="link" />

@@ -34,6 +34,6 @@
          </font>
       </Label>
       <JFXTextArea fx:id="editBio" layoutX="212.0" layoutY="310.0" prefHeight="129.0" prefWidth="475.0" />
-      <JFXButton layoutX="118.0" layoutY="538.0" onAction="#confirmPorfileEdition" prefHeight="46.0" prefWidth="201.0" style="-fx-background-color: #505050; -fx-font-size: 16;" text="Confirm changes" textFill="#e2e2e2" />
+      <JFXButton layoutX="118.0" layoutY="538.0" onAction="#confirmPorfileEdition" prefHeight="46.0" prefWidth="201.0" style="-fx-background-color: #4744d8; -fx-font-size: 16;" text="Confirm changes" textFill="#e8e8e8" />
    </children>
 </AnchorPane>

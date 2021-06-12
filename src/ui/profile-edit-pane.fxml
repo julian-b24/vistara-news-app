@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="790.0" stylesheets="@../styles/standar-pane.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton layoutX="140.0" layoutY="548.0" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: #505050; -fx-font-size: 18;" text="Confirm changes" textFill="#e2e2e2" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="548.0" />
+      <JFXButton layoutX="140.0" layoutY="548.0" prefHeight="50.0" prefWidth="240.0" style="-fx-background-color: #4744d8; -fx-font-size: 18;" text="Confirm changes" textFill="#e2e2e2" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="548.0" />
       <Circle fill="#ff1f1f" layoutX="85.0" layoutY="60.0" radius="33.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="627.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="672.0" AnchorPane.topAnchor="27.0" />
       <Label layoutX="148.0" layoutY="47.0" prefHeight="27.0" prefWidth="186.0" style="-fx-font-size: 18;" text="Change profile picture" />
       <Label contentDisplay="CENTER" layoutX="52.0" layoutY="141.0" prefHeight="27.0" prefWidth="66.0" style="-fx-font-size: 18;" text="Name" AnchorPane.bottomAnchor="552.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="672.0" AnchorPane.topAnchor="141.0" />

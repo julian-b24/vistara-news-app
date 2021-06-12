@@ -17,14 +17,14 @@
    <children>
       <ScrollPane layoutY="100.0" prefHeight="551.0" prefWidth="290.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <content>
-          <AnchorPane fx:id="commentsScroll" minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="290.0">
+          <AnchorPane fx:id="commentsScroll" minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="290.0" style="-fx-background-color: FFFFFF;">
                <children>
                   <JFXTextArea fx:id="txtNoComments" editable="false" focusColor="#405aa800" layoutX="53.0" layoutY="230.0" prefHeight="66.0" prefWidth="185.0" style="-fx-font-size: 16;" text="There are no comments!&#10;     Comment this new" unFocusColor="#d6c7c700" wrapText="true">
                      <cursor>
                         <Cursor fx:constant="DISAPPEAR" />
                      </cursor>
                   </JFXTextArea>
-                  <FontAwesomeIconView fx:id="iconNoComments" fill="#4f4f4f" glyphName="BLIND" layoutX="120.0" layoutY="220.0" size="64" />
+                  <FontAwesomeIconView fx:id="iconNoComments" fill="#404fd7" glyphName="BLIND" layoutX="120.0" layoutY="220.0" size="64" />
                   <GridPane fx:id="commentsGrid">
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,13 +34,13 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484848" height="100.0" stroke="#45454500" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34199c" height="100.0" stroke="#45454500" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="21.0" layoutY="34.0" prefHeight="20.0" prefWidth="170.0" style="-fx-font-size: 14;" text="Comments in respond to" textFill="WHITE" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="34.0" />
       <Label fx:id="commentCreatorTitle" layoutX="184.0" layoutY="34.0" prefHeight="17.0" prefWidth="86.0" text="NAME" textFill="WHITE" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0" />
       <Label layoutX="21.0" layoutY="63.0" prefHeight="17.0" prefWidth="67.0" text="New:" textFill="WHITE" AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="63.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#898989" height="84.0" layoutY="636.0" stroke="TRANSPARENT" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="636.0" />
-      <JFXButton layoutX="201.0" layoutY="666.0" onAction="#addComment" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #4F4F4F; -fx-background-radius: 12;" text="Add" textFill="WHITE" />
-      <JFXTextField fx:id="txtNewComment" focusColor="#ffffff00" focusTraversable="false" layoutX="21.0" layoutY="666.0" prefHeight="31.0" prefWidth="163.0" promptText="  Comment..." style="-fx-background-color: #C4C4C4; -fx-background-radius: 8;" unFocusColor="#4d4d4d00">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5460ff" height="84.0" layoutY="636.0" stroke="TRANSPARENT" strokeType="INSIDE" width="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="636.0" />
+      <JFXButton layoutX="201.0" layoutY="666.0" onAction="#addComment" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: #34199c; -fx-background-radius: 12;" text="Add" textFill="WHITE" />
+      <JFXTextField fx:id="txtNewComment" focusColor="#ffffff00" focusTraversable="false" layoutX="21.0" layoutY="666.0" prefHeight="31.0" prefWidth="163.0" promptText="  Comment..." style="-fx-background-color: #7184ff; -fx-background-radius: 8;" unFocusColor="#606abc00">
          <opaqueInsets>
             <Insets left="10.0" />
          </opaqueInsets>
