@@ -10,23 +10,32 @@ public abstract class Content implements Serializable{
 	
 	private String author;
 
+	/**
+	* getAuthor: Gets author <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return author String
+	*/
 	public String getAuthor() {
 		return this.author;
 	}
 
 	/**
-	 * 
-	 * @param author
-	 */
+	* setAuthor: Sets the author <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param author String
+	*/
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
+	
 	/**
-	 * 
-	 * @param user
-	 * @param pic
-	 */
+	* Content: Content class constructor <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param user String
+	*/
 	public Content(String user) {
 		author = user;
 	}

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.scene.image.Image;
+import sun.security.action.GetBooleanAction;
 
 public class User implements StatsCalculable, Serializable{
 
@@ -33,9 +34,9 @@ public class User implements StatsCalculable, Serializable{
 	* User: User class constructor <br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
-	* @param username
- 	* @param email
- 	* @param password
+	* @param username String
+ 	* @param email String
+ 	* @param password String
 	*/
 	public User(String username, String email, String password) {
 		
@@ -58,105 +59,171 @@ public class User implements StatsCalculable, Serializable{
 	}
 
 	/**
-	 * 
-	 * @param username
-	 */
+	* setUsername: Sets the username <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String
+	*/
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	/**
+	* getProfilePic: Gets the profile pic<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return profilePic Image
+	*/
 	public Image getProfilePic() {
 		return this.profilePic;
 	}
 
 	/**
-	 * 
-	 * @param profilePic
-	 */
+	* setProfilePic: Sets the profile pic<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param profilePic Image
+	*/
 	public void setProfilePic(Image profilePic) {
 		this.profilePic = profilePic;
 	}
 
+	/**
+	* getDescription: Gets description<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return description String
+	*/
 	public String getDescription() {
 		return this.description;
 	}
 
 	/**
-	 * 
-	 * @param description
-	 */
+	* setDescription: Sets description<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param description String
+	*/
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	* getEmail: Gets Email<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return email String
+	*/
 	public String getEmail() {
 		return this.email;
 	}
 
 	/**
-	 * 
-	 * @param email
-	 */
+	* setEmail: sets Email<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param email String
+	*/
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	* getPassword: Gets password<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return password String
+	*/
 	public String getPassword() {
 		return this.password;
 	}
 
 	/**
-	 * 
-	 * @param password
-	 */
+	* setPassword: Gets password<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param password String
+	*/
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	* getFollowers: Gets followers<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return followers ArrayList users
+	*/
 	public ArrayList<User> getFollowers() {
 		return followers;
 	}
 
 	/**
-	 * 
-	 * @param followers
-	 */
+	* setFollowers: Sets followers<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param followers ArrayList users
+	*/
 	public void setFollowers(ArrayList<User> followers) {
 		this.followers = followers;
 	}
 
+	/**
+	* getFollowing: Gets following<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return following ArrayList users
+	*/
 	public ArrayList<User> getFollowing() {
 		return following;
 	}
 
 	/**
-	 * 
-	 * @param following
-	 */
+	* setFollowing: Sets following<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param following ArrayList users
+	*/
 	public void setFollowing(ArrayList<User> following) {
 		this.following = following;
 	}
 
+	/**
+	* getRightUser: Gets right user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return rightUser Right user
+	*/
 	public User getRightUser() {
 		return this.rightUser;
 	}
 
 	/**
-	 * 
-	 * @param rightUser
-	 */
+	* setRightUser: Sets right user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param rightUser Right user
+	*/
 	public void setRightUser(User rightUser) {
 		this.rightUser = rightUser;
 	}
 
+	/**
+	* getLeftUser: Gets left user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return leftUser Left user
+	*/
 	public User getLeftUser() {
 		return this.leftUser;
 	}
 
 	/**
-	 * 
-	 * @param leftUser
-	 */
+	* setLeftUser: Sets left user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param leftUser Left user
+	*/
 	public void setLeftUser(User leftUser) {
 		this.leftUser = leftUser;
 	}
@@ -176,10 +243,22 @@ public class User implements StatsCalculable, Serializable{
 		return compare;
 	}
 
+	/**
+	* getParentUser: Gets parent user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return parentUser Parent user
+	*/
 	public User getParentUser() {
 		return parentUser;
 	}
 
+	/**
+	* setParentUser: Sets parent user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param parentUser Parent user
+	*/
 	public void setParentUser(User parentUser) {
 		this.parentUser = parentUser;
 	}
@@ -221,11 +300,23 @@ public class User implements StatsCalculable, Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	* getCreationDate: Gets date of creation of the user <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return creationDate LocalDateTime
+	*/
 	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}
 
+	/**
+	* setCreationDate: Sets date of creation of the user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param creationDate LocalDateTime
+	*/
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
@@ -251,6 +342,12 @@ public class User implements StatsCalculable, Serializable{
 		return clone;
 	}
 	
+	/**
+	* deletePost: Deletes a post <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param publicationTime LocalDateTime
+	*/
 	public void deletePost(LocalDateTime publicationTime) {
 		
 		for (int i = 0; i < ownPosts.size(); i++) {
@@ -268,11 +365,24 @@ public class User implements StatsCalculable, Serializable{
 	public int getVerifiedPosts() {
 		return verifiedPosts;
 	}
-
+	
+	/**
+	* setVerifiedPosts: Sets the amount of verified posts of the user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param verifiedPosts int
+	*/
 	public void setVerifiedPosts(int verifiedPosts) {
 		this.verifiedPosts = verifiedPosts;
 	}
 
+	/**
+	* searchUserFollowing: Searches a user with a given username in the list of users following <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String
+	* @return user User
+	*/
 	public User searchUserFollowing(String username) {
 		User user = null;
 		for (int i = 0; i < following.size(); i++) {
@@ -282,11 +392,23 @@ public class User implements StatsCalculable, Serializable{
 		}
 		return user;
 	}
-
+	
+	/**
+	* getFakePosts: Gets The amount of fake posts of the user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return fakeposts;
+	*/
 	public int getFakePosts() {
 		return fakePosts;
 	}
 
+	/**
+	* setFakePosts: Sets The amount of fake posts of the user<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param fakePosts int
+	*/
 	public void setFakePosts(int fakePosts) {
 		this.fakePosts = fakePosts;
 	}

@@ -30,7 +30,18 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	private double reactions;
 	private double comments;
 	private HashMap<String, HashMap<String, Double>> report;
-
+	
+	/**
+	* Post: Post class constructor <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param user String creator username
+	* @param title String post title
+	* @param content String 
+	* @param category Category
+	* @param date LocalDateTime time of creations
+	* @param link String link to the full new
+	*/
 	public Post(String user, String title, String content, Category category, LocalDateTime date, String link) {
 		super(user);
 		this.title = title;
@@ -60,76 +71,184 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		  
 		report.put(LocalDateTime.now().format(FORMAT), temp);
 	}
-
+	
+	/**
+	* getTitle: Gets the post title<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return title
+	*/
 	public String getTitle() {
 		return this.title;
 	}
 
+	/**
+	* setTitle: Sets the post title<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param title String
+	*/
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	* getContent: Gets the post content<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return content
+	*/
 	public String getContent() {
 		return this.content;
 	}
 
+	/**
+	* setContent: Sets the post content<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param content String
+	*/
 	public void setContent(String content) {
 		this.content = content;
 	}
 
+	/**
+	* getCategory: Gets the post category<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return title
+	*/
 	public Category getCategory() {
 		return this.category;
 	}
 
+	/**
+	* setCategory: Sets the post category<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param category Category
+	*/
 	public void setCategory(Category category) {
 		this.category = category;
 	}
 
+	/**
+	* getDate: Gets the post creation date<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return date
+	*/
 	public LocalDateTime getDate() {
 		return this.date;
 	}
 
+	/**
+	* setDate: Sets the post creation date<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param date LocalDateTime
+	*/
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
+	/**
+	* getFullNewLink: Gets the full link<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return fillNewLink
+	*/
 	public String getFullNewLink() {
 		return this.fullNewLink;
 	}
 
+	/**
+	* setFullNewLink: Sets the full link<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param fullNewLink String
+	*/
 	public void setFullNewLink(String fullNewLink) {
 		this.fullNewLink = fullNewLink;
 	}
 
+	/**
+	* getState: Gets the state<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return state
+	*/
 	public State getState() {
 		return this.state;
 	}
 
+	/**
+	* setState: Sets the state<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param state State
+	*/
 	public void setState(State state) {
 		this.state = state;
 	}
 
+	/**
+	* getReactedUsers: Gets the reacted users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return reactedUsers
+	*/
 	public ArrayList<User> getReactedUsers() {
 		return this.reactedUsers;
 	}
 
+	/**
+	* setReactedUsers: Sets the reacted users<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param reactedUsers ArrayList users
+	*/
 	public void setReactedUsers(ArrayList<User> reactedUsers) {
 		this.reactedUsers = reactedUsers;
 	}
 
+	/**
+	* getFirstComment: Gets the first comment<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return firstComment
+	*/
 	public Comment getFirstComment() {
 		return this.firstComment;
 	}
 
+	/**
+	* setFirstComment: Sets the first comment<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param comments Comment comments
+	*/
 	public void setFirstComment(Comment comments) {
 		this.firstComment = comments;
 	}
 
+	/**
+	* getRating: Gets the rating<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return rating
+	*/
 	public double getRating() {
 		calculateRating();
 		return this.rating;
 	}
 
+	/**
+	* setRating: Sets the rating<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param rating double
+	*/
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
@@ -139,6 +258,11 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return report;
 	}
 
+	/**
+	* calculateRating: Calculates rating<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	*/
 	@Override
 	public void calculateRating() {	
 		int amountReactions = reactedUsers.size();
@@ -192,34 +316,73 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	}
 	
 	/**
-	 * Compare the posts according to their title
-	 * @param otherPost
-	 * @return
-	 */
+	* compareTo: Compares posts <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param otherPost Post
+	* @return dif int containing of post according to title
+	*/
 	public int compareTo(Post otherPost) {
-		return title.compareTo(otherPost.getTitle());
+		int dif = title.compareTo(otherPost.getTitle());
+		return dif;
 	}
 
+	/**
+	* getReactions: Gets the reactions<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return reactions
+	*/
 	public double getReactions() {
 		return reactions;
 	}
 
+	/**
+	* setReactions: Sets the reactions<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param reactions double
+	*/
 	public void setReactions(double reactions) {
 		this.reactions = reactions;
 	}
 
+	/**
+	* getComments: Gets the amount of comments<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return reactions
+	*/
 	public double getComments() {
 		return comments;
 	}
 
+	/**
+	* setComments: Gets the amount of comments<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param comments int
+	*/
 	public void setComments(int comments) {
 		this.comments = comments;
 	}
 
+	/**
+	* getLastCommment: Gets the last comments<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return reactions
+	*/
 	public Comment getLastComment() {
 		return lastComment;
 	}
 
+	/**
+	* setLastCommment: Sets the last comments<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param lastComment Comment
+	*/
 	public void setLastComment(Comment lastComment) {
 		this.lastComment = lastComment;
 	}
@@ -231,7 +394,13 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	public void setReport(HashMap<String, HashMap<String, Double>> report) {
 		this.report = report;
 	}
-
+	
+	/**
+	* reportToString: Generates reports<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return reportString
+	*/
 	@Override
 	public String reportToString() {
 		String reportString = "date;rating;comments;reactions\n";
@@ -246,6 +415,12 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		return reportString;
 	}
 
+	/**
+	* editState: Edit state<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param statePost String new state
+	*/
 	public void editState(String statePost) {
 		State newState;
 		if(statePost.equals(State.VERIFIED.toString())) {
@@ -256,6 +431,12 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		setState(newState);
 	}
 
+	/**
+	* addComment: Add comment to post<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param newComment Comment new comment
+	*/
 	public void addComment(Comment newComment) {
 		if(firstComment == null) {
 			firstComment = newComment;
@@ -268,7 +449,4 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 		}
 		comments++;
 	}
-
-	
-	
 }

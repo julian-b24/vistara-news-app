@@ -9,15 +9,35 @@ public class Moderator extends User implements Comparable<Moderator>, Serializab
 	
 	private ArrayList<Post> pendingPosts;				//Posts waiting for verification
 
+	/**
+	* Moderator: Moderator class constructor<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param username String
+	* @param email String
+	* @param password String
+	*/
 	public Moderator(String username, String email, String password) {
 		super(username, email, password);
 		pendingPosts = new ArrayList<Post>();
 	}
 	
+	/**
+	* setPendingPosts: Sets list of pending posts <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param pendingPosts ArrayLitst of posts
+	*/
 	public void setPendingPosts(ArrayList<Post> pendingPosts) {
 		this.pendingPosts = pendingPosts;
 	}
-
+	
+	/**
+	* getPendingPosts: Gets list of pending posts <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return pendingPosts ArrayLitst of posts
+	*/
 	public ArrayList<Post> getPendingPosts() {
 		return this.pendingPosts;
 	}
@@ -48,6 +68,12 @@ public class Moderator extends User implements Comparable<Moderator>, Serializab
 		}
 	}
 
+	/**
+	* ModeremovePost: Remove post from moderator list<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param postToRemove Post, post to remove
+	*/
 	public void removePost(Post postToRemove) throws IndexOutOfBoundsException{
 		int pos = -1;
 		if(pendingPosts.size() > 0) {

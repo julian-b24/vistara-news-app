@@ -5,10 +5,6 @@ import exceptions.InvalidUserException;
 
 public interface ModeratorManagement {
 
-	/**
-	 * 
-	 * @param name
-	 */
 	public boolean createCategory(String name);
 
 	public void deletePost(String creator, String mod, Post postToRemove) throws InvalidUserException, EmptyFieldsException;

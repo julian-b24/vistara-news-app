@@ -23,11 +23,13 @@ public class EventPost extends Post implements Serializable{
 	public Event getEvent() {
 		return this.event;
 	}
-
+	
 	/**
-	 * 
-	 * @param event
-	 */
+	* setEvent: Sets event <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param event Event
+	*/
 	public void setEvent(Event event) {
 		this.event = event;
 	}

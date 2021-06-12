@@ -61,14 +61,16 @@ public class Vistara implements ModeratorManagement{
 	}
 
 	/**
-	* addUser: Creates a new user and adds it to the binary tree of users<br>
-	* <b> pre </b> <br>
-	* <b> pos </b> <br>
-	* @param username String with the username of the new user
-	* @param email String with the email of the new user
-	* @param password String with the password of the new user
-	* @return added Boolean that determines if the user can be added or not
-	 * @throws IOException 
+	 * addUser: Creates a new user and adds it to the binary tree of users<br>
+	 * <b> pre </b> <br>
+	 * <b> pos </b> <br>
+	 * @param username String with the username of the new user
+	 * @param email String with the email of the new user
+	 * @param password String with the password of the new user
+	 * @return added Boolean that determines if the user can be added or not
+	 * @throws RepeatedUsernameException Exception 
+	 * @throws EmptyFieldsException Exception
+	 * @throws IOException Exception
 	*/
 	public boolean addUser(String username, String email, String password) throws RepeatedUsernameException, EmptyFieldsException, IOException {
 		
@@ -99,10 +101,11 @@ public class Vistara implements ModeratorManagement{
 	
 	/**
 	 * Adds an user to the BST and returns true in case it was added
-	 * @param newUser
+	 * @param newUser User
 	 * @return true in case the user was added, any otherwise it throws an exception
-	 * @throws RepeatedUsernameException, in case the name of the user to be added is already in use by other user in the BST
-	 * @throws IOException 
+	 * @throws RepeatedUsernameException in case the name of the user to be added is already in use by other user in the BST
+	 * @throws IOException Exception
+	 * @throws RepeatedUsernameException Exception
 	 */
 	public boolean addUser(User newUser) throws RepeatedUsernameException, IOException {
 		boolean added = true;
@@ -153,8 +156,7 @@ public class Vistara implements ModeratorManagement{
 	* searchUserByName: Searches an user in the app binary tree of users by its name and return a boolean that determines if it found it or not<br>
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
-	* @param current The current node of the binary tree
-	* @param username The String with the username of the searched user
+	* @param username The current node of the binary tree
 	* @return The boolean that determines if the user was found or not.
 	*/
 	public boolean searchUserByName(String username) {
@@ -192,6 +194,8 @@ public class Vistara implements ModeratorManagement{
 	* @param username The String with the username of the user
 	* @param password The String with the password of the user
 	* @return searchedUser The searched User object if the account username exists. It is null if the user is not found.
+	* @throws InvalidUserException Exception for invalid user
+	* @throws EmptyFieldsException Exception for empty parameters
 	*/
 	public User verifyLogin(String username, String password) throws InvalidUserException, EmptyFieldsException {
 		
@@ -218,7 +222,7 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param username The String with the username of the searched user
 	* @return current The searched User object. It is null if the user is not found.
-	* @throws InvalidUserException 
+	* @throws InvalidUserException Exception
 	*/
 	public User searchUser(String username) throws InvalidUserException {
 		return searchUser(rootUser, username);		
@@ -255,6 +259,7 @@ public class Vistara implements ModeratorManagement{
 	 * @param content, String, the content of the post. It must be different from null and an empty string
 	 * @param categoryName, String, name of the category. It must be different from null and an empty string
 	 * @param author, User, the user that is creating the post
+	 * @param link String link to the whole new
 	 * @throws EmptyFieldsException in case any of the parameters is an empty string
 	 */
 	public void createPost(String title, String content, String categoryName, User author, String link) throws EmptyFieldsException {
@@ -578,7 +583,7 @@ public class Vistara implements ModeratorManagement{
 	
 	/**
 	 * Load the serialized app's information from the data.system folder
-	 * @throws IOException 
+	 * @throws IOException Exception
 	 * @throws FileNotFoundException in case the file with the serialized information does not exist
 	 * @throws ClassNotFoundException in case the class to read does not exist
 	 */
@@ -629,10 +634,6 @@ public class Vistara implements ModeratorManagement{
 		}
 	}
 	
-	/**
-	 * Save the program data in serialized files on the folder data.system
-	 * @throws IOException 
-	 */
 	public void saveData() throws IOException {
 		saveCommentsData();
 		saveModsData();
@@ -643,9 +644,11 @@ public class Vistara implements ModeratorManagement{
 	}
 
 	/**
-	 * Save the comments in the program in a serialized file
-	 * @throws IOException
-	 */
+	* saveCommentsData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void saveCommentsData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_COMMENTS));
 		oosI.writeObject(comments);
@@ -653,9 +656,11 @@ public class Vistara implements ModeratorManagement{
 	}
 	
 	/**
-	 * Save the moderators of the program in a serialized file
-	 * @throws IOException
-	 */
+	* saveModsData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void saveModsData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_MODS));
 		oosI.writeObject(mods);
@@ -663,9 +668,11 @@ public class Vistara implements ModeratorManagement{
 	}
 	
 	/**
-	 * Save the users in the app in a serialized file
-	 * @throws IOException
-	 */
+	* saveUsersData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void saveUsersData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_USERS));
 		oosI.writeObject(rootUser);
@@ -673,9 +680,11 @@ public class Vistara implements ModeratorManagement{
 	}
 	
 	/**
-	 * Save the program's trending posts in a serialized file
-	 * @throws IOException
-	 */
+	* saveTrendingData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void saveTrendingData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_TRENDING));
 		oosI.writeObject(trending);
@@ -683,9 +692,11 @@ public class Vistara implements ModeratorManagement{
 	}
 	
 	/**
-	 * Save the program's categories in a serialized file
-	 * @throws IOException
-	 */
+	* saveCategoriesData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void saveCategoriesData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_CATEGORIES));
 		oosI.writeObject(rootCategory);
@@ -693,9 +704,11 @@ public class Vistara implements ModeratorManagement{
 	}
 	
 	/**
-	 * Save the program's posts in a serialized file
-	 * @throws IOException
-	 */
+	* savePostsData: Is a recursive method which travels through the categories tree in order to obtain all its values and returns an ArrayList of type String with those names<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @throws IOException Exception
+	*/
 	public void savePostsData() throws IOException {
 		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_POSTS));
 		oosI.writeObject(posts);
@@ -708,7 +721,7 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
-	* @throws InvalidUserException 
+	* @throws InvalidUserException Exception
 	*/
 	public void followUser(User currentUser, String searchedUsername) throws InvalidUserException {
 		User followedUser = searchUser(searchedUsername);
@@ -722,7 +735,7 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param currentUser Is an User object, reference to the user who is currently using the app
 	* @param searchedUsername Is the string of the searched user,used for searching and obtaining the searched user object
-	* @throws InvalidUserException 
+	* @throws InvalidUserException Exception
 	*/
 	public void unfollowUser(User currentUser, String searchedUsername) throws InvalidUserException {
 		User followedUser = searchUser(searchedUsername);
@@ -745,10 +758,10 @@ public class Vistara implements ModeratorManagement{
 	
 	/**
 	 * Imports some extra data for the app
-	 * @throws IOException
-	 * @throws RepeatedUsernameException
-	 * @throws EmptyFieldsException
-	 * @throws InvalidUserException
+	 * @throws IOException Exception
+	 * @throws RepeatedUsernameException Exception
+	 * @throws EmptyFieldsException Exception
+	 * @throws InvalidUserException Exception
 	 */
 	public void importData() throws IOException, RepeatedUsernameException, EmptyFieldsException, InvalidUserException {
 		importUsers();
@@ -860,9 +873,11 @@ public class Vistara implements ModeratorManagement{
 	}
 
 	/**
-	 * Creates a post and add it to the list of posts of vistara, the author and the followers of the author
-	 * @param title, String, the title of the post. It must be different from null and an empty string
-	 */
+	* getMods: Gets mods<br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return mods ArrayList of moderators
+	*/
 	public ArrayList<Moderator> getMods() {
 		return mods;
 	}
@@ -963,9 +978,9 @@ public class Vistara implements ModeratorManagement{
 	* <b> pre </b> <br>
 	* <b> pos </b> <br>
 	* @param username String, reference to the user that will be upgraded
-	* @throws InvalidUserException
-	* @throws RepeatedUsernameException
-	* @throws IOException
+	* @throws InvalidUserException Exception
+	* @throws RepeatedUsernameException Exception
+	* @throws IOException Exception
 	*/
 	public void upgradeUser(String username) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(username);
@@ -1082,8 +1097,8 @@ public class Vistara implements ModeratorManagement{
 	* @param creatorString String, post creator
 	* @param moderator String, actual moderator deleting the post
 	* @param postToRemove Post, post to delete
-	* @throws InvalidUserException
-	* @throws EmptyFieldsException
+	* @throws InvalidUserException Exception
+	* @throws EmptyFieldsException Exception
 	*/
 	@Override
 	public void deletePost(String creatorString, String moderator, Post postToRemove) throws InvalidUserException, EmptyFieldsException {
@@ -1111,8 +1126,7 @@ public class Vistara implements ModeratorManagement{
 	* @param mod String, actual moderator deleting the post
 	* @param postToVerify Post, post to verify
 	* @param state String, state of verification
-	* @throws InvalidUserException
-	* @throws EmptyFieldsException
+	* @throws InvalidUserException Exception
 	*/
 	@Override
 	public void verifyPost(String creatorUser, String mod, Post postToVerify, String state) throws InvalidUserException {
@@ -1140,9 +1154,9 @@ public class Vistara implements ModeratorManagement{
 	* @param newName String, new user username
 	* @param email String, new email
 	* @param bio String, users new description
-	* @throws InvalidUserException
-	* @throws RepeatedUsernameException
-	* @throws IOException
+	* @throws InvalidUserException Exception
+	* @throws RepeatedUsernameException Exception
+	* @throws IOException Exception
 	*/
 	public void confirmPorfileEdition(String oldName,String newName, String email, String bio) throws InvalidUserException, RepeatedUsernameException, IOException {
 		User user = searchUser(oldName);
@@ -1168,7 +1182,7 @@ public class Vistara implements ModeratorManagement{
 	* <b> pos </b> <br>
 	* @param username String, username of the user
 	* @param selectedFile File, Image path file
-	* @throws InvalidUserException
+	* @throws InvalidUserException Exception
 	*/
 	public void setUserProfilePic(String username, File selectedFile) throws InvalidUserException {
 		User user = searchUser(username);

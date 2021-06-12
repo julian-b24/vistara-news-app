@@ -15,54 +15,112 @@ public class Category implements Serializable{
 	private Image background;
 
 	
+	/**
+	* Category: Category class constructor <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param cat String
+	*/
 	public Category(String cat) {
 		name = cat;
 	}
 	
+	/**
+	* getName: Gets category name <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return name String
+	*/
 	public String getName() {
 		return this.name;
 	}
 
 	/**
-	 * 
-	 * @param name
-	 */
+	* setName: Sets the name <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param name String
+	*/
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	* getBackground: Gets the background image <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return background Image
+	*/
 	public Image getBackground() {
 		return this.background;
 	}
 
 	/**
-	 * 
-	 * @param background
-	 */
+	* setBackground: Sets the bg image <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param background Image
+	*/
 	public void setBackground(Image background) {
 		this.background = background;
 	}
 
+	/**
+	* getLeftCategory: Gets the left category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return leftCategory Category
+	*/
 	public Category getLeftCategory() {
 		return leftCategory;
 	}
 
+	/**
+	* setLeftCategory: Sets the left category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param leftCategory Category
+	*/
 	public void setLeftCategory(Category leftCategory) {
 		this.leftCategory = leftCategory;
 	}
 
+	/**
+	* getRightCategory: Gets the right category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return rightCategory Category
+	*/
 	public Category getRightCategory() {
 		return rightCategory;
 	}
 
+	/**
+	* setRightCategory: Sets the right category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param rightCategory Category
+	*/
 	public void setRightCategory(Category rightCategory) {
 		this.rightCategory = rightCategory;
 	}
 
+	/**
+	* getParent: Gets the right category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @return parent Category
+	*/
 	public Category getParent() {
 		return parent;
 	}
 
+	/**
+	* setParent: Sets the right category <br>
+	* <b> pre </b> <br>
+	* <b> pos </b> <br>
+	* @param parent Category
+	*/
 	public void setParent(Category parent) {
 		this.parent = parent;
 	}
