@@ -9,6 +9,7 @@ import model.Vistara;
 import thread.ThreadImportData;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -1511,7 +1512,10 @@ public class VistaraGUI {
     @FXML
     public void upgradeUser(ActionEvent event) {
 		try {
-			vistara.upgradeUser(searchedUsername.getText());
+			boolean done = vistara.upgradeUser(searchedUsername.getText());
+			if(!done) {
+				alertCantAscendUser();
+			}
 		} catch (InvalidUserException e) {
 			invalidUsernameAlert();
 		} catch (RepeatedUsernameException e) {
@@ -1521,7 +1525,23 @@ public class VistaraGUI {
 		}
     }
 
-    /**
+    @FXML
+    void exportData(ActionEvent event) {
+    	try {
+			vistara.exportPostReport(currentPost);
+		} catch (FileNotFoundException e) {
+			executionAlert();
+		}
+    }
+    
+    private void alertCantAscendUser() {
+    	Alert warning = new Alert(AlertType.WARNING);
+		warning.setTitle("Cant ascned user");
+		warning.setContentText("User does not fulfill the requirements for becoming a moderator");
+		warning.showAndWait();	
+	}
+
+	/**
      * Loads the line chart according to the post report and stats
      */
     @SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
