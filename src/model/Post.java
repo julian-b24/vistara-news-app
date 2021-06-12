@@ -267,10 +267,14 @@ public class Post extends Content implements StatsCalculable, Rateable, Serializ
 	public void calculateRating() {	
 		int amountReactions = reactedUsers.size();
 		int amountComments = (int)comments;
+		try {
+			LocalDateTime now = LocalDateTime.now();
+			long difference = ChronoUnit.MINUTES.between(date, now);
+			rating = (amountComments + amountReactions)/difference;
+		} catch (ArithmeticException e) {
+			rating = 0;
+		}
 		
-		LocalDateTime now = LocalDateTime.now();
-		long difference = ChronoUnit.MINUTES.between(date, now);
-		rating = (amountComments + amountReactions)/difference;
 	}
 
 	/**

@@ -39,7 +39,8 @@ public class Vistara implements ModeratorManagement{
 	public final static String PROFILE_PIC_EXTENSION = ".png";
 	
 	public final static String VERIFIED = "VERIFIED";
-	public final static String FAKE = "FAKE_NEW";	
+	public final static String FAKE = "FAKE_NEW";
+	private static final String SAVE_PATH_COMMENTS_LAST = "data/system/comments_last.txr";	
 	
 	private ArrayList<Moderator> mods;
 	private User rootUser;
@@ -49,7 +50,6 @@ public class Vistara implements ModeratorManagement{
 	private ArrayList<Comment> comments;
 	private Comment firstComment;
 	private Comment lastComment;
-	private int numCommVistara;
 	
 	public Vistara() {
 		mods = new ArrayList<>();
@@ -60,7 +60,6 @@ public class Vistara implements ModeratorManagement{
 		Moderator m = new Moderator("a", "a", "a");
 		mods.add(m);
 		rootUser = m;
-		numCommVistara = 0;
 	}
 
 	/**
@@ -297,6 +296,7 @@ public class Vistara implements ModeratorManagement{
 		post.addComment(newComment);
 		addCommentToVistara(newComment);
 		saveCommentsData();
+		saveLastCommentData();
 		savePostsData();
 	}
 	
@@ -309,13 +309,12 @@ public class Vistara implements ModeratorManagement{
 			firstComment = newComment;
 			lastComment = firstComment;
 			firstComment.setNextCommentVistara(lastComment);
+			System.out.println("last:" + lastComment.getContent());
 		}else {
 			lastComment.setNextCommentVistara(newComment);
 			newComment.setNextCommentVistara(firstComment);
 			lastComment = newComment;
 		}
-		numCommVistara++;
-		System.out.println(numCommVistara);
 	}
 
 	/**
@@ -632,6 +631,7 @@ public class Vistara implements ModeratorManagement{
 		File fileUsers = new File(SAVE_PATH_USERS);
 		File filePosts = new File(SAVE_PATH_POSTS);
 		File fileTrending = new File(SAVE_PATH_TRENDING);
+		File fileLastComment = new File(SAVE_PATH_COMMENTS_LAST);
 		
 		if (fileMods.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileMods));
@@ -648,6 +648,12 @@ public class Vistara implements ModeratorManagement{
 		if (fileComments.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileComments));
 			firstComment = (Comment) ois.readObject();
+			ois.close();
+		}
+		
+		if (fileComments.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileLastComment));
+			lastComment = (Comment) ois.readObject();
 			ois.close();
 		}
 		
@@ -671,13 +677,24 @@ public class Vistara implements ModeratorManagement{
 		saveData();
 	}
 	
+	/**
+	 * Serialized the program's data
+	 * @throws IOException
+	 */
 	public void saveData() throws IOException {
 		saveCommentsData();
+		saveLastCommentData();
 		saveModsData();
 		saveUsersData();
 		saveTrendingData();
 		saveCategoriesData();
 		savePostsData();
+	}
+
+	private void saveLastCommentData() throws IOException {
+		ObjectOutputStream oosI =  new ObjectOutputStream(new FileOutputStream(SAVE_PATH_COMMENTS_LAST));
+		oosI.writeObject(lastComment);
+		oosI.close();
 	}
 
 	/**
