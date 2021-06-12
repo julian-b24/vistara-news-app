@@ -35,6 +35,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
@@ -350,6 +351,9 @@ public class VistaraGUI {
     @FXML
     private Rectangle square2;
     
+    @FXML
+    private ImageView logoImg;
+    
 	public Circle getCircle1() {
 		return circle1;
 	}
@@ -525,8 +529,12 @@ public class VistaraGUI {
 			
 			FXMLLoader fxmlLoader;
 			
-			//boolean isMod = vistara.isMod(currentUser);
-			boolean isMod = true;
+			boolean isMod;
+			if(currentUser instanceof Moderator) {
+				isMod = true;
+			}else {
+				isMod = false;
+			}
 			
 			if(isMod) {
 				fxmlLoader = new FXMLLoader(getClass().getResource("profile-bar-mod.fxml"));
@@ -1557,7 +1565,7 @@ public class VistaraGUI {
 	
     @FXML
     public void importData(MouseEvent event) {
-		ThreadImportData threadImportData = new ThreadImportData(vistara, this);
+		ThreadImportData threadImportData = new ThreadImportData(vistara);
 		Thread thread = new Thread(threadImportData);
 		loadLoadingPane();
 		thread.start();
@@ -1600,7 +1608,6 @@ public class VistaraGUI {
 			executionAlert();
 		}
 	}
-	
 	
 	public void executeLoading() {
 

@@ -4,6 +4,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -101,5 +102,6 @@
          </children>
       </VBox>
       <JFXButton layoutX="96.0" layoutY="53.0" onAction="#loadProfile" prefHeight="150.0" prefWidth="100.0" style="-fx-opacity: .1;" text="." textFill="TRANSPARENT" />
+      <ImageView fx:id="logoImg" fitHeight="56.0" fitWidth="56.0" layoutX="9.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

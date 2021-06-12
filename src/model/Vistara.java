@@ -47,7 +47,6 @@ public class Vistara implements ModeratorManagement{
 	private Category rootCategory;
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
-	private ArrayList<Comment> comments;
 	private Comment firstComment;
 	private Comment lastComment;
 	
@@ -55,7 +54,6 @@ public class Vistara implements ModeratorManagement{
 		mods = new ArrayList<>();
 		posts = new ArrayList<Post>();
 		trending = new ArrayList<>();
-		comments = new ArrayList<>();
 		
 		Moderator m = new Moderator("a", "a", "a");
 		mods.add(m);
