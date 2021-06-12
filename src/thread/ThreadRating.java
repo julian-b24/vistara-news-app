@@ -27,10 +27,8 @@ public class ThreadRating extends Thread{
 				for (Post post : posts) {
 					double rating = post.getRating();
 					post.increaseReport();
-					System.out.println("Rating: "+rating+"\nRateable: "+post.isRateable());
 					if(rating >= Vistara.MIN_RATING && post.isRateable()) {
 						newTrending.add(post);
-						System.out.println("ADDED IN THREAD");
 					}
 				}
 				
