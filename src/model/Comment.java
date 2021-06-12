@@ -8,6 +8,7 @@ public class Comment extends Content implements Serializable {
 	
 	private Comment nextComment;
 	private Comment previousComment;
+	private Comment nextCommentVistara;
 	private String content;
 
 	/**
@@ -82,5 +83,14 @@ public class Comment extends Content implements Serializable {
 		this.content = content;
 	}
 
+	public Comment getNextCommentVistara() {
+		return nextCommentVistara;
+	}
+
+	public void setNextCommentVistara(Comment nextCommentVistara) {
+		this.nextCommentVistara = nextCommentVistara;
+	}
+
+	
 	
 }

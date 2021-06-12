@@ -48,6 +48,9 @@ public class Vistara implements ModeratorManagement{
 	private ArrayList<Post> posts;
 	private ArrayList<Post> trending;
 	private ArrayList<Comment> comments;
+	private Comment firstComment;
+	private Comment lastComment;
+	private int numCommVistara;
 	
 	public Vistara() {
 		mods = new ArrayList<>();
@@ -58,6 +61,7 @@ public class Vistara implements ModeratorManagement{
 		Moderator m = new Moderator("a", "a", "a");
 		mods.add(m);
 		rootUser = m;
+		numCommVistara = 0;
 	}
 
 	/**
@@ -290,8 +294,23 @@ public class Vistara implements ModeratorManagement{
 		Comment newComment = new Comment(author.getUsername(), content);
 		post.addComment(newComment);
 		comments.add(newComment);
+		addCommentToVistara(newComment);
 	}
 	
+	private void addCommentToVistara(Comment newComment) {
+		if(firstComment == null) {
+			firstComment = newComment;
+			lastComment = firstComment;
+			firstComment.setNextCommentVistara(lastComment);
+		}else {
+			lastComment.setNextCommentVistara(newComment);
+			newComment.setNextCommentVistara(firstComment);
+			lastComment = newComment;
+		}
+		numCommVistara++;
+		System.out.println(numCommVistara);
+	}
+
 	/**
 	* addPostToModeratorList: Adds a post to the pending list of the first moderator in the list<br>
 	* <b> pre </b> <br>
