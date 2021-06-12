@@ -905,7 +905,6 @@ public class VistaraGUI {
 			fxmlLoader.setController(this);
 			Parent profile = fxmlLoader.load();
 			
-			newCategoryImagePath.setEditable(false);
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(profile);
 			
