@@ -414,20 +414,8 @@ public class VistaraGUI {
 					e.printStackTrace();
 				}
         		
-        		
         		loadFeed(null);
 
-    			if(currentUser instanceof Moderator) {
-    				//TEST
-    				LocalDateTime lc = LocalDateTime.now();
-    				Post postx = new Post(currentUser.getUsername(), "A", "CONTNET 1", null, lc, "www.1");
-    				
-    				((Moderator) currentUser).getPendingPosts().add(postx);
-    				
-    				postx = new Post(currentUser.getUsername(), "B", "CONTNET 2", null, lc, "www.2");
-    				((Moderator) currentUser).getPendingPosts().add(postx);
-    				//
-    			}
         	}
 
     	}catch(InvalidUserException e) {
