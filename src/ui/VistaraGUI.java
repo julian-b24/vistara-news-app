@@ -1570,13 +1570,28 @@ public class VistaraGUI {
 
 	public void loadLoadingPane() {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("load-pane.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-main-pane.fxml"));
 			fxmlLoader.setController(this);
 			Parent loading = fxmlLoader.load();
 			
-			loadProfile(null);
 			loadProfileBar();
+			loadLoadingPaneAnimation();
 			
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(loading);
+			
+		} catch (IOException e) {
+			executionAlert();
+		}
+	}
+	
+	
+	public void loadLoadingPaneAnimation() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("load-pane.fxml"));
+			fxmlLoader.setController(this);
+			Parent loading = fxmlLoader.load();
+	
 			profilePane.getChildren().clear();
 			profilePane.getChildren().setAll(loading);
 			executeLoading();
@@ -1585,6 +1600,7 @@ public class VistaraGUI {
 			executionAlert();
 		}
 	}
+	
 	
 	public void executeLoading() {
 
