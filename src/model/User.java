@@ -22,7 +22,6 @@ public class User implements StatsCalculable, Serializable{
 	private String description;
 	private String email;
 	private String password;
-	private Event firstEvent;
 	private LocalDateTime creationDate;
 	private ArrayList<Post> feed;
 	private ArrayList<Post> ownPosts;
@@ -263,14 +262,6 @@ public class User implements StatsCalculable, Serializable{
 		this.parentUser = parentUser;
 	}
 
-	public Event getFirstEvent() {
-		return firstEvent;
-	}
-
-	public void setFirstEvent(Event firstEvent) {
-		this.firstEvent = firstEvent;
-	}
-
 	public ArrayList<Post> getOwnPosts() {
 		return ownPosts;
 	}
@@ -334,7 +325,6 @@ public class User implements StatsCalculable, Serializable{
 		clone.setDescription(this.getDescription());
 		clone.setEmail(this.getEmail());
 		clone.setPassword(this.getPassword());
-		clone.setFirstEvent(this.getFirstEvent());
 		clone.setCreationDate(this.getCreationDate());
 		clone.setFeed(this.getFeed());
 		clone.setOwnPosts(this.getOwnPosts());

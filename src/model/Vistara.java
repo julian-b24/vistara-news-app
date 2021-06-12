@@ -490,7 +490,6 @@ public class Vistara implements ModeratorManagement{
 				user.setDescription(successor.getDescription());
 				user.setEmail(successor.getEmail());
 				user.setPassword(successor.getPassword());
-				user.setFirstEvent(successor.getFirstEvent());
 				user.setCreationDate(successor.getCreationDate());
 				user.setFeed(successor.getFeed());
 				user.setOwnPosts(successor.getOwnPosts());
@@ -1014,7 +1013,6 @@ public class Vistara implements ModeratorManagement{
 			String userDescription = user.getDescription();
 			String userEmail = user.getEmail();
 			String userPassword = user.getPassword();
-			Event userFirstEvent = user.getFirstEvent();
 			LocalDateTime userCreationDate = user.getCreationDate();
 			ArrayList<Post> userFeed = user.getFeed();
 			ArrayList<Post> userOwnPosts = user.getOwnPosts();
@@ -1028,7 +1026,6 @@ public class Vistara implements ModeratorManagement{
 			newMod.setFollowing(userFollowing);
 			newMod.setProfilePic(userProfilePic);
 			newMod.setDescription(userDescription);
-			newMod.setFirstEvent(userFirstEvent);
 			newMod.setCreationDate(userCreationDate);
 			newMod.setFeed(userFeed);
 			newMod.setOwnPosts(userOwnPosts);
